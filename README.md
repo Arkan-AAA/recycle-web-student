@@ -68,3 +68,101 @@ npm install
 
 # 4. Запуск development сервера
 npm run dev
+
+---
+
+## 📁 Структура проекта
+
+recycle-web-student/
+│
+├── 📁 frontend/                    # Основная рабочая директория
+│   ├── 📁 src/
+│   │   ├── 📁 assets/             # Общие ресурсы (Гулзара + Назар)
+│   │   │   ├── 📁 images/
+│   │   │   ├── 📁 fonts/
+│   │   │   └── 📁 styles/
+│   │   │       ├── main.css      # Глобальные стили (Гулзара)
+│   │   │       ├── variables.css # CSS переменные (Назар)
+│   │   │       └── components/   # Стили компонентов
+│   │   │
+│   │   ├── 📁 core/               # Ядро приложения (Алихан А.)
+│   │   │   ├── api/              # Настройки API
+│   │   │   ├── router/           # Маршрутизация
+│   │   │   ├── store/            # Состояние приложения
+│   │   │   └── utils/            # Утилиты
+│   │   │
+│   │   ├── 📁 components/         # Компоненты (распределение)
+│   │   │   ├── 📁 layout/        # Компоненты макета (Гулзара)
+│   │   │   │   ├── Header.vue
+│   │   │   │   ├── Footer.vue
+│   │   │   │   ├── Sidebar.vue
+│   │   │   │   └── Navigation.vue
+│   │   │   │
+│   │   │   ├── 📁 ui/            # UI компоненты (Назар)
+│   │   │   │   ├── Button.vue
+│   │   │   │   ├── Card.vue
+│   │   │   │   ├── Modal.vue
+│   │   │   │   └── FormElements/
+│   │   │   │
+│   │   │   ├── 📁 articles/      # Компоненты статей (Гулзара)
+│   │   │   │   ├── ArticleCard.vue
+│   │   │   │   ├── ArticleList.vue
+│   │   │   │   └── CommentSection.vue
+│   │   │   │
+│   │   │   └── 📁 user/          # Пользовательские компоненты (Назар)
+│   │   │       ├── UserCard.vue
+│   │   │       ├── ProfileForm.vue
+│   │   │       └── AvatarUpload.vue
+│   │   │
+│   │   ├── 📁 pages/             # Страницы (разделение по ответственности)
+│   │   │   ├── HomePage.vue      # Главная (Назар - дизайн, Гулзара - верстка)
+│   │   │   ├── NewsPage.vue      # Новости (Гулзара)
+│   │   │   ├── ArticlePage.vue   # Статья (Гулзара + Назар)
+│   │   │   ├── ProfilePage.vue   # Профиль (Назар)
+│   │   │   ├── AuthPage.vue      # Авторизация (Алихан А.)
+│   │   │   ├── AdminPage.vue     # Админка (Алихан А.)
+│   │   │   └── SearchPage.vue    # Поиск (Гулзара)
+│   │   │
+│   │   ├── 📁 services/          # Сервисы (Алихан А.)
+│   │   │   ├── auth.service.js   # Авторизация
+│   │   │   ├── api.service.js    # API вызовы
+│   │   │   └── storage.service.js# Локальное хранилище
+│   │   │
+│   │   └── App.vue               # Корневой компонент
+│   │
+│   ├── public/                   # Статические файлы
+│   ├── package.json              # Зависимости
+│   ├── vite.config.js           # Конфигурация Vite
+│   └── README-frontend.md       # Документация по фронтенду
+│
+├── 📁 backend/                   # Если будет backend (Алихан А.)
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── middleware/
+│   └── package.json
+│
+├── 📁 design/                    # Дизайн-материалы (Назар)
+│   ├── 📁 mockups/              # Макеты страниц
+│   ├── 📁 ui-kit/               # Библиотека компонентов
+│   ├── 📁 icons/                # Иконки
+│   └── style-guide.md           # Гайд по стилю
+│
+├── 📁 docs/                      # Документация
+│   ├── 📁 tasks/                # Задачи по неделям
+│   │   ├── week1.md
+│   │   ├── week2.md
+│   │   └── week3.md
+│   ├── api-spec.md              # API спецификация (Алихан А.)
+│   ├── component-guide.md       # Гайд по компонентам (Гулзара)
+│   └── design-decisions.md      # Решения по дизайну (Назар)
+│
+├── 📁 tools/                     # Инструменты для разработки
+│   ├── scripts/                 # Скрипты для сборки
+│   └── generators/              # Генераторы компонентов
+│
+├── .gitignore
+├── package.json                 # Основной package.json (если монорепозиторий)
+├── README.md                    # Этот файл
+└── LICENSE
