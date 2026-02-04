@@ -48,31 +48,8 @@
 
 ---
 
-## 🚀 Быстрый старт
-
-### Предварительные требования
-- Node.js (версия 16+)
-- Git
-- Браузер с поддержкой современных стандартов
-
-### Установка и запуск
-```bash
-# 1. Клонирование репозитория
-git clone https://github.com/Arkan-AAA/recycle-web-student.git
-
-# 2. Переход в директорию проекта
-cd recycle-web-student
-
-# 3. Установка зависимостей (когда добавим package.json)
-npm install
-
-# 4. Запуск development сервера
-npm run dev
-
----
-
 ## 📁 Структура проекта
-
+```
 recycle-web-student/
 │
 ├── 📁 frontend/                    # Основная рабочая директория
@@ -166,3 +143,27 @@ recycle-web-student/
 ├── package.json                 # Основной package.json (если монорепозиторий)
 ├── README.md                    # Этот файл
 └── LICENSE
+```
+
+---
+
+## 🚀 Быстрый старт
+
+### Предварительные требования
+- Node.js (версия 16+)
+- Git
+- Браузер с поддержкой современных стандартов
+
+### Установка и запуск
+```bash
+# 1. Клонирование репозитория
+git clone https://github.com/Arkan-AAA/recycle-web-student.git
+
+# 2. Переход в директорию проекта
+cd recycle-web-student
+
+# 3. Установка зависимостей (когда добавим package.json)
+npm install
+
+# 4. Запуск development сервера
+npm run dev
