@@ -5,7 +5,10 @@
     <nav>
       <router-link to="/">Главная</router-link> |
       <router-link to="/news">Новости</router-link> |
-      <router-link to="/profile">Профиль</router-link>
+      <router-link to="/profile">Профиль</router-link> |
+      <router-link to="/aichat">Поиск</router-link> |
+      <router-link to="/login">Login</router-link> |
+      <router-link to="/admin">Admin</router-link> |
     </nav>
     <router-view></router-view>
   </div>
