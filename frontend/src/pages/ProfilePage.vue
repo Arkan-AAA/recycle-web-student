@@ -1,13 +1,12 @@
-<script>
-export default {
-  name: "ProfilePage"
-}
-</script>
-
 <template>
-
+  <div class="profile">
+    <h2>Личный кабинет</h2>
+    <p>Функционал в разработке...</p>
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<script>
+export default {
+  name: 'ProfilePage'
+}
+</script>
