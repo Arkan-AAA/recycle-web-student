@@ -1,13 +1,12 @@
-<script>
-export default {
-  name: "NewsPage"
-}
-</script>
-
 <template>
-
+  <div class="news">
+    <h2>Новости колледжа</h2>
+    <p>Список новостей появится позже...</p>
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<script>
+export default {
+  name: 'NewsPage'
+}
+</script>
