@@ -8,13 +8,24 @@ exports.authenticate = (req, res, next) => {
             return res.status(401).json({ success: false, error: 'Токен не предоставлен' });
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'default_secret_key');
+        if (!process.env.JWT_SECRET) {
+            console.error('JWT_SECRET is not configured');
+            return res.status(500).json({ success: false, error: 'Ошибка конфигурации сервера' });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.userId = decoded.userId;
         req.userRole = decoded.role;
 
         next();
     } catch (error) {
-        return res.status(401).json({ success: false, error: 'Неверный токен' });
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ success: false, error: 'Токен истёк' });
+        }
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({ success: false, error: 'Неверный токен' });
+        }
+        return res.status(401).json({ success: false, error: 'Ошибка аутентификации' });
     }
 };
 

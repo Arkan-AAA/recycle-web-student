@@ -6,13 +6,24 @@ exports.getArticles = async (req, res) => {
         const { page = 1, limit = 10, category, search } = req.query;
         const offset = (page - 1) * limit;
 
+        const parsedLimit = parseInt(limit);
+        const parsedPage = parseInt(page);
+
+        if (isNaN(parsedLimit) || parsedLimit < 1 || parsedLimit > 100) {
+            return res.status(400).json({ success: false, error: 'Некорректный лимит' });
+        }
+
+        if (isNaN(parsedPage) || parsedPage < 1) {
+            return res.status(400).json({ success: false, error: 'Некорректная страница' });
+        }
+
         const where = { isPublished: true };
         if (category) where.category = category;
         if (search) where.title = { [require('sequelize').Op.iLike]: `%${search}%` };
 
         const { count, rows } = await Article.findAndCountAll({
             where,
-            limit: parseInt(limit),
+            limit: parsedLimit,
             offset: parseInt(offset),
             include: [{
                 model: User,
@@ -28,20 +39,27 @@ exports.getArticles = async (req, res) => {
                 articles: rows,
                 pagination: {
                     total: count,
-                    page: parseInt(page),
-                    limit: parseInt(limit),
-                    pages: Math.ceil(count / limit)
+                    page: parsedPage,
+                    limit: parsedLimit,
+                    pages: Math.ceil(count / parsedLimit)
                 }
             }
         });
     } catch (error) {
         console.error('Get articles error:', error);
+        if (error.name === 'SequelizeDatabaseError') {
+            return res.status(500).json({ success: false, error: 'Ошибка базы данных' });
+        }
         res.status(500).json({ success: false, error: 'Ошибка при получении статей' });
     }
 };
 
 exports.getArticleById = async (req, res) => {
     try {
+        if (!req.params.id) {
+            return res.status(400).json({ success: false, error: 'ID статьи не указан' });
+        }
+
         const article = await Article.findByPk(req.params.id, {
             include: [{
                 model: User,
@@ -54,12 +72,14 @@ exports.getArticleById = async (req, res) => {
             return res.status(404).json({ success: false, error: 'Статья не найдена' });
         }
 
-        // Увеличиваем счетчик просмотров
         await article.increment('views');
 
         res.json({ success: true, data: article });
     } catch (error) {
         console.error('Get article error:', error);
+        if (error.name === 'SequelizeDatabaseError') {
+            return res.status(500).json({ success: false, error: 'Ошибка базы данных' });
+        }
         res.status(500).json({ success: false, error: 'Ошибка при получении статьи' });
     }
 };
@@ -98,12 +118,22 @@ exports.createArticle = async (req, res) => {
         });
     } catch (error) {
         console.error('Create article error:', error);
+        if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({ success: false, error: 'Некорректные данные' });
+        }
+        if (error.name === 'SequelizeDatabaseError') {
+            return res.status(500).json({ success: false, error: 'Ошибка базы данных' });
+        }
         res.status(500).json({ success: false, error: 'Ошибка при создании статьи' });
     }
 };
 
 exports.updateArticle = async (req, res) => {
     try {
+        if (!req.params.id) {
+            return res.status(400).json({ success: false, error: 'ID статьи не указан' });
+        }
+
         const article = await Article.findByPk(req.params.id);
 
         if (!article) {
@@ -119,12 +149,22 @@ exports.updateArticle = async (req, res) => {
         res.json({ success: true, message: 'Статья обновлена', data: article });
     } catch (error) {
         console.error('Update article error:', error);
+        if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({ success: false, error: 'Некорректные данные' });
+        }
+        if (error.name === 'SequelizeDatabaseError') {
+            return res.status(500).json({ success: false, error: 'Ошибка базы данных' });
+        }
         res.status(500).json({ success: false, error: 'Ошибка при обновлении статьи' });
     }
 };
 
 exports.deleteArticle = async (req, res) => {
     try {
+        if (!req.params.id) {
+            return res.status(400).json({ success: false, error: 'ID статьи не указан' });
+        }
+
         const article = await Article.findByPk(req.params.id);
 
         if (!article) {
@@ -140,6 +180,9 @@ exports.deleteArticle = async (req, res) => {
         res.json({ success: true, message: 'Статья удалена' });
     } catch (error) {
         console.error('Delete article error:', error);
+        if (error.name === 'SequelizeDatabaseError') {
+            return res.status(500).json({ success: false, error: 'Ошибка базы данных' });
+        }
         res.status(500).json({ success: false, error: 'Ошибка при удалении статьи' });
     }
 };

@@ -12,6 +12,10 @@ exports.register = async (req, res) => {
 
         const { username, email, password, fullName } = req.body;
 
+        if (!process.env.JWT_SECRET) {
+            throw new Error('JWT_SECRET is not configured');
+        }
+
         const existingUser = await User.findOne({ where: { email } });
 
         if (existingUser) {
@@ -32,11 +36,17 @@ exports.register = async (req, res) => {
             role: 'student'
         });
 
-        const token = jwt.sign(
-            { userId: user.id, role: user.role },
-            process.env.JWT_SECRET || 'default_secret_key',
-            { expiresIn: '7d' }
-        );
+        let token;
+        try {
+            token = jwt.sign(
+                { userId: user.id, role: user.role },
+                process.env.JWT_SECRET,
+                { expiresIn: '7d' }
+            );
+        } catch (jwtError) {
+            console.error('JWT signing error:', jwtError);
+            return res.status(500).json({ success: false, error: 'Ошибка создания токена' });
+        }
 
         res.status(201).json({
             success: true,
@@ -53,7 +63,12 @@ exports.register = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error('Registration error:', error);
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            return res.status(400).json({ success: false, error: 'Пользователь уже существует' });
+        }
+        if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({ success: false, error: 'Некорректные данные' });
+        }
         res.status(500).json({ success: false, error: 'Ошибка при регистрации' });
     }
 };
@@ -66,6 +81,10 @@ exports.login = async (req, res) => {
         }
 
         const { email, password } = req.body;
+
+        if (!process.env.JWT_SECRET) {
+            throw new Error('JWT_SECRET is not configured');
+        }
 
         const user = await User.findOne({ where: { email } });
 
@@ -81,7 +100,7 @@ exports.login = async (req, res) => {
 
         const token = jwt.sign(
             { userId: user.id, role: user.role },
-            process.env.JWT_SECRET || 'default_secret_key',
+            process.env.JWT_SECRET,
             { expiresIn: '7d' }
         );
 
@@ -102,12 +121,19 @@ exports.login = async (req, res) => {
         });
     } catch (error) {
         console.error('Login error:', error);
+        if (error.name === 'SequelizeDatabaseError') {
+            return res.status(500).json({ success: false, error: 'Ошибка базы данных' });
+        }
         res.status(500).json({ success: false, error: 'Ошибка при входе' });
     }
 };
 
 exports.getProfile = async (req, res) => {
     try {
+        if (!req.userId) {
+            return res.status(400).json({ success: false, error: 'ID пользователя не указан' });
+        }
+
         const user = await User.findByPk(req.userId, {
             attributes: { exclude: ['passwordHash'] }
         });
@@ -119,6 +145,11 @@ exports.getProfile = async (req, res) => {
         res.json({ success: true, data: user });
     } catch (error) {
         console.error('Get profile error:', error);
+        
+        if (error.name === 'SequelizeDatabaseError') {
+            return res.status(500).json({ success: false, error: 'Ошибка базы данных' });
+        }
+        
         res.status(500).json({ success: false, error: 'Ошибка при получении профиля' });
     }
 };
