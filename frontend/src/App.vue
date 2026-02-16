@@ -1,30 +1,50 @@
 <template>
   <div id="app">
-    <h1>Студенческий журнал колледжа</h1>
-    <p>Проект в разработке...</p>
-    <nav>
-      <router-link to="/">Главная</router-link> |
-      <router-link to="/news">Новости</router-link> |
-      <router-link to="/profile">Профиль</router-link> |
-      <router-link to="/aichat">Поиск</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/admin">Admin</router-link> |
-    </nav>
-    <router-view></router-view>
+    <Header />
+    <main :class="$style.mainContent">
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
 <script>
+import Header from './components/layout/Header.vue'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Header
+  }
 }
 </script>
 
+<style module>
+.mainContent {
+  margin-top: 150px;
+  min-height: calc(100vh - 150px);
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    margin-top: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContent {
+    margin-top: 100px;
+  }
+}
+</style>
+
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 </style>

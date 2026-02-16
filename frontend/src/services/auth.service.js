@@ -3,7 +3,7 @@ import apiService from './api.service';
 class AuthService {
     async register(userData) {
         const response = await apiService.post('/auth/register', userData);
-        if (response.success && response.data.token) {
+        if (response.success && response.data?.token) {
             this.setToken(response.data.token);
             this.setUser(response.data.user);
         }
@@ -12,7 +12,7 @@ class AuthService {
 
     async login(credentials) {
         const response = await apiService.post('/auth/login', credentials);
-        if (response.success && response.data.token) {
+        if (response.success && response.data?.token) {
             this.setToken(response.data.token);
             this.setUser(response.data.user);
         }
@@ -29,7 +29,9 @@ class AuthService {
     }
 
     setToken(token) {
-        localStorage.setItem('token', token);
+        if (token && typeof token === 'string') {
+            localStorage.setItem('token', token);
+        }
     }
 
     getToken() {
@@ -37,12 +39,23 @@ class AuthService {
     }
 
     setUser(user) {
-        localStorage.setItem('user', JSON.stringify(user));
+        if (user && typeof user === 'object') {
+            try {
+                localStorage.setItem('user', JSON.stringify(user));
+            } catch (error) {
+                console.error('Failed to save user:', error.message);
+            }
+        }
     }
 
     getUser() {
-        const user = localStorage.getItem('user');
-        return user ? JSON.parse(user) : null;
+        try {
+            const user = localStorage.getItem('user');
+            return user ? JSON.parse(user) : null;
+        } catch (error) {
+            console.error('Failed to parse user:', error.message);
+            return null;
+        }
     }
 
     isAuthenticated() {

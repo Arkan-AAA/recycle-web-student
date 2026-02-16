@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const { validationResult } = require('express-validator');
 
+const JWT_EXPIRY = '7d';
+const BCRYPT_ROUNDS = 12;
+
 exports.register = async (req, res) => {
     try {
         const errors = validationResult(req);
@@ -13,7 +16,8 @@ exports.register = async (req, res) => {
         const { username, email, password, fullName } = req.body;
 
         if (!process.env.JWT_SECRET) {
-            throw new Error('JWT_SECRET is not configured');
+            console.error('JWT_SECRET is not configured');
+            return res.status(500).json({ success: false, error: 'Ошибка конфигурации сервера' });
         }
 
         const existingUser = await User.findOne({ where: { email } });
@@ -25,8 +29,7 @@ exports.register = async (req, res) => {
             });
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const passwordHash = await bcrypt.hash(password, salt);
+        const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
 
         const user = await User.create({
             username,
@@ -36,17 +39,11 @@ exports.register = async (req, res) => {
             role: 'student'
         });
 
-        let token;
-        try {
-            token = jwt.sign(
-                { userId: user.id, role: user.role },
-                process.env.JWT_SECRET,
-                { expiresIn: '7d' }
-            );
-        } catch (jwtError) {
-            console.error('JWT signing error:', jwtError);
-            return res.status(500).json({ success: false, error: 'Ошибка создания токена' });
-        }
+        const token = jwt.sign(
+            { userId: user.id, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: JWT_EXPIRY }
+        );
 
         res.status(201).json({
             success: true,
@@ -63,6 +60,7 @@ exports.register = async (req, res) => {
             }
         });
     } catch (error) {
+        console.error('Register error:', error.message);
         if (error.name === 'SequelizeUniqueConstraintError') {
             return res.status(400).json({ success: false, error: 'Пользователь уже существует' });
         }
@@ -83,7 +81,8 @@ exports.login = async (req, res) => {
         const { email, password } = req.body;
 
         if (!process.env.JWT_SECRET) {
-            throw new Error('JWT_SECRET is not configured');
+            console.error('JWT_SECRET is not configured');
+            return res.status(500).json({ success: false, error: 'Ошибка конфигурации сервера' });
         }
 
         const user = await User.findOne({ where: { email } });
@@ -101,7 +100,7 @@ exports.login = async (req, res) => {
         const token = jwt.sign(
             { userId: user.id, role: user.role },
             process.env.JWT_SECRET,
-            { expiresIn: '7d' }
+            { expiresIn: JWT_EXPIRY }
         );
 
         res.json({
@@ -120,7 +119,7 @@ exports.login = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error('Login error:', error);
+        console.error('Login error:', error.message);
         if (error.name === 'SequelizeDatabaseError') {
             return res.status(500).json({ success: false, error: 'Ошибка базы данных' });
         }

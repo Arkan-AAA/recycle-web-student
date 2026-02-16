@@ -1,5 +1,5 @@
 exports.errorHandler = (err, req, res, next) => {
-    console.error('Error:', err);
+    console.error('Error:', err.message);
 
     if (err.name === 'SequelizeValidationError') {
         return res.status(400).json({
@@ -23,9 +23,10 @@ exports.errorHandler = (err, req, res, next) => {
         });
     }
 
-    res.status(err.status || 500).json({
+    const statusCode = err.status || 500;
+    res.status(statusCode).json({
         success: false,
-        error: err.message || 'Внутренняя ошибка сервера'
+        error: process.env.NODE_ENV === 'production' ? 'Внутренняя ошибка сервера' : err.message
     });
 };
 

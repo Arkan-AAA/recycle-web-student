@@ -8,12 +8,20 @@ module.exports = (sequelize, DataTypes) => {
         userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'user_id'
+            field: 'user_id',
+            references: {
+                model: 'users',
+                key: 'id'
+            }
         },
         articleId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'article_id'
+            field: 'article_id',
+            references: {
+                model: 'articles',
+                key: 'id'
+            }
         }
     }, {
         tableName: 'likes',
@@ -22,8 +30,11 @@ module.exports = (sequelize, DataTypes) => {
         indexes: [
             {
                 unique: true,
-                fields: ['user_id', 'article_id']
-            }
+                fields: ['user_id', 'article_id'],
+                name: 'unique_user_article_like'
+            },
+            { fields: ['article_id'] },
+            { fields: ['user_id'] }
         ]
     });
 

@@ -30,8 +30,24 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             field: 'full_name'
         },
+        phone: {
+            type: DataTypes.STRING(20),
+            field: 'phone'
+        },
+        additionalPhone: {
+            type: DataTypes.STRING(20),
+            field: 'additional_phone'
+        },
+        address: {
+            type: DataTypes.STRING(200),
+            field: 'address'
+        },
+        birthDate: {
+            type: DataTypes.DATEONLY,
+            field: 'birth_date'
+        },
         avatarUrl: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             field: 'avatar_url'
         },
         role: {

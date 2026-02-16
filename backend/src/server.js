@@ -1,50 +1,37 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const { sequelize } = require("./models");
 const { errorHandler, notFound } = require("./middleware/errorHandler");
 require("dotenv").config();
 
-// Импорт роутов
 const authRoutes = require("./routes/auth");
-const articleRoutes = require("./routes/articles");
+const userRoutes = require("./routes/users");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(helmet({ 
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false 
+}));
+app.use(cors({
+    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Роуты
-app.use("/api/auth", authRoutes);
-app.use("/api/articles", articleRoutes);
-
-// Health check
 app.get("/api/health", async (req, res) => {
     try {
         await sequelize.authenticate();
-
-        const [dbInfo] = await sequelize.query(
-            "SELECT current_database(), version() as pg_version"
-        );
-
         res.json({
             success: true,
             status: "ok",
-            message: "Student Journal API is running",
-            database: {
-                connected: true,
-                name: dbInfo[0].current_database,
-                postgres_version: dbInfo[0].pg_version,
-                provider: "Neon.tech"
-            },
-            endpoints: {
-                auth: "/api/auth",
-                articles: "/api/articles",
-                health: "/api/health"
-            },
-            timestamp: new Date().toISOString()
+            message: "Server is running",
+            database: { connected: true }
         });
     } catch (error) {
         res.status(500).json({
@@ -56,23 +43,19 @@ app.get("/api/health", async (req, res) => {
     }
 });
 
-// Обработка ошибок
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+
 app.use(notFound);
 app.use(errorHandler);
 
-// Запуск сервера
 sequelize.authenticate()
     .then(() => {
-        console.log("✅ Подключение к PostgreSQL (Neon) установлено!");
-
+        console.log("✅ Подключение к PostgreSQL установлено!");
         app.listen(PORT, () => {
-            console.log(`🚀 Student Journal Backend запущен!`);
-            console.log(`📡 Порт: ${PORT}`);
-            console.log(`🗄️  База данных: Neon PostgreSQL`);
+            console.log(`🚀 Backend запущен на порту: ${PORT}`);
             console.log(`🔗 API: http://localhost:${PORT}/api`);
-            console.log(`📊 Health: http://localhost:${PORT}/api/health`);
-            console.log(`👤 Auth: http://localhost:${PORT}/api/auth`);
-            console.log(`📰 Articles: http://localhost:${PORT}/api/articles`);
+            console.log(`🔑 Auth: http://localhost:${PORT}/api/auth/login`);
         });
     })
     .catch(err => {
