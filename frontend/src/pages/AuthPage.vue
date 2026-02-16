@@ -1,187 +1,186 @@
 <template>
-  <div class="auth-page">
-    <div class="auth-container">
-      <h2>Вход в систему</h2>
-      
-      <form @submit.prevent="handleLogin" class="auth-form">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input 
-            type="email" 
-            id="email" 
-            v-model="credentials.email" 
-            required
-            placeholder="Введите email"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="password">Пароль</label>
-          <div class="password-input">
-            <input 
-              :type="showPassword ? 'text' : 'password'" 
-              id="password" 
-              v-model="credentials.password" 
-              required
-              placeholder="Введите пароль"
-            />
-            <button type="button" @click="showPassword = !showPassword" class="btn-eye">
-              {{ showPassword ? '👁️' : '👁️‍🗨️' }}
-            </button>
-          </div>
-        </div>
-
-        <div v-if="error" class="error-message">{{ error }}</div>
-
-        <button type="submit" :disabled="loading" class="btn-login">
-          {{ loading ? 'Вход...' : 'Войти' }}
-        </button>
-      </form>
-      
-    </div>
+  <div>
+    <div :class="$style.frameChild" />
+    <b :class="$style.login">Login</b>
+    <div :class="$style.eMail">E-Mail:</div>
+    <div :class="$style.div">Для входа в систему используйте только свою учетную запись.</div>
+    <div :class="$style.div2">Пароль:</div>
+    <div :class="$style.div3">Забыли пароль ?</div>
+    <div :class="$style.div4">Запомнить меня</div>
+    <div :class="$style.frameItem" />
+    <div :class="$style.frameInner" />
+    <div :class="$style.rectangleDiv" />
+    <div :class="$style.div5">Войти в систему</div>
+    <div :class="$style.frameChild2" />
+    <div :class="$style.frameChild3" />
+    <div :class="$style.frameChild4" />
+    <div :class="$style.welcomeTo">Welcome to</div>
+    <div :class="$style.logInTo">Log in to access your account</div>
+    <div :class="$style.narxozJournal">NARXOZ JOURNAL</div>
   </div>
 </template>
-
-<script>
-import authService from '../services/auth.service';
-
-export default {
-  name: 'AuthPage',
-  data() {
-    return {
-      credentials: { email: '', password: '' },
-      showPassword: false,
-      loading: false,
-      error: ''
-    };
-  },
-  methods: {
-    async handleLogin() {
-      this.error = '';
-      this.loading = true;
-      try {
-        const response = await authService.login(this.credentials);
-        if (response.success) {
-          // Обновляем данные пользователя в хедере
-          this.$parent.$refs.header?.loadUser();
-          this.$router.push('/');
-        } else {
-          this.error = response.error || 'Ошибка входа';
-        }
-      } catch (err) {
-        this.error = 'Ошибка подключения к серверу';
-      } finally {
-        this.loading = false;
-      }
-    }
-  }
-};
-</script>
-
-<style scoped>
-.auth-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f5f5f5;
-  padding: 20px;
-}
-
-.auth-container {
-  background: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  max-width: 400px;
+<style  module>.rectangleParent {
   width: 100%;
-}
-
-h2 {
-  margin-bottom: 30px;
-  text-align: center;
-  color: #333;
-}
-
-.auth-form {
-  margin-bottom: 30px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  color: #555;
-  font-weight: 500;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-
-input:focus {
-  outline: none;
-  border-color: #4CAF50;
-}
-
-.error-message {
-  color: #f44336;
-  margin-bottom: 15px;
-  padding: 10px;
-  background: #ffebee;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.btn-login {
-  width: 100%;
-  padding: 12px;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.btn-login:hover:not(:disabled) {
-  background: #45a049;
-}
-
-.btn-login:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-.password-input {
+  height: 900px;
   position: relative;
-  width: 100%;
-}
-
-.password-input input {
-  width: 100%;
-  padding-right: 40px;
+  background-color: #fff;
+  border: 1px solid #000;
   box-sizing: border-box;
+  overflow: hidden;
+  text-align: left;
+  font-size: 20px;
+  color: #000;
+  font-family: Inter;
+}
+.frameChild {
+  position: absolute;
+  top: 258px;
+  left: 566px;
+  box-shadow: 0px 8px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  background-color: #fff;
+  width: 780px;
+  height: 458px;
+  flex-shrink: 0;
+}
+.login {
+  position: absolute;
+  top: 214px;
+  left: 895px;
+  font-size: 36px;
+  flex-shrink: 0;
+}
+.eMail {
+  position: absolute;
+  top: 350px;
+  left: 601px;
+  flex-shrink: 0;
+}
+.div {
+  position: absolute;
+  top: 297px;
+  left: 601px;
+  flex-shrink: 0;
+}
+.div2 {
+  position: absolute;
+  top: 450px;
+  left: 601px;
+  flex-shrink: 0;
+}
+.div3 {
+  position: absolute;
+  top: 567px;
+  left: 1120px;
+  color: #0e2284;
+  flex-shrink: 0;
+}
+.div4 {
+  position: absolute;
+  top: 566px;
+  left: 641px;
+  flex-shrink: 0;
+}
+.frameItem {
+  position: absolute;
+  top: 485px;
+  left: 601px;
+  border-radius: 10px;
+  background-color: rgba(242, 198, 198, 0.55);
+  width: 685px;
+  height: 46px;
+  flex-shrink: 0;
+}
+.frameInner {
+  position: absolute;
+  top: 389px;
+  left: 601px;
+  border-radius: 10px;
+  background-color: rgba(242, 198, 198, 0.55);
+  width: 685px;
+  height: 46px;
+  flex-shrink: 0;
+}
+.rectangleDiv {
+  position: absolute;
+  top: 627px;
+  left: 1042px;
+  border-radius: 10px;
+  background-color: #d3392c;
+  width: 244px;
+  height: 48px;
+  flex-shrink: 0;
+}
+.div5 {
+  position: absolute;
+  top: 639px;
+  left: 1082px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.frameChild2 {
+  position: absolute;
+  top: 566px;
+  left: 601px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: rgba(190, 189, 189, 0.55);
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+}
+.frameChild3 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #252525;
+  width: 1440px;
+  height: 69px;
+  flex-shrink: 0;
+}
+.frameChild4 {
+  position: absolute;
+  top: 69px;
+  left: -226px;
+  border-radius: 200px;
+  background-color: #d90135;
+  width: 743px;
+  height: 831px;
+  flex-shrink: 0;
+}
+.welcomeTo {
+  position: absolute;
+  top: 339px;
+  left: 146px;
+  font-size: 36px;
+  color: #fff;
+  display: inline-block;
+  width: 208px;
+  height: 87px;
+  flex-shrink: 0;
+}
+.logInTo {
+  position: absolute;
+  top: 455px;
+  left: 84px;
+  font-size: 24px;
+  font-weight: 500;
+  color: #fff;
+  display: inline-block;
+  width: 359px;
+  height: 87px;
+  flex-shrink: 0;
+}
+.narxozJournal {
+  position: absolute;
+  top: 391px;
+  left: 70px;
+  font-size: 40px;
+  font-weight: 800;
+  color: #fff;
+  display: inline-block;
+  width: 409px;
+  height: 87px;
+  flex-shrink: 0;
 }
 
-.btn-eye {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  padding: 0;
-}
 </style>
