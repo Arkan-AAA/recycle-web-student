@@ -43,7 +43,7 @@ const isAuthPage = computed(() => route.path === '/auth');
           <router-link to="/home" @click="mobileMenuOpen = false">{{ $i18n.t('nav.home') }}</router-link>
           <router-link to="/news" @click="mobileMenuOpen = false">{{ $i18n.t('nav.news') }}</router-link>
           <router-link to="/profile" @click="mobileMenuOpen = false">{{ $i18n.t('nav.profile') }}</router-link>
-          <router-link to="/admin" @click="mobileMenuOpen = false">{{ $i18n.t('nav.admin') }}</router-link>
+          <router-link to="/admin" @click=" mobileMenuOpen = false">{{ $i18n.t('nav.admin') }}</router-link>
           <router-link to="/aichat" :class="$style.aiChatBtn" @click="mobileMenuOpen = false">{{ $i18n.t('nav.aiChat') }}</router-link>
         </nav>
       </div>
