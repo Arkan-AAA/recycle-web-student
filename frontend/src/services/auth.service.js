@@ -1,0 +1,66 @@
+import apiService from './api.service';
+
+class AuthService {
+    async register(userData) {
+        const response = await apiService.post('/auth/register', userData);
+        if (response.success && response.data?.token) {
+            this.setToken(response.data.token);
+            this.setUser(response.data.user);
+        }
+        return response;
+    }
+
+    async login(credentials) {
+        const response = await apiService.post('/auth/login', credentials);
+        if (response.success && response.data?.token) {
+            this.setToken(response.data.token);
+            this.setUser(response.data.user);
+        }
+        return response;
+    }
+
+    logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+    }
+
+    async getProfile() {
+        return await apiService.get('/auth/me');
+    }
+
+    setToken(token) {
+        if (token && typeof token === 'string') {
+            localStorage.setItem('token', token);
+        }
+    }
+
+    getToken() {
+        return localStorage.getItem('token');
+    }
+
+    setUser(user) {
+        if (user && typeof user === 'object') {
+            try {
+                localStorage.setItem('user', JSON.stringify(user));
+            } catch (error) {
+                console.error('Failed to save user:', error.message);
+            }
+        }
+    }
+
+    getUser() {
+        try {
+            const user = localStorage.getItem('user');
+            return user ? JSON.parse(user) : null;
+        } catch (error) {
+            console.error('Failed to parse user:', error.message);
+            return null;
+        }
+    }
+
+    isAuthenticated() {
+        return !!this.getToken();
+    }
+}
+
+export default new AuthService();

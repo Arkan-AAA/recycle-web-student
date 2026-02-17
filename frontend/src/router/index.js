@@ -15,6 +15,21 @@ const routes = [
         path: '/profile',
         name: 'Profile',
         component: () => import('../pages/ProfilePage.vue')
+    },
+    {
+        path: '/aichat',
+        name: 'AIChat',
+        component: () => import('../pages/AIPage.vue')
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: () => import('../pages/AuthPage.vue')
+    },
+    {
+        path: '/admin',
+        name: 'AdminPage',
+        component: () => import('../pages/AdminPage.vue')
     }
 ]
 
