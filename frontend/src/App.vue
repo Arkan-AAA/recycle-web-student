@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <main :class="$style.mainContent">
+    <main :class="{ 'main-content': $route.path !== '/auth' }">
       <router-view></router-view>
     </main>
   </div>
@@ -18,25 +18,6 @@ export default {
 }
 </script>
 
-<style module>
-.mainContent {
-  margin-top: 150px;
-  min-height: calc(100vh - 150px);
-}
-
-@media (max-width: 768px) {
-  .mainContent {
-    margin-top: 120px;
-  }
-}
-
-@media (max-width: 480px) {
-  .mainContent {
-    margin-top: 100px;
-  }
-}
-</style>
-
 <style>
 * {
   margin: 0;
@@ -45,6 +26,23 @@ export default {
 }
 
 #app {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Rubik', sans-serif;
+}
+
+.main-content {
+  margin-top: 100px;
+  min-height: calc(100vh - 100px);
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-top: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-top: 100px;
+  }
 }
 </style>

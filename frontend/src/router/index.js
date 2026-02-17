@@ -3,8 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
     {
         path: '/',
-        name: 'Home',
-        component: () => import('../pages/HomePage.vue')
+        name: 'Login',
+        component: () => import('../pages/AuthPage.vue')
     },
     {
         path: '/news',
@@ -22,9 +22,9 @@ const routes = [
         component: () => import('../pages/AIPage.vue')
     },
     {
-        path: '/login',
-        name: 'Login',
-        component: () => import('../pages/AuthPage.vue')
+        path: '/home',
+        name: 'Home',
+        component: () => import('../pages/HomePage.vue')
     },
     {
         path: '/admin',
