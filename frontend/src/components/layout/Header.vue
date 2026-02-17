@@ -1,66 +1,82 @@
+<script setup>
+import { ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const mobileMenuOpen = ref(false);
+const route = useRoute();
+const isAuthPage = computed(() => route.path === '/auth');
+</script>
 <template>
   <header :class="$style.header">
     <!-- Черная полоса сверху -->
     <div :class="$style.topBar">
       <div :class="$style.container">
         <div :class="$style.languageSelector">
-          <div :class="[$style.lang, { [$style.active]: $i18n.locale === 'ru' }]" @click="$i18n.setLocale('ru')">RU</div>
-          <div :class="[$style.lang, { [$style.active]: $i18n.locale === 'kz' }]" @click="$i18n.setLocale('kz')">KZ</div>
-          <div :class="[$style.lang, { [$style.active]: $i18n.locale === 'en' }]" @click="$i18n.setLocale('en')">EN</div>
+          <div :class="[$style.lang, { [$style.active]: $i18n.locale === 'ru' }]" @click="$i18n.setLocale('ru')">Русский</div>
+          <div :class="[$style.lang, { [$style.active]: $i18n.locale === 'en' }]" @click="$i18n.setLocale('en')">English</div>
+          <div :class="[$style.lang, { [$style.active]: $i18n.locale === 'kz' }]" @click="$i18n.setLocale('kz')">Қазақ тілі</div>
+          <div :class="$style.phone">
+            <a href="tel:+77273132028">+7 (727) 313-20-28</a>
+          </div>
+          <div :class="$style.email">
+            <a href="mailto:info@college-narxoz.kz">info@college-narxoz.kz</a>
+          </div>
+          <div :class="$style.address">050035, г. Алматы, 10-й микрорайон 7А</div>
         </div>
-        <a :class="$style.phone" href="tel:77273132028" target="_blank">+7 (727) 313-20-28</a>
-        <div :class="$style.email">info@college-narxoz.kz</div>
-        <div :class="$style.address">050035, г. Алматы, 10-й микрорайон 7А</div>
-        <router-link to="/login" :class="$style.loginBtn">{{ $i18n.t('nav.login') }}</router-link>
       </div>
     </div>
-    
+
     <!-- Белая полоса с навигацией -->
-    <div :class="$style.navBar">
+    <div v-if="!isAuthPage" :class="$style.navBar">
       <div :class="$style.container">
         <a href="https://collegenarxoz.kz/" target="_blank" :class="$style.logo">
           <img src="../../assets/images/logo1.svg" alt="College Narxoz" :class="$style.logoImg" />
         </a>
-        <nav :class="$style.nav">
-          <router-link to="/">{{ $i18n.t('nav.home') }}</router-link>
-          <router-link to="/news">{{ $i18n.t('nav.news') }}</router-link>
-          <router-link to="/profile">{{ $i18n.t('nav.profile') }}</router-link>
-          <router-link to="/admin">{{ $i18n.t('nav.admin') }}</router-link>
+        
+        <button :class="$style.burger" @click="mobileMenuOpen = !mobileMenuOpen">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <nav :class="[$style.nav, { [$style.navOpen]: mobileMenuOpen }]">
+          <router-link to="/home" @click="mobileMenuOpen = false">{{ $i18n.t('nav.home') }}</router-link>
+          <router-link to="/news" @click="mobileMenuOpen = false">{{ $i18n.t('nav.news') }}</router-link>
+          <router-link to="/profile" @click="mobileMenuOpen = false">{{ $i18n.t('nav.profile') }}</router-link>
+          <router-link to="/admin" @click="mobileMenuOpen = false">{{ $i18n.t('nav.admin') }}</router-link>
+          <router-link to="/aichat" :class="$style.aiChatBtn" @click="mobileMenuOpen = false">{{ $i18n.t('nav.aiChat') }}</router-link>
         </nav>
-        <router-link to="/aichat" :class="$style.aiChatBtn">{{ $i18n.t('nav.aiChat') }}</router-link>
       </div>
     </div>
   </header>
 </template>
-<style  module>.header {
+<style module>
+.header {
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  font-family: Inter;
 }
 
-/* Черная полоса сверху */
 .topBar {
   background-color: #252525;
   color: #fff;
-  height: 69px;
+  height: 40px;
   display: flex;
   align-items: center;
 }
 
-/* Белая полоса с навигацией */
 .navBar {
   background-color: #ffffff;
-  height: 81px;
+  height: 60px;
   display: flex;
   align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .container {
   width: 100%;
-  max-width: 1440px;
   margin: 0 auto;
   padding: 0 34px;
   display: flex;
@@ -68,14 +84,10 @@
   gap: 20px;
 }
 
-/* Элементы черной полосы */
 .languageSelector {
   display: flex;
   gap: 20px;
-  background-color: #000;
-  border-radius: 15px;
-  padding: 10px 20px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .lang {
@@ -101,28 +113,17 @@
 }
 
 .email {
-  font-size: 20px;
   margin-left: 50px;
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  transition: all .2s ease;
 }
 
 .address {
-  font-size: 20px;
   margin-left: auto;
 }
 
-.loginBtn {
-  background-color: #d90135;
-  color: #faf9f6;
-  border: none;
-  border-radius: 10px;
-  padding: 15px 40px;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin-left: 20px;
-}
-
-/* Элементы белой полосы */
 .logo {
   text-decoration: none;
   display: flex;
@@ -130,20 +131,40 @@
 }
 
 .logoImg {
-  height: 60px;
+  height: 40px;
   width: auto;
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: auto;
+}
+
+.burger span {
+  width: 25px;
+  height: 3px;
+  background: #252525;
+  border-radius: 2px;
+  transition: 0.3s;
 }
 
 .nav {
   display: flex;
   gap: 60px;
   margin-left: 100px;
+  align-items: center;
 }
 
 .nav a {
   color: #252525;
   text-decoration: none;
-  font-size: 20px;
+  transition: color 0.3s;
 }
 
 .nav a:hover {
@@ -156,132 +177,124 @@
   border: none;
   border-radius: 10px;
   padding: 15px 80px;
-  font-size: 20px;
   cursor: pointer;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   margin-left: auto;
   text-decoration: none;
   display: inline-block;
+  transition: background 0.3s;
 }
 
-/* Tablet */
+.aiChatBtn:hover {
+  background-color: #b02f24;
+}
+
+/* Планшеты */
 @media (max-width: 1024px) {
+  .topBar {
+    height: 35px;
+  }
+  
+  .phone {
+    font-size: 16px;
+    margin-left: 15px;
+  }
+  
+  .email {
+    margin-left: 20px;
+    font-size: 14px;
+  }
+  
+  .address {
+    font-size: 14px;
+  }
+  
+  .nav {
+    gap: 30px;
+    margin-left: 50px;
+  }
+  
+  .aiChatBtn {
+    padding: 12px 40px;
+  }
+}
+
+/* Мобильные */
+@media (max-width: 768px) {
+  .topBar {
+    height: 30px;
+  }
+  
   .container {
     padding: 0 15px;
     gap: 10px;
   }
   
-  .email,
-  .address {
+  .languageSelector {
+    gap: 10px;
     font-size: 14px;
   }
   
   .phone {
     font-size: 14px;
+    margin-left: 10px;
   }
   
-  .nav {
-    gap: 20px;
-    margin-left: 20px;
-  }
-  
-  .nav a {
-    font-size: 16px;
-  }
-  
-  .aiChatBtn {
-    padding: 10px 30px;
-    font-size: 16px;
-  }
-  
-  .loginBtn {
-    padding: 10px 20px;
-    font-size: 16px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .topBar,
-  .navBar {
-    height: auto;
-  }
-  
-  .container {
-    padding: 10px;
-    gap: 8px;
-    justify-content: center;
-  }
-  
-  .languageSelector {
-    gap: 10px;
-    padding: 6px 12px;
-    font-size: 14px;
-  }
-  
-  .phone,
   .email,
   .address {
     display: none;
   }
   
-  .loginBtn {
-    padding: 8px 15px;
-    font-size: 14px;
-    margin-left: 0;
-  }
-  
-  .logoImg {
-    height: 40px;
+  .burger {
+    display: flex;
   }
   
   .nav {
-    gap: 15px;
-    margin-left: 10px;
-    width: 100%;
-    justify-content: center;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  
+  .navOpen {
+    transform: translateX(0);
   }
   
   .nav a {
-    font-size: 14px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
   }
   
   .aiChatBtn {
-    padding: 8px 20px;
-    font-size: 14px;
-    margin-left: 0;
+    margin: 10px 0 0 0;
+    padding: 15px;
+    text-align: center;
   }
 }
 
-/* Small Mobile */
+/* Маленькие мобильные */
 @media (max-width: 480px) {
   .languageSelector {
-    font-size: 12px;
     gap: 8px;
-    padding: 5px 10px;
+    font-size: 12px;
   }
   
-  .loginBtn {
+  .phone {
     font-size: 12px;
-    padding: 6px 12px;
+    margin-left: 5px;
   }
   
   .logoImg {
-    height: 35px;
-  }
-  
-  .nav {
-    gap: 10px;
-  }
-  
-  .nav a {
-    font-size: 12px;
-  }
-  
-  .aiChatBtn {
-    font-size: 12px;
-    padding: 6px 15px;
+    height: 30px;
   }
 }
-
 </style>
