@@ -4,14 +4,13 @@
       <div :class="$style.leftContent">
         <p :class="$style.subtitle">Welcome to</p>
         <h1 :class="$style.title">NARXOZ JOURNAL</h1>
-        <p :class="$style.description">Log in to access your account</p>
       </div>
     </div>
 
     <div :class="$style.rightPanel">
       <div :class="$style.formWrapper">
         <h2 :class="$style.loginTitle">Login</h2>
-        <p :class="$style.loginSubtitle">Для входа в систему используйте только свою учетную запись.</p>
+        <p :class="$style.loginSubtitle">Для входа в систему используйте только корпоративную учётную запись.</p>
 
         <form @submit.prevent="handleLogin">
           <div :class="$style.formGroup">
@@ -112,6 +111,11 @@ const handleLogin = async () => {
   display: flex;
   min-height: 100vh;
   background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .leftPanel {
@@ -137,11 +141,6 @@ const handleLogin = async () => {
 .subtitle {
   font-size: 32px;
   margin-bottom: 10px;
-}
-
-.description {
-  font-size: 20px;
-  font-weight: 300;
 }
 
 .rightPanel {
