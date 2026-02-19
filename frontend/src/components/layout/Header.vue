@@ -4,249 +4,176 @@ import { useRoute } from 'vue-router';
 
 const mobileMenuOpen = ref(false);
 const route = useRoute();
-const isAuthPage = computed(() => route.path === '/auth');
+const isAuthPage = computed(() => route.path === '/');
+
+const isActive = (path) => route.path === path;
 </script>
 <template>
-  <header :class="$style.header">
-    <!-- Черная полоса сверху -->
-    <div :class="$style.topBar">
-      <div :class="$style.container">
-        <div :class="$style.languageSelector">
-          <div :class="[$style.lang, { [$style.active]: $i18n.locale === 'ru' }]" @click="$i18n.setLocale('ru')">Русский</div>
-          <div :class="[$style.lang, { [$style.active]: $i18n.locale === 'en' }]" @click="$i18n.setLocale('en')">English</div>
-          <div :class="[$style.lang, { [$style.active]: $i18n.locale === 'kz' }]" @click="$i18n.setLocale('kz')">Қазақ тілі</div>
-          <div :class="$style.phone">
-            <a href="tel:+77273132028">+7 (727) 313-20-28</a>
-          </div>
-          <div :class="$style.email">
-            <a href="mailto:info@college-narxoz.kz">info@college-narxoz.kz</a>
-          </div>
-          <div :class="$style.address">050035, г. Алматы, 10-й микрорайон 7А</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Белая полоса с навигацией -->
-    <div v-if="!isAuthPage" :class="$style.navBar">
-      <div :class="$style.container">
-        <a href="https://collegenarxoz.kz/" target="_blank" :class="$style.logo">
-          <img src="../../assets/images/logo1.svg" alt="College Narxoz" :class="$style.logoImg" />
-        </a>
-        
-        <button :class="$style.burger" @click="mobileMenuOpen = !mobileMenuOpen">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        
-        <nav :class="[$style.nav, { [$style.navOpen]: mobileMenuOpen }]">
-          <router-link to="/home" @click="mobileMenuOpen = false">{{ $i18n.t('nav.home') }}</router-link>
-          <router-link to="/news" @click="mobileMenuOpen = false">{{ $i18n.t('nav.news') }}</router-link>
-          <router-link to="/profile" @click="mobileMenuOpen = false">{{ $i18n.t('nav.profile') }}</router-link>
-          <router-link to="/admin" @click=" mobileMenuOpen = false">{{ $i18n.t('nav.admin') }}</router-link>
-          <router-link to="/aichat" :class="$style.aiChatBtn" @click="mobileMenuOpen = false">{{ $i18n.t('nav.aiChat') }}</router-link>
-        </nav>
-      </div>
+  <header v-if="!isAuthPage" :class="$style.header">
+    <div :class="$style.rectangleParent">
+      <div :class="$style.groupChild" />
+      <img :class="$style.logo11Icon" src="../../assets/images/logo-footer1.svg" alt="College Narxoz" />
+      <nav :class="[$style.nav, { [$style.navOpen]: mobileMenuOpen }]">
+        <router-link to="/home" :class="[$style.div, { [$style.active]: isActive('/home') }]" @click="mobileMenuOpen = false">ГЛАВНАЯ</router-link>
+        <router-link to="/news" :class="[$style.div2, { [$style.active]: isActive('/news') }]" @click="mobileMenuOpen = false">НОВОСТИ</router-link>
+        <router-link to="/education" :class="[$style.div3, { [$style.active]: isActive('/education') }]" @click="mobileMenuOpen = false">УЧЕБНЫЙ ПРОЦЕСС</router-link>
+        <router-link to="/profile" :class="[$style.div4, { [$style.active]: isActive('/profile') }]" @click="mobileMenuOpen = false">ПРОФИЛЬ</router-link>
+        <router-link to="/aichat" :class="[$style.div5, { [$style.active]: isActive('/aichat') }]" @click="mobileMenuOpen = false">ЧАТ ИИ</router-link>
+      </nav>
     </div>
   </header>
 </template>
 <style module>
 .header {
   width: 100%;
+  height: 60px;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-}
-
-.topBar {
-  background-color: #252525;
-  color: #fff;
-  height: 40px;
-  display: flex;
-  align-items: center;
-}
-
-.navBar {
-  background-color: #ffffff;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 34px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.languageSelector {
-  display: flex;
-  gap: 20px;
+  text-align: center;
   font-size: 16px;
+  color: #1e1e1e;
 }
 
-.lang {
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.3s;
+.rectangleParent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
 }
 
-.lang:hover {
-  opacity: 0.8;
+.groupChild {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #1e1e1e;
+  width: 100%;
+  height: 60px;
 }
 
-.lang.active {
-  opacity: 1;
-  font-weight: bold;
-}
-
-.phone {
-  color: #fff;
-  text-decoration: underline;
-  font-size: 20px;
-  margin-left: 30px;
-}
-
-.email {
-  margin-left: 50px;
-  color: inherit;
-  text-decoration: none;
-  position: relative;
-  transition: all .2s ease;
-}
-
-.address {
-  margin-left: auto;
-}
-
-.logo {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-}
-
-.logoImg {
+.logo11Icon {
+  position: absolute;
+  top: 10px;
+  left: 32px;
+  width: 180px;
   height: 40px;
-  width: auto;
-}
-
-.burger {
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-  margin-left: auto;
-}
-
-.burger span {
-  width: 25px;
-  height: 3px;
-  background: #252525;
-  border-radius: 2px;
-  transition: 0.3s;
 }
 
 .nav {
-  display: flex;
-  gap: 60px;
-  margin-left: 100px;
-  align-items: center;
+  display: contents;
 }
 
-.nav a {
-  color: #252525;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.nav a:hover {
-  color: #d90135;
-}
-
-.aiChatBtn {
-  background-color: #d90135;
+.div {
+  position: absolute;
+  top: 18px;
+  left: 578px;
+  font-weight: 500;
   color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 15px 80px;
-  cursor: pointer;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  margin-left: auto;
   text-decoration: none;
-  display: inline-block;
-  transition: background 0.3s;
 }
 
-.aiChatBtn:hover {
-  background-color: #b02f24;
+.div:hover {
+  color: #d50032;
 }
 
-/* Планшеты */
-@media (max-width: 1024px) {
-  .topBar {
-    height: 35px;
-  }
-  
-  .phone {
-    font-size: 16px;
-    margin-left: 15px;
-  }
-  
-  .email {
-    margin-left: 20px;
-    font-size: 14px;
-  }
-  
-  .address {
-    font-size: 14px;
-  }
-  
-  .nav {
-    gap: 30px;
-    margin-left: 50px;
-  }
-  
-  .aiChatBtn {
-    padding: 12px 40px;
-  }
+.active {
+  color: #d50032 !important;
 }
 
-/* Мобильные */
+.div2 {
+  position: absolute;
+  top: 18px;
+  left: 788px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+}
+
+.div2:hover {
+  color: #d50032;
+}
+
+.div3 {
+  position: absolute;
+  top: 18px;
+  left: 1001px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+}
+
+.div3:hover {
+  color: #d50032;
+}
+
+.div4 {
+  position: absolute;
+  top: 18px;
+  left: 1337px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+}
+
+.div4:hover {
+  color: #d50032;
+}
+
+.div5 {
+  position: absolute;
+  top: 18px;
+  left: 1556px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+}
+
+.div5:hover {
+  color: #d50032;
+}
+
+@media (max-width: 1600px) {
+  .div { left: 450px; }
+  .div2 { left: 620px; }
+  .div3 { left: 800px; }
+  .div4 { left: 1080px; }
+  .div5 { left: 1250px; }
+}
+
+@media (max-width: 1200px) {
+  .logo11Icon {
+    width: 180px;
+    height: 48px;
+    top: 26px;
+  }
+  
+  .div { left: 300px; font-size: 20px; }
+  .div2 { left: 450px; font-size: 20px; }
+  .div3 { left: 600px; font-size: 20px; }
+  .div4 { left: 850px; font-size: 20px; }
+  .div5 { left: 980px; font-size: 20px; }
+}
+
 @media (max-width: 768px) {
-  .topBar {
-    height: 30px;
+  .header {
+    height: 70px;
   }
   
-  .container {
-    padding: 0 15px;
-    gap: 10px;
+  .rectangleParent {
+    height: 70px;
   }
   
-  .languageSelector {
-    gap: 10px;
-    font-size: 14px;
+  .groupChild {
+    height: 70px;
   }
   
-  .phone {
-    font-size: 14px;
-    margin-left: 10px;
-  }
-  
-  .email,
-  .address {
-    display: none;
-  }
-  
-  .burger {
-    display: flex;
+  .logo11Icon {
+    width: 150px;
+    height: 40px;
+    top: 15px;
+    left: 15px;
   }
   
   .nav {
@@ -256,45 +183,25 @@ const isAuthPage = computed(() => route.path === '/auth');
     right: 0;
     background: #fff;
     flex-direction: column;
-    gap: 0;
-    margin: 0;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transform: translateX(-100%);
     transition: transform 0.3s;
+    display: flex;
+    gap: 0;
   }
   
   .navOpen {
     transform: translateX(0);
   }
   
-  .nav a {
+  .div, .div2, .div3, .div4, .div5 {
+    position: static;
     padding: 15px;
     border-bottom: 1px solid #eee;
     width: 100%;
-  }
-  
-  .aiChatBtn {
-    margin: 10px 0 0 0;
-    padding: 15px;
-    text-align: center;
-  }
-}
-
-/* Маленькие мобильные */
-@media (max-width: 480px) {
-  .languageSelector {
-    gap: 8px;
-    font-size: 12px;
-  }
-  
-  .phone {
-    font-size: 12px;
-    margin-left: 5px;
-  }
-  
-  .logoImg {
-    height: 30px;
+    text-align: left;
+    font-size: 18px;
   }
 }
 </style>

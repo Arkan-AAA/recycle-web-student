@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <main :class="{ 'main-content': $route.path !== '/auth' }">
+    <main :class="{ 'main-content': $route.path !== '/' }" :style="$route.path === '/' ? 'margin-top: 0' : ''">
       <router-view></router-view>
     </main>
   </div>
@@ -30,8 +30,8 @@ export default {
 }
 
 .main-content {
-  margin-top: 100px;
-  min-height: calc(100vh - 100px);
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
 }
 
 @media (max-width: 768px) {
