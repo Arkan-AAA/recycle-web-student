@@ -3,10 +3,20 @@ import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const mobileMenuOpen = ref(false);
+const educationMenuOpen = ref(false);
 const route = useRoute();
 const isAuthPage = computed(() => route.path === '/');
 
 const isActive = (path) => route.path === path;
+
+const isEducationActive = computed(() => {
+  const educationPaths = ['/education', '/journal', '/schedule', '/transcript', '/grades', '/diploma', '/notifications'];
+  return educationPaths.includes(route.path);
+});
+
+const toggleEducationMenu = () => {
+  educationMenuOpen.value = !educationMenuOpen.value;
+};
 </script>
 <template>
   <header v-if="!isAuthPage" :class="$style.header">
@@ -16,7 +26,17 @@ const isActive = (path) => route.path === path;
       <nav :class="[$style.nav, { [$style.navOpen]: mobileMenuOpen }]">
         <router-link to="/home" :class="[$style.div, { [$style.active]: isActive('/home') }]" @click="mobileMenuOpen = false">ГЛАВНАЯ</router-link>
         <router-link to="/news" :class="[$style.div2, { [$style.active]: isActive('/news') }]" @click="mobileMenuOpen = false">НОВОСТИ</router-link>
-        <router-link to="/education" :class="[$style.div3, { [$style.active]: isActive('/education') }]" @click="mobileMenuOpen = false">УЧЕБНЫЙ ПРОЦЕСС</router-link>
+        <div :class="$style.educationWrapper">
+          <a :class="[$style.div3, { [$style.active]: isEducationActive || educationMenuOpen }]" @click="toggleEducationMenu">УЧЕБНЫЙ ПРОЦЕСС</a>
+          <div v-if="educationMenuOpen" :class="$style.dropdown">
+            <router-link to="/journal" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/journal') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Журнал</router-link>
+            <router-link to="/schedule" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/schedule') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Расписание</router-link>
+            <router-link to="/transcript" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/transcript') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Транскрипт</router-link>
+            <router-link to="/grades" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/grades') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Градация оценок</router-link>
+            <router-link to="/diploma" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/diploma') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Дипломные работы</router-link>
+            <router-link to="/notifications" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/notifications') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Уведомление</router-link>
+          </div>
+        </div>
         <router-link to="/profile" :class="[$style.div4, { [$style.active]: isActive('/profile') }]" @click="mobileMenuOpen = false">ПРОФИЛЬ</router-link>
         <router-link to="/aichat" :class="[$style.div5, { [$style.active]: isActive('/aichat') }]" @click="mobileMenuOpen = false">ЧАТ ИИ</router-link>
       </nav>
@@ -95,6 +115,10 @@ const isActive = (path) => route.path === path;
   color: #d50032;
 }
 
+.educationWrapper {
+  position: relative;
+}
+
 .div3 {
   position: absolute;
   top: 18px;
@@ -102,10 +126,49 @@ const isActive = (path) => route.path === path;
   font-weight: 500;
   color: #fff;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .div3:hover {
   color: #d50032;
+}
+
+.dropdown {
+  position: absolute;
+  top: 45px;
+  left: 1001px;
+  transform: translateX(-50%);
+  margin-left: 85px;
+  background: #fff;
+  min-width: 220px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1001;
+}
+
+.dropdownItem {
+  display: block;
+  padding: 15px 20px;
+  color: #1e1e1e;
+  text-decoration: none;
+  font-weight: 400;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s;
+  background: #fff;
+  text-align: center;
+}
+
+.dropdownItem:hover {
+  background: #f5f5f5;
+}
+
+.dropdownActive {
+  background: #d50032 !important;
+  color: #fff !important;
+  font-weight: 500;
+}
+
+.dropdownActive:hover {
+  background: #b8002a !important;
 }
 
 .div4 {
@@ -138,6 +201,7 @@ const isActive = (path) => route.path === path;
   .div { left: 450px; }
   .div2 { left: 620px; }
   .div3 { left: 800px; }
+  .dropdown { left: 800px; margin-left: 85px; }
   .div4 { left: 1080px; }
   .div5 { left: 1250px; }
 }
@@ -152,6 +216,7 @@ const isActive = (path) => route.path === path;
   .div { left: 300px; font-size: 20px; }
   .div2 { left: 450px; font-size: 20px; }
   .div3 { left: 600px; font-size: 20px; }
+  .dropdown { left: 600px; margin-left: 85px; }
   .div4 { left: 850px; font-size: 20px; }
   .div5 { left: 980px; font-size: 20px; }
 }
