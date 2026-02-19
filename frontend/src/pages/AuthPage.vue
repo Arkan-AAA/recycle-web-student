@@ -44,6 +44,7 @@
           </div>
 
           <div v-if="error" :class="$style.error">{{ error }}</div>
+          <div v-if="success" :class="$style.success">{{ success }}</div>
 
           <button type="submit" :class="$style.submitBtn">Войти в систему</button>
         </form>
@@ -63,6 +64,7 @@ const email = ref('');
 const password = ref('');
 const rememberMe = ref(false);
 const error = ref('');
+const success = ref('');
 
 onMounted(() => {
   const saved = storageService.get('rememberMe');
@@ -74,6 +76,7 @@ onMounted(() => {
 
 const handleLogin = async () => {
   error.value = '';
+  success.value = '';
   
   if (!email.value || !password.value) {
     error.value = 'Заполните все поля';
@@ -92,7 +95,10 @@ const handleLogin = async () => {
       } else {
         storageService.remove('rememberMe');
       }
-      router.push('/');
+      success.value = 'Вход выполнен успешно!';
+      setTimeout(() => {
+        router.push('/home');
+      }, 1000);
     } else {
       error.value = response.error || 'Ошибка входа';
     }
@@ -220,6 +226,15 @@ const handleLogin = async () => {
   margin-bottom: 15px;
   padding: 10px;
   background: rgba(211, 57, 44, 0.1);
+  border-radius: 5px;
+}
+
+.success {
+  color: #28a745;
+  font-size: 14px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: rgba(40, 167, 69, 0.1);
   border-radius: 5px;
 }
 
