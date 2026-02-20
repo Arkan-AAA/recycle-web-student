@@ -1,5 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const REQUEST_TIMEOUT = 10000;
+const REQUEST_TIMEOUT = 5000;
 
 class ApiService {
     async request(endpoint, options = {}) {

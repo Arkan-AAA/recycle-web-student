@@ -30,6 +30,46 @@ const routes = [
         path: '/admin',
         name: 'AdminPage',
         component: () => import('../pages/AdminPage.vue')
+    },
+    {
+        path: '/journal',
+        name: 'Journal',
+        component: () => import('../pages/JournalPageNew.vue')
+    },
+    {
+        path: '/schedule',
+        name: 'Schedule',
+        component: () => import('../pages/SchedulePage.vue')
+    },
+    {
+        path: '/transcript',
+        name: 'Transcript',
+        component: () => import('../pages/TranscriptPage.vue')
+    },
+    {
+        path: '/grades',
+        name: 'Grades',
+        component: () => import('../pages/GradesPage.vue')
+    },
+    {
+        path: '/diploma',
+        name: 'Diploma',
+        component: () => import('../pages/DiplomaPage.vue')
+    },
+    {
+        path: '/notifications',
+        name: 'Notifications',
+        component: () => import('../pages/NotificationsPage.vue')
+    },
+    {
+        path: '/subject/:id',
+        name: 'SubjectDetail',
+        component: () => import('../pages/SubjectDetailPage.vue')
+    },
+    {
+        path: '/journal/:id',
+        name: 'JournalDetail',
+        component: () => import('../pages/SubjectDetailPage.vue')
     }
 ]
 

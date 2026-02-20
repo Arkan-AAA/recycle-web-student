@@ -45,7 +45,10 @@
           <div v-if="error" :class="$style.error">{{ error }}</div>
           <div v-if="success" :class="$style.success">{{ success }}</div>
 
-          <button type="submit" :class="$style.submitBtn">Войти в систему</button>
+          <button type="submit" :class="$style.submitBtn" :disabled="loading">
+            <span v-if="loading" :class="$style.spinner"></span>
+            {{ loading ? 'Вход...' : 'Войти в систему' }}
+          </button>
         </form>
       </div>
     </div>
@@ -64,6 +67,7 @@ const password = ref('');
 const rememberMe = ref(false);
 const error = ref('');
 const success = ref('');
+const loading = ref(false);
 
 onMounted(() => {
   const saved = storageService.get('rememberMe');
@@ -82,6 +86,8 @@ const handleLogin = async () => {
     return;
   }
 
+  loading.value = true;
+
   try {
     const response = await authService.login({
       email: email.value,
@@ -95,14 +101,14 @@ const handleLogin = async () => {
         storageService.remove('rememberMe');
       }
       success.value = 'Вход выполнен успешно!';
-      setTimeout(() => {
-        router.push('/home');
-      }, 1000);
+      router.push('/home');
     } else {
       error.value = response.error || 'Ошибка входа';
     }
   } catch (err) {
     error.value = 'Ошибка подключения к серверу';
+  } finally {
+    loading.value = false;
   }
 };
 </script>
@@ -252,6 +258,27 @@ const handleLogin = async () => {
 
 .submitBtn:hover {
   background: #b02f24;
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Адаптация для планшетов */
