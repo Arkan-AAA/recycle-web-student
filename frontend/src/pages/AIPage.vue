@@ -120,7 +120,7 @@ const scrollToBottom = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter',Rubik, sans-serif;
   padding: 20px;
 }
 

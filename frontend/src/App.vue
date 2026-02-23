@@ -26,7 +26,7 @@ export default {
 }
 
 #app {
-  font-family: 'Rubik', sans-serif;
+  font-family: verdana,'Rubik',Rubik, sans-serif, 'Inter',Inter;
 }
 
 .main-content {

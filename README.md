@@ -159,6 +159,7 @@ git clone https://github.com/Arkan-AAA/recycle-web-student.git
 
 # 2. Переход в директорию проекта
 cd recycle-web-student
+frontend and backend  в разных терминалах
 
 # 3. Установка зависимостей (когда добавим package.json)
 npm install

@@ -5,30 +5,27 @@ const translations = {
     nav: {
       home: 'Главная',
       news: 'Новости',
+      study: 'Учебный процесс',
       profile: 'Профиль',
-      admin: 'Админ Панель',
-      aiChat: 'ЧАТ С ИИ',
-      login: 'ВОЙТИ'
+      aiChat: 'ЧАТ С ИИ'
     }
   },
   kz: {
     nav: {
       home: 'Басты бет',
       news: 'Жаңалықтар',
+      study: 'Оку процессi',
       profile: 'Профиль',
-      admin: 'Әкімші Панель',
-      aiChat: 'ЖИ ЧАТ',
-      login: 'КІРУ'
+      aiChat: 'ЖИ ЧАТ'
     }
   },
   en: {
     nav: {
       home: 'Home',
       news: 'News',
+      study: 'Study Process',
       profile: 'Profile',
-      admin: 'Admin',
-      aiChat: 'AI CHAT',
-      login: 'LOGIN'
+      aiChat: 'AI CHAT'
     }
   }
 }
