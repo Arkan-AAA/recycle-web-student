@@ -1,11 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
+import authService from '../../services/auth.service';
 
 const mobileMenuOpen = ref(false);
 const educationMenuOpen = ref(false);
 const route = useRoute();
 const isAuthPage = computed(() => route.path === '/');
+const isAdmin = computed(() => authService.isAdmin());
 
 const isActive = (path) => route.path === path;
 
@@ -39,6 +41,7 @@ const toggleEducationMenu = () => {
         </div>
         <router-link to="/profile" :class="[$style.div4, { [$style.active]: isActive('/profile') }]" @click="mobileMenuOpen = false">ПРОФИЛЬ</router-link>
         <router-link to="/aichat" :class="[$style.div5, { [$style.active]: isActive('/aichat') }]" @click="mobileMenuOpen = false">ЧАТ ИИ</router-link>
+        <router-link v-if="isAdmin" to="/admin" :class="[$style.adminBtn, { [$style.active]: isActive('/admin') }]" @click="mobileMenuOpen = false">АДМИН ПАНЕЛЬ</router-link>
       </nav>
     </div>
   </header>
@@ -197,6 +200,23 @@ const toggleEducationMenu = () => {
   color: #d50032;
 }
 
+.adminBtn {
+  position: absolute;
+  top: 18px;
+  left: 1700px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  background: #d50032;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.adminBtn:hover {
+  background: #b8002a;
+  color: #fff;
+}
+
 @media (max-width: 1600px) {
   .div { left: 450px; }
   .div2 { left: 620px; }
@@ -204,6 +224,7 @@ const toggleEducationMenu = () => {
   .dropdown { left: 800px; margin-left: 85px; }
   .div4 { left: 1080px; }
   .div5 { left: 1250px; }
+  .adminBtn { left: 1400px; }
 }
 
 @media (max-width: 1200px) {
@@ -219,6 +240,7 @@ const toggleEducationMenu = () => {
   .dropdown { left: 600px; margin-left: 85px; }
   .div4 { left: 850px; font-size: 20px; }
   .div5 { left: 980px; font-size: 20px; }
+  .adminBtn { left: 1120px; font-size: 16px; }
 }
 
 @media (max-width: 768px) {
@@ -267,6 +289,16 @@ const toggleEducationMenu = () => {
     width: 100%;
     text-align: left;
     font-size: 18px;
+  }
+  
+  .adminBtn {
+    position: static;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    text-align: left;
+    font-size: 18px;
+    border-radius: 0;
   }
 }
 </style>

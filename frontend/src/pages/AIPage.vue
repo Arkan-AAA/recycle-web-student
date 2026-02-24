@@ -2,6 +2,7 @@
 import { ref, computed, nextTick, onMounted } from 'vue';
 import authService from '../services/auth.service';
 import aiService from '../services/ai.service';
+import knowledgeBase from '../services/knowledge.service';
 
 const userName = computed(() => {
   const user = authService.getUser();
@@ -18,7 +19,10 @@ const conversationHistory = ref([]);
 const contextData = ref('');
 
 onMounted(async () => {
-  console.log('✅ AI готов к работе (без внешних источников)');
+  console.log('✅ AI готов к работе');
+  await knowledgeBase.loadKnowledge();
+  const kb = await knowledgeBase.getKnowledge();
+  console.log('📚 База знаний загружена:', kb.length, 'символов');
   contextData.value = '';
 });
 
@@ -71,6 +75,17 @@ const scrollToBottom = () => {
     chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
   }
 };
+
+const formatMessage = (text) => {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>')
+    .replace(/^(.+)$/, '<p>$1</p>')
+    .replace(/\d+\. /g, '<br>$&')
+    .replace(/^<p>/, '')
+    .replace(/<\/p>$/, '');
+};
 </script>
 
 <template>
@@ -84,7 +99,7 @@ const scrollToBottom = () => {
       <div :class="$style.chatContainer" ref="chatContainer">
         <div v-for="(msg, index) in messages" :key="index" 
              :class="[$style.message, msg.isUser ? $style.userMessage : $style.aiMessage]">
-          <div :class="$style.messageText">{{ msg.text }}</div>
+          <div :class="$style.messageText" v-html="formatMessage(msg.text)"></div>
         </div>
 
         <div v-if="loading" :class="[$style.message, $style.aiMessage]">
@@ -115,7 +130,7 @@ const scrollToBottom = () => {
 <style module>
 .aiPage {
   width: 100%;
-  min-height: 100vh;
+  min-height: 91.3vh;
   background: #e8e8e8;
   display: flex;
   align-items: center;
@@ -191,6 +206,26 @@ const scrollToBottom = () => {
   max-width: 70%;
   word-wrap: break-word;
   font-size: 16px;
+  line-height: 1.6;
+}
+
+.messageText p {
+  margin: 0 0 10px 0;
+}
+
+.messageText p:last-child {
+  margin-bottom: 0;
+}
+
+.messageText strong {
+  font-weight: 600;
+  color: inherit;
+}
+
+.messageText br {
+  display: block;
+  margin: 5px 0;
+  content: "";
 }
 
 .userMessage .messageText {

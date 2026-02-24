@@ -61,6 +61,23 @@ class AuthService {
     isAuthenticated() {
         return !!this.getToken();
     }
+
+    getUserRole() {
+        const user = this.getUser();
+        return user?.role || null;
+    }
+
+    isAdmin() {
+        return this.getUserRole() === 'admin';
+    }
+
+    isTeacher() {
+        return this.getUserRole() === 'teacher';
+    }
+
+    isStudent() {
+        return this.getUserRole() === 'student';
+    }
 }
 
 export default new AuthService();

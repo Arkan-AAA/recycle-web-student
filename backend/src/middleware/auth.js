@@ -40,3 +40,17 @@ exports.authorize = (...roles) => {
         next();
     };
 };
+
+exports.isAdmin = (req, res, next) => {
+    if (req.userRole !== 'admin') {
+        return res.status(403).json({ success: false, error: 'Требуются права администратора' });
+    }
+    next();
+};
+
+exports.isTeacher = (req, res, next) => {
+    if (req.userRole !== 'teacher' && req.userRole !== 'admin') {
+        return res.status(403).json({ success: false, error: 'Требуются права преподавателя' });
+    }
+    next();
+};

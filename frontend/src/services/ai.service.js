@@ -1,3 +1,5 @@
+import knowledgeBase from './knowledge.service';
+
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
@@ -7,11 +9,15 @@ class AIService {
             throw new Error('Groq API ключ не настроен');
         }
 
-        let systemContent = 'Ты AI ассистент для студентов колледжа Narxoz. Помогай с учебными вопросами, расписанием и других вопросах студенческой жизни. Отвечай на языке собеседника, будь дружелюбным и полезным.';
+        let systemContent = 'Ты AI ассистент для студентов колледжа Narxoz. Помогай с учебными вопросами, расписанием и других вопросах студенческой жизни. Отвечай на языке собеседника, будь дружелюбным и полезным.\n\nПРАВИЛА ФОРМАТИРОВАНИЯ:\n- Используй простой текст без markdown\n- Разделяй абзацы двойным переносом строки\n- Для списков используй цифры с точкой (1. 2. 3.)\n- Пиши структурированно и читабельно\n- НЕ используй символы ** для выделения\n- Делай короткие абзацы для удобства чтения';
         
-        if (instagramContext && instagramContext.trim()) {
-            systemContent += `\n\nВАЖНО! Используй эту актуальную информацию о колледже в своих ответах:\n${instagramContext}`;
-            console.log('📤 Контекст отправлен в AI:', instagramContext.substring(0, 500) + '...');
+        // Добавляем базу знаний
+        const collegeKnowledge = await knowledgeBase.getKnowledge();
+        if (collegeKnowledge && collegeKnowledge.length > 0) {
+            systemContent += `\n\n=== БАЗА ЗНАНИЙ О КОЛЛЕДЖЕ ===\n${collegeKnowledge}`;
+            console.log('📤 База знаний добавлена в контекст:', collegeKnowledge.length, 'символов');
+        } else {
+            console.warn('⚠️ База знаний пуста!');
         }
 
         const messages = [
@@ -37,7 +43,7 @@ class AIService {
                     model: 'llama-3.3-70b-versatile',
                     messages: messages,
                     temperature: 0.7,
-                    max_tokens: 1024,
+                    max_tokens: 250,
                     top_p: 1,
                     stream: false
                 })

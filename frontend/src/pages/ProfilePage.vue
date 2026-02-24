@@ -50,6 +50,10 @@
         <button @click="toggleEdit" class="edit-btn">
           {{ isEditing ? 'Отменить' : 'Редактировать' }}
         </button>
+        
+        <button @click="logout" class="logout-btn">
+          Выйти из аккаунта
+        </button>
       </div>
     </div>
 
@@ -201,6 +205,10 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    logout() {
+      authService.logout();
+      this.$router.push('/');
     }
   }
 };
@@ -322,6 +330,25 @@ h1 {
   cursor: pointer;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   z-index: 10;
+}
+
+.logout-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  padding: 15px 30px;
+  background: #666;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+  transition: background 0.2s;
+}
+
+.logout-btn:hover {
+  background: #444;
 }
 
 .modal-overlay {
