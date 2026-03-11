@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "sessionId": "40511e28-c198-4cb8-ac44-b87e76dab051",
+  "agentId": "gemini-cli",
+  "messages": [
+    {
+      "id": "6386a00b-5ad3-4195-9c52-a4049da8ff03",
+      "role": "user",
+      "content": [
+        {
+          "type": "text_with_context",
+          "text": "это вопросы с 4 вариантами ответа, раздели его на темы, сохрани с вопросами и ответами. Это будет база данных для обучения и использования ИИ тестера.",
+          "autoMentionContext": {
+            "noteName": "Без названия",
+            "notePath": "ai-knowledge-base/Без названия.md"
+          }
+        }
+      ],
+      "timestamp": "2026-02-25T16:21:18.743Z"
+    }
+  ],
+  "savedAt": "2026-02-25T16:21:34.857Z"
+}

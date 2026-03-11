@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "sessionId": "4117b4e6-2e83-4bb3-b92e-274cfc17ba5d",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "eddf4fb6-0d08-4d0c-b8c3-9d2993058466",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Привет"
+        }
+      ],
+      "timestamp": "2026-02-23T14:56:55.003Z"
+    }
+  ],
+  "savedAt": "2026-02-23T14:56:55.632Z"
+}
