@@ -12,14 +12,15 @@ class ApiService {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
         
+        const { method, body } = options;
         const config = {
+            method,
+            body,
             headers: {
                 'Content-Type': 'application/json',
-                ...(token && { Authorization: `Bearer ${token}` }),
-                ...options.headers
+                ...(token && { Authorization: `Bearer ${token}` })
             },
-            signal: controller.signal,
-            ...options
+            signal: controller.signal
         };
 
         try {
