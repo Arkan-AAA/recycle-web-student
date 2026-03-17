@@ -11,23 +11,19 @@ if (!process.env.DATABASE_URL) {
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     dialectOptions: {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false
-        }
+        ssl: { require: true, rejectUnauthorized: true }
     },
     logging: false,
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    }
+    pool: { max: 5, min: 0, acquire: 30000, idle: 10000 }
 });
 
 const User = require('./User')(sequelize, DataTypes);
+const Journal = require('./Journal')(sequelize, DataTypes);
+const Grade = require('./Grade')(sequelize, DataTypes);
 
-module.exports = {
-    sequelize,
-    User
-};
+Journal.hasMany(Grade, { foreignKey: 'journal_id', as: 'grades' });
+Grade.belongsTo(Journal, { foreignKey: 'journal_id', as: 'journal' });
+User.hasMany(Grade, { foreignKey: 'user_id', as: 'grades' });
+Grade.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+
+module.exports = { sequelize, User, Journal, Grade };
