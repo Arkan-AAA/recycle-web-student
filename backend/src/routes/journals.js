@@ -12,7 +12,7 @@ router.get('/', authenticate, async (req, res) => {
         if (isOpen !== undefined) where.is_open = isOpen === 'true';
 
         const user = req.user;
-        if (user.studentGroup) where.group = user.studentGroup;
+        if (user?.studentGroup) where.group = user.studentGroup;
 
         const journals = await Journal.findAll({ where, order: [['id', 'ASC']] });
         res.json({ success: true, data: journals });
@@ -44,7 +44,13 @@ router.get('/:id/grades', authenticate, async (req, res) => {
         if (isNaN(journalId)) return res.status(400).json({ success: false, message: 'Некорректный ID журнала' });
         if (req.query.semester !== undefined && isNaN(semester)) return res.status(400).json({ success: false, message: 'Некорректный семестр' });
 
-        const where = { journal_id: journalId, user_id: req.user.id };
+        const journal = await Journal.findByPk(journalId);
+        if (!journal) return res.status(404).json({ success: false, message: 'Журнал не найден' });
+        if (req.userRole !== 'admin' && req.userRole !== 'teacher' && journal.group !== req.user?.studentGroup) {
+            return res.status(403).json({ success: false, message: 'Нет доступа к этому журналу' });
+        }
+
+        const where = { journal_id: journalId, user_id: req.userId };
         if (semester) where.semester = semester;
 
         const grades = await Grade.findAll({ where, order: [['date', 'ASC']] });
@@ -63,7 +69,7 @@ router.post('/:id/grades', authenticate, csrfProtection, async (req, res) => {
         const { date, value, semester } = req.body;
         const grade = await Grade.upsert({
             journal_id: journalId,
-            user_id: req.user.id,
+            user_id: req.userId,
             date,
             value,
             semester: semester || 1
