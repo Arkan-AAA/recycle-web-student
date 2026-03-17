@@ -30,3 +30,10 @@ out/
 # Logs
 logs
 *.log
+
+# Obsidian
+knowledge-base/
+
+# Root-level duplicates
+/vite.config.js
+/package-lock.json

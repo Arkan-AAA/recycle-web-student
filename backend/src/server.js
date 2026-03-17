@@ -7,6 +7,8 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
+const journalRoutes = require("./routes/journals");
+const aiRoutes = require("./routes/ai");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,8 +17,11 @@ app.use(helmet({
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false 
 }));
+const allowedOrigins = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',')
+    : ['http://localhost:5173', 'http://localhost:3000'];
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: allowedOrigins,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -45,11 +50,14 @@ app.get("/api/health", async (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/journals", journalRoutes);
+app.use("/api/ai", aiRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
 
 sequelize.authenticate()
+    .then(() => sequelize.sync({ alter: true }))
     .then(() => {
         console.log("✅ Подключение к PostgreSQL установлено!");
         app.listen(PORT, () => {
