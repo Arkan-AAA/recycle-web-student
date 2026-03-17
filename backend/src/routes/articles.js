@@ -10,10 +10,10 @@ const {
 const { authenticate, authorize } = require('../middleware/auth');
 const { articleValidation, csrfProtection } = require('../middleware/validation');
 
-router.get('/', getArticles);
-router.get('/:id', getArticleById);
+router.get('/', authenticate, getArticles);
+router.get('/:id', authenticate, getArticleById);
 router.post('/', authenticate, csrfProtection, authorize('student', 'teacher', 'admin'), articleValidation, createArticle);
-router.put('/:id', authenticate, csrfProtection, updateArticle);
-router.delete('/:id', authenticate, csrfProtection, deleteArticle);
+router.put('/:id', authenticate, csrfProtection, authorize('student', 'teacher', 'admin'), updateArticle);
+router.delete('/:id', authenticate, csrfProtection, authorize('teacher', 'admin'), deleteArticle);
 
 module.exports = router;
