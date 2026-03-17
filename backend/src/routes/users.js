@@ -24,10 +24,10 @@ router.get('/profile', authenticate, async (req, res) => {
 });
 
 router.put('/profile', authenticate, csrfProtection, [
-    body('fullName').optional().trim().isLength({ min: 2, max: 100 }),
-    body('phone').optional().trim().matches(/^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/),
-    body('address').optional().trim().isLength({ max: 200 }),
-    body('birthDate').optional().isISO8601().toDate()
+    body('fullName').optional({ checkFalsy: true }).trim().isLength({ min: 2, max: 100 }),
+    body('phone').optional({ checkFalsy: true }).trim().matches(/^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/),
+    body('address').optional({ checkFalsy: true }).trim().isLength({ max: 200 }),
+    body('birthDate').optional({ checkFalsy: true }).isISO8601().toDate()
 ], async (req, res) => {
     try {
         const errors = validationResult(req);
