@@ -8,12 +8,12 @@ const {
     deleteArticle
 } = require('../controllers/articleController');
 const { authenticate, authorize } = require('../middleware/auth');
-const { articleValidation } = require('../middleware/validation');
+const { articleValidation, csrfProtection } = require('../middleware/validation');
 
 router.get('/', getArticles);
 router.get('/:id', getArticleById);
-router.post('/', authenticate, authorize('student', 'teacher', 'admin'), articleValidation, createArticle);
-router.put('/:id', authenticate, updateArticle);
-router.delete('/:id', authenticate, deleteArticle);
+router.post('/', authenticate, csrfProtection, authorize('student', 'teacher', 'admin'), articleValidation, createArticle);
+router.put('/:id', authenticate, csrfProtection, updateArticle);
+router.delete('/:id', authenticate, csrfProtection, deleteArticle);
 
 module.exports = router;
