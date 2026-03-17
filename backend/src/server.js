@@ -7,16 +7,29 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
+const journalRoutes = require("./routes/journals");
+const aiRoutes = require("./routes/ai");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(helmet({ 
-    contentSecurityPolicy: false,
-    crossOriginEmbedderPolicy: false 
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            imgSrc: ["'self'", "data:", "https:"],
+            connectSrc: ["'self'"]
+        }
+    }
 }));
+const allowedOrigins = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',')
+    : ['http://localhost:5173', 'http://localhost:3000'];
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: allowedOrigins,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -43,13 +56,37 @@ app.get("/api/health", async (req, res) => {
     }
 });
 
-app.use("/api/auth", authRoutes);
+app.get("/api/proxy-image", async (req, res) => {
+    const { url } = req.query;
+    if (!url || !url.startsWith('https://instagram.') && !url.includes('fbcdn.net')) {
+        return res.status(400).json({ error: 'Invalid URL' });
+    }
+    try {
+        const response = await fetch(url, {
+            headers: { 'User-Agent': 'Mozilla/5.0', 'Referer': 'https://www.instagram.com/' }
+        });
+        if (!response.ok) {
+            return res.status(response.status).json({ error: 'Image fetch failed' });
+        }
+        res.set('Content-Type', response.headers.get('content-type') || 'image/jpeg');
+        res.set('Cache-Control', 'public, max-age=3600');
+        res.set('Cross-Origin-Resource-Policy', 'cross-origin');
+        response.body.pipe(res);
+    } catch {
+        res.status(500).json({ error: 'Failed to fetch image' });
+    }
+});
+
+
 app.use("/api/users", userRoutes);
+app.use("/api/journals", journalRoutes);
+app.use("/api/ai", aiRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
 
 sequelize.authenticate()
+    .then(() => sequelize.sync({ alter: true }))
     .then(() => {
         console.log("✅ Подключение к PostgreSQL установлено!");
         app.listen(PORT, () => {

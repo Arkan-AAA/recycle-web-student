@@ -1,13 +1,12 @@
-<script>
-export default {
-  name: "AdminPage"
-}
-</script>
-
 <template>
-
+  <div class="admin">
+    <h2>AdminPage</h2>
+    <p>кыш кыш</p>
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<script>
+export default {
+  name: 'AdminPage'
+}
+</script>

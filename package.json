@@ -1,32 +1,22 @@
 {
   "name": "recycle-web-student",
   "version": "1.0.0",
-  "description": "**Современная цифровая платформа для студенческого журнала колледжа**  \r *Переосмысление традиционного журнала в удобном веб-формате*",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "description": "Современная цифровая платформа для студенческого журнала колледжа",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "build:frontend": "cd frontend && npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Arkan-AAA/recycle-web-student.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "keywords": ["student", "journal", "college", "web-app"],
+  "author": "Student Journal Team",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Arkan-AAA/recycle-web-student/issues"
   },
-  "homepage": "https://github.com/Arkan-AAA/recycle-web-student#readme",
-  "dependencies": {
-    "vue": "^3.5.27",
-    "vue-router": "^4.6.4"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.4",
-    "vite": "^7.3.1"
-  }
+  "homepage": "https://github.com/Arkan-AAA/recycle-web-student#readme"
 }
