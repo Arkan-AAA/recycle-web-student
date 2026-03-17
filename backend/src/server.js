@@ -1,10 +1,11 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const path = require("path");
 const { sequelize } = require("./models");
 const { errorHandler, notFound } = require("./middleware/errorHandler");
-require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
