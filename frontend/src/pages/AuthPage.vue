@@ -2,34 +2,34 @@
   <div :class="$style.container">
     <div :class="$style.leftPanel">
       <div :class="$style.leftContent">
-        <p :class="$style.subtitle">Welcome to</p>
-        <h1 :class="$style.title">NARXOZ JOURNAL</h1>
+        <p :class="$style.subtitle">{{ $t('auth.welcome') }}</p>
+        <h1 :class="$style.title">{{ $t('auth.title') }}</h1>
       </div>
     </div>
 
     <div :class="$style.rightPanel">
       <div :class="$style.formWrapper">
-        <h2 :class="$style.loginTitle">Login</h2>
-        <p :class="$style.loginSubtitle">Для входа в систему используйте только корпоративную учётную запись.</p>
+        <h2 :class="$style.loginTitle">{{ $t('auth.login') }}</h2>
+        <p :class="$style.loginSubtitle">{{ $t('auth.subtitle') }}</p>
 
         <form @submit.prevent="handleLogin">
           <div :class="$style.formGroup">
-            <label :class="$style.label">E-Mail:</label>
+            <label :class="$style.label">{{ $t('auth.email') }}</label>
             <input 
               v-model="email" 
               type="email" 
-              placeholder="Введите email"
+              :placeholder="$t('auth.emailPlaceholder')"
               :class="$style.input"
               @keyup.enter="handleLogin"
             />
           </div>
 
           <div :class="$style.formGroup">
-            <label :class="$style.label">Пароль:</label>
+            <label :class="$style.label">{{ $t('auth.password') }}</label>
             <input 
               v-model="password" 
               type="password" 
-              placeholder="Введите пароль"
+              :placeholder="$t('auth.passwordPlaceholder')"
               :class="$style.input"
               @keyup.enter="handleLogin"
             />
@@ -38,7 +38,7 @@
           <div :class="$style.formFooter">
             <label :class="$style.checkboxLabel">
               <input v-model="rememberMe" type="checkbox" :class="$style.checkbox" />
-              Запомнить меня
+              {{ $t('auth.remember') }}
             </label>
           </div>
 
@@ -47,7 +47,7 @@
 
           <button type="submit" :class="$style.submitBtn" :disabled="loading">
             <span v-if="loading" :class="$style.spinner"></span>
-            {{ loading ? 'Вход...' : 'Войти в систему' }}
+            {{ loading ? $t('auth.loading') : $t('auth.submit') }}
           </button>
         </form>
       </div>

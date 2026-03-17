@@ -1,7 +1,7 @@
 <template>
   <div class="schedule-page">
     <div class="container">
-      <h1>Расписание</h1>
+      <h1>{{ $t('schedule.title') }}</h1>
       <div class="schedule-content">
         <div class="schedule-grid">
           <div class="day-column" v-for="day in schedule" :key="day.name">

@@ -1,92 +1,92 @@
 <template>
   <div class="profile-page">
     <header class="header">
-      <h1>ПРОФИЛЬ</h1>
+      <h1>{{ $t('profile.title') }}</h1>
     </header>
 
     <div class="profile-content">
       <div class="avatar-section">
         <div class="avatar-container">
           <img v-if="user.avatarUrl" :src="user.avatarUrl" alt="Аватар" class="avatar" />
-          <div v-else class="avatar-placeholder">Фото</div>
+          <div v-else class="avatar-placeholder">{{ $t('profile.photo') }}</div>
         </div>
-        <button class="student-card-btn">Студенческий билет</button>
+        <button class="student-card-btn">{{ $t('profile.studentCard') }}</button>
       </div>
 
       <div class="profile-info">
         <div class="info-row">
-          <label>E-mail:</label>
-          <span>{{ user.email || 'Не указан' }}</span>
+          <label>{{ $t('profile.email') }}</label>
+          <span>{{ user.email || $t('profile.notSet') }}</span>
         </div>
         <div class="info-row">
-          <label>Фамилия:</label>
-          <span>{{ lastName || 'Не указана' }}</span>
+          <label>{{ $t('profile.lastName') }}</label>
+          <span>{{ lastName || $t('profile.notSetF') }}</span>
         </div>
         <div class="info-row">
-          <label>Имя:</label>
-          <span>{{ firstName || 'Не указано' }}</span>
+          <label>{{ $t('profile.firstName') }}</label>
+          <span>{{ firstName || $t('profile.notSetN') }}</span>
         </div>
         <div class="info-row">
-          <label>Отчество:</label>
-          <span>{{ middleName || 'Не указано' }}</span>
+          <label>{{ $t('profile.middleName') }}</label>
+          <span>{{ middleName || $t('profile.notSetN') }}</span>
         </div>
         <div class="info-row">
-          <label>Дата рождения:</label>
-          <span>{{ user.birthDate || 'Не указана' }}</span>
+          <label>{{ $t('profile.birthDate') }}</label>
+          <span>{{ user.birthDate || $t('profile.notSetF') }}</span>
         </div>
         <div class="info-row">
-          <label>Контактный номер:</label>
-          <span>{{ user.phone || 'Не указан' }}</span>
+          <label>{{ $t('profile.phone') }}</label>
+          <span>{{ user.phone || $t('profile.notSet') }}</span>
         </div>
         <div class="info-row">
-          <label>Адрес:</label>
-          <span>{{ user.address || 'Не указан' }}</span>
+          <label>{{ $t('profile.address') }}</label>
+          <span>{{ user.address || $t('profile.notSet') }}</span>
         </div>
         <div class="info-row">
-          <label>Группа:</label>
-          <span>{{ user.studentGroup || 'Не указана' }}</span>
+          <label>{{ $t('profile.group') }}</label>
+          <span>{{ user.studentGroup || $t('profile.notSetF') }}</span>
         </div>
         
         <button @click="toggleEdit" class="edit-btn">
-          {{ isEditing ? 'Отменить' : 'Редактировать' }}
+          {{ isEditing ? $t('profile.cancel') : $t('profile.edit') }}
         </button>
         
         <button @click="logout" class="logout-btn">
-          Выйти из аккаунта
+          {{ $t('profile.logout') }}
         </button>
       </div>
     </div>
 
     <div v-if="isEditing" class="modal-overlay" @click="closeEdit">
       <div class="modal" @click.stop>
-        <h2>Редактирование профиля</h2>
+        <h2>{{ $t('profile.editTitle') }}</h2>
         <form @submit.prevent="saveProfile">
           <div class="form-group">
-            <label>Фото профиля:</label>
+            <label>{{ $t('profile.photoLabel') }}</label>
             <input type="file" @change="handleAvatarChange" accept="image/*" />
             <div v-if="avatarPreview" class="avatar-preview">
               <img :src="avatarPreview" alt="Превью" />
             </div>
           </div>
           <div class="form-group">
-            <label>Полное имя:</label>
+            <label>{{ $t('profile.fullName') }}</label>
             <input v-model="editForm.fullName" type="text" />
           </div>
           <div class="form-group">
-            <label>Телефон:</label>
+            <label>{{ $t('profile.phoneLabel') }}</label>
             <input v-model="editForm.phone" type="tel" />
           </div>
           <div class="form-group">
-            <label>Адрес:</label>
+            <label>{{ $t('profile.addressLabel') }}</label>
             <input v-model="editForm.address" type="text" />
           </div>
           <div class="form-group">
-            <label>Дата рождения:</label>
+            <label>{{ $t('profile.birthDateLabel') }}</label>
             <input v-model="editForm.birthDate" type="date" />
           </div>
           <div class="form-actions">
-            <button type="submit" :disabled="loading">Сохранить</button>
-            <button type="button" @click="closeEdit">Отмена</button>
+            <button type="submit" :disabled="loading">{{ $t('profile.save') }}</button>
+            <button type="button" @click="closeEdit">{{ $t('profile.cancel') }}</button>
           </div>
         </form>
       </div>
@@ -198,10 +198,10 @@ export default {
           this.avatarFile = null;
           this.avatarPreview = null;
         } else {
-          alert('Ошибка сохранения: ' + response.error);
+          alert(this.$t('profile.saveError') + ': ' + response.error);
         }
       } catch (error) {
-        alert('Ошибка сохранения профиля');
+        alert(this.$t('profile.saveError'));
       } finally {
         this.loading = false;
       }

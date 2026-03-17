@@ -1,7 +1,7 @@
 <template>
   <div class="grades-page">
     <div class="container">
-      <h1>Текущие оценки</h1>
+      <h1>{{ $t('grades.title') }}</h1>
       <div class="grades-content">
         <div class="subject-grades" v-for="subject in subjects" :key="subject.id">
           <h3>{{ subject.name }}</h3>
@@ -12,7 +12,7 @@
               <span class="grade-date">{{ grade.date }}</span>
             </div>
           </div>
-          <div class="average">Средний балл: {{ subject.average }}</div>
+          <div class="average">{{ $t('grades.average') }} {{ subject.average }}</div>
         </div>
       </div>
     </div>

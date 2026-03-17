@@ -26,22 +26,22 @@ const toggleEducationMenu = () => {
       <div :class="$style.groupChild" />
       <img :class="$style.logo11Icon" src="../../assets/images/logo-footer1.svg" alt="College Narxoz" />
       <nav :class="[$style.nav, { [$style.navOpen]: mobileMenuOpen }]">
-        <router-link to="/home" :class="[$style.div, { [$style.active]: isActive('/home') }]" @click="mobileMenuOpen = false">ГЛАВНАЯ</router-link>
-        <router-link to="/news" :class="[$style.div2, { [$style.active]: isActive('/news') }]" @click="mobileMenuOpen = false">НОВОСТИ</router-link>
+        <router-link to="/home" :class="[$style.div, { [$style.active]: isActive('/home') }]" @click="mobileMenuOpen = false">{{ $t('nav.home') }}</router-link>
+        <router-link to="/news" :class="[$style.div2, { [$style.active]: isActive('/news') }]" @click="mobileMenuOpen = false">{{ $t('nav.news') }}</router-link>
         <div :class="$style.educationWrapper">
-          <a :class="[$style.div3, { [$style.active]: isEducationActive || educationMenuOpen }]" @click="toggleEducationMenu">УЧЕБНЫЙ ПРОЦЕСС</a>
+          <a :class="[$style.div3, { [$style.active]: isEducationActive || educationMenuOpen }]" @click="toggleEducationMenu">{{ $t('nav.education') }}</a>
           <div v-if="educationMenuOpen" :class="$style.dropdown">
-            <router-link to="/journal" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/journal') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Журнал</router-link>
-            <router-link to="/schedule" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/schedule') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Расписание</router-link>
-            <router-link to="/transcript" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/transcript') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Транскрипт</router-link>
-            <router-link to="/grades" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/grades') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Градация оценок</router-link>
-            <router-link to="/diploma" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/diploma') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Дипломные работы</router-link>
-            <router-link to="/notifications" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/notifications') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">Уведомление</router-link>
+            <router-link to="/journal" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/journal') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.journal') }}</router-link>
+            <router-link to="/schedule" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/schedule') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.schedule') }}</router-link>
+            <router-link to="/transcript" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/transcript') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.transcript') }}</router-link>
+            <router-link to="/grades" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/grades') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.grades') }}</router-link>
+            <router-link to="/diploma" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/diploma') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.diploma') }}</router-link>
+            <router-link to="/notifications" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/notifications') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.notifications') }}</router-link>
           </div>
         </div>
-        <router-link to="/profile" :class="[$style.div4, { [$style.active]: isActive('/profile') }]" @click="mobileMenuOpen = false">ПРОФИЛЬ</router-link>
-        <router-link to="/aichat" :class="[$style.div5, { [$style.active]: isActive('/aichat') }]" @click="mobileMenuOpen = false">ЧАТ ИИ</router-link>
-        <router-link v-if="isAdmin" to="/admin" :class="[$style.adminBtn, { [$style.active]: isActive('/admin') }]" @click="mobileMenuOpen = false">АДМИН ПАНЕЛЬ</router-link>
+        <router-link to="/profile" :class="[$style.div4, { [$style.active]: isActive('/profile') }]" @click="mobileMenuOpen = false">{{ $t('nav.profile') }}</router-link>
+        <router-link to="/aichat" :class="[$style.div5, { [$style.active]: isActive('/aichat') }]" @click="mobileMenuOpen = false">{{ $t('nav.aiChat') }}</router-link>
+        <router-link v-if="isAdmin" to="/admin" :class="[$style.adminBtn, { [$style.active]: isActive('/admin') }]" @click="mobileMenuOpen = false">{{ $t('nav.admin') }}</router-link>
       </nav>
     </div>
   </header>

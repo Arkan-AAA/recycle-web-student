@@ -1,182 +1,147 @@
 <template>
-  <div class="subject-detail-page">
-    <div class="container">
-      <router-link to="/journal" class="back-link">← Назад к журналу</router-link>
-      
-      <div v-if="subject" class="subject-details">
-        <h1>{{ subject.name }}</h1>
-        
-        <div class="subject-info-card">
-          <h3>Информация о дисциплине</h3>
-          <div class="info-grid">
-            <div class="info-item">
-              <label>Преподаватель:</label>
-              <span>{{ subject.teacher }}</span>
-            </div>
-            <div class="info-item">
-              <label>Семестр:</label>
-              <span>{{ subject.semester }}</span>
-            </div>
-            <div class="info-item">
-              <label>Кредиты:</label>
-              <span>{{ subject.credits }}</span>
-            </div>
-          </div>
-          <div v-if="subject.description" class="description">
-            <label>Описание:</label>
-            <p>{{ subject.description }}</p>
-          </div>
-        </div>
+  <div class="detail-page">
+    <div class="breadcrumb">Главная &rsaquo; Список журналов &rsaquo; <span class="current">Журнал</span></div>
 
-        <div class="grades-section">
-          <h3>Оценки</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Дата</th>
-                <th>Тип работы</th>
-                <th>Оценка</th>
-                <th>Комментарий</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="grade in grades" :key="grade.id">
-                <td>{{ grade.date }}</td>
-                <td>{{ grade.type }}</td>
-                <td>{{ grade.value }}</td>
-                <td>{{ grade.comment }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      
-      <div v-else class="loading">
-        Загрузка...
-      </div>
+    <h1>
+      <span class="back" @click="$router.push('/journal')">&#8592;</span>
+      Журнал — {{ journal.name || '...' }}
+    </h1>
+
+    <table class="info-table">
+      <tr><td class="label">Тип журнала:</td><td>{{ journal.journalType }}</td></tr>
+      <tr><td class="label">Тип:</td><td>{{ journal.type }}</td></tr>
+      <tr><td class="label">Группа (Подгруппа):</td><td>{{ journal.group }}</td></tr>
+      <tr><td class="label">Вид оценки:</td><td>{{ journal.gradeType }}</td></tr>
+      <tr><td class="label">Отведено часов:</td><td>{{ journal.hours }} ({{ journal.hours }}.0)</td></tr>
+      <tr><td class="label">Преподаватели:</td><td>{{ journal.teacher }} ({{ journal.hours }})</td></tr>
+      <tr><td class="label">Предмет:</td><td>{{ journal.discipline }}</td></tr>
+    </table>
+
+    <div class="semester-select">
+      <select v-model="semester" @change="loadGrades">
+        <option value="1">Семестр 1</option>
+        <option value="2">Семестр 2</option>
+      </select>
     </div>
+
+    <div class="grades-wrap" v-if="dates.length">
+      <table class="grades-table">
+        <thead>
+          <tr>
+            <th class="label-col">Дата</th>
+            <th v-for="d in dates" :key="d">{{ formatDate(d) }}</th>
+          </tr>
+          <tr class="red-line"><td :colspan="dates.length + 1"></td></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label-col">Оценка</td>
+            <td v-for="d in dates" :key="d" class="grade-cell">
+              {{ gradeMap[d] !== undefined ? gradeMap[d] : '' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-else-if="!loading" class="no-grades">Оценок нет</div>
+    <div v-if="loading" class="no-grades">Загрузка...</div>
   </div>
 </template>
 
 <script>
+import apiService from '../services/api.service';
+
 export default {
   name: 'SubjectDetailPage',
   data() {
     return {
-      subject: null,
-      grades: []
+      journal: {},
+      grades: [],
+      semester: 1,
+      loading: false
+    };
+  },
+  computed: {
+    dates() {
+      return this.grades.map(g => g.date).sort();
+    },
+    gradeMap() {
+      const map = {};
+      this.grades.forEach(g => { map[g.date] = g.value; });
+      return map;
     }
   },
   async mounted() {
-    await this.loadSubject();
+    await this.loadJournal();
     await this.loadGrades();
   },
   methods: {
-    async loadSubject() {
+    async loadJournal() {
       try {
-        const response = await fetch(`/api/subjects/${this.$route.params.id}`);
-        this.subject = await response.json();
-      } catch (error) {
-        this.subject = {
-          id: 1,
-          name: 'Математика',
-          teacher: 'Иванов И.И.',
-          semester: 1,
-          credits: 4,
-          description: 'Основы математического анализа и алгебры'
-        };
+        const res = await apiService.get(`/journals/${this.$route.params.id}`);
+        this.journal = res.success ? res.data : this.fallbackJournal();
+      } catch {
+        this.journal = this.fallbackJournal();
       }
     },
     async loadGrades() {
-      this.grades = [
-        { id: 1, date: '2024-01-15', type: 'Контрольная', value: 5, comment: 'Отлично' },
-        { id: 2, date: '2024-01-20', type: 'Тест', value: 4, comment: 'Хорошо' },
-        { id: 3, date: '2024-01-25', type: 'Лабораторная', value: 5, comment: 'Отлично' }
+      this.loading = true;
+      try {
+        const res = await apiService.get(`/journals/${this.$route.params.id}/grades?semester=${this.semester}`);
+        this.grades = res.success ? res.data : this.fallbackGrades();
+      } catch {
+        this.grades = this.fallbackGrades();
+      } finally {
+        this.loading = false;
+      }
+    },
+    formatDate(d) {
+      const [, m, day] = d.split('-');
+      return `${day}.${m}`;
+    },
+    fallbackJournal() {
+      return { name: 'Учебная практика', type: 'Производственное обучение', journalType: 'Обычный', group: 'БК-332', gradeType: 'Процентная система (0-100)', hours: 72, teacher: 'Жанысбай Нұрбақыт Рахатұлы', discipline: 'Программирование на языках высокого уровня' };
+    },
+    fallbackGrades() {
+      return [
+        { date: '2025-02-05', value: 100 },
+        { date: '2025-02-12', value: 100 },
+        { date: '2025-02-25', value: 100 },
+        { date: '2025-03-05', value: 100 },
+        { date: '2025-03-16', value: 100 },
+        { date: '2025-03-25', value: 100 },
       ];
     }
   }
-}
+};
 </script>
 
 <style scoped>
-.subject-detail-page {
-  padding: 2rem;
+.detail-page { padding: 2rem; font-family: sans-serif; }
+.breadcrumb { font-size: 13px; color: #666; margin-bottom: 1rem; }
+.current { border: 1px solid #ccc; border-radius: 4px; padding: 2px 8px; }
+
+h1 { font-size: 20px; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.back { cursor: pointer; color: #2c5fad; font-size: 22px; }
+
+.info-table { border-collapse: collapse; width: 100%; max-width: 700px; margin-bottom: 2rem; }
+.info-table tr { border-bottom: 1px solid #e8eaf0; }
+.info-table td { padding: 0.55rem 1rem; font-size: 14px; }
+.info-table td.label { color: #7a8ba8; width: 200px; background: #f4f6fb; }
+
+.semester-select select {
+  padding: 0.4rem 1rem; border: 1px solid #ccc; border-radius: 4px;
+  font-size: 14px; margin-bottom: 1.5rem; cursor: pointer;
 }
 
-.back-link {
-  color: #666;
-  text-decoration: none;
-  margin-bottom: 2rem;
-  display: inline-block;
+.grades-wrap { overflow-x: auto; }
+.grades-table { border-collapse: collapse; font-size: 13px; }
+.grades-table th, .grades-table td {
+  border: 1px solid #ddd; padding: 0.5rem 0.75rem; text-align: center; min-width: 52px;
 }
-
-.subject-details h1 {
-  color: #2c3e50;
-  margin-bottom: 2rem;
-}
-
-.subject-info-card {
-  background: white;
-  border-radius: 8px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.info-grid {
-  display: grid;
-  gap: 1rem;
-  margin: 1rem 0;
-}
-
-.info-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
-}
-
-.info-item label {
-  font-weight: bold;
-}
-
-.description {
-  margin-top: 1rem;
-}
-
-.description label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.grades-section {
-  background: white;
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-
-th, td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
-  background-color: #f8f9fa;
-  font-weight: bold;
-}
-
-.loading {
-  text-align: center;
-  padding: 2rem;
-  color: #666;
-}
+.grades-table th { background: #f4f6fb; font-weight: 500; }
+.label-col { text-align: left !important; font-weight: 600; background: #f4f6fb; min-width: 80px; }
+.red-line td { height: 3px; background: #e53935; padding: 0; border: none; }
+.grade-cell { font-weight: 600; }
+.no-grades { color: #888; font-size: 14px; padding: 1rem 0; }
 </style>
