@@ -20,7 +20,7 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'"],
             styleSrc: ["'self'", "'unsafe-inline'"],
             imgSrc: ["'self'", "data:", "https:"],
             connectSrc: ["'self'"]
@@ -79,7 +79,7 @@ app.get("/api/proxy-image", async (req, res) => {
     }
 });
 
-
+app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/journals", journalRoutes);
 app.use("/api/ai", aiRoutes);
