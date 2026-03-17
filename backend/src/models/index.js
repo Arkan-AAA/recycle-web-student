@@ -1,11 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 if (!process.env.DATABASE_URL) {
     console.error('❌ DATABASE_URL не настроен в .env файле');
-    process.exit(1);
 }
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
