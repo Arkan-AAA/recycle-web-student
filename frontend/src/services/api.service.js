@@ -3,6 +3,10 @@ const REQUEST_TIMEOUT = 5000;
 
 class ApiService {
     async request(endpoint, options = {}) {
+        if (typeof endpoint !== 'string' || !endpoint.startsWith('/') || /^https?:\/\//i.test(endpoint)) {
+            return { success: false, error: 'Недопустимый endpoint' };
+        }
+
         const token = localStorage.getItem('token');
         
         const controller = new AbortController();
