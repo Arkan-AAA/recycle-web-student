@@ -55,7 +55,24 @@ app.get("/api/health", async (req, res) => {
     }
 });
 
-app.use("/api/auth", authRoutes);
+app.get("/api/proxy-image", async (req, res) => {
+    const { url } = req.query;
+    if (!url || !url.startsWith('https://instagram.') && !url.includes('fbcdn.net')) {
+        return res.status(400).json({ error: 'Invalid URL' });
+    }
+    try {
+        const response = await fetch(url, {
+            headers: { 'User-Agent': 'Mozilla/5.0', 'Referer': 'https://www.instagram.com/' }
+        });
+        res.set('Content-Type', response.headers.get('content-type') || 'image/jpeg');
+        res.set('Cache-Control', 'public, max-age=86400');
+        response.body.pipe(res);
+    } catch {
+        res.status(500).json({ error: 'Failed to fetch image' });
+    }
+});
+
+
 app.use("/api/users", userRoutes);
 app.use("/api/journals", journalRoutes);
 app.use("/api/ai", aiRoutes);
