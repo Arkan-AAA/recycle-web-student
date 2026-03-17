@@ -13,9 +13,16 @@ const aiRoutes = require("./routes/ai");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(helmet({ 
-    contentSecurityPolicy: false,
-    crossOriginEmbedderPolicy: false 
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            imgSrc: ["'self'", "data:", "https:"],
+            connectSrc: ["'self'"]
+        }
+    }
 }));
 const allowedOrigins = process.env.CORS_ORIGIN
     ? process.env.CORS_ORIGIN.split(',')
