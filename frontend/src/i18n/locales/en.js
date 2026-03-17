@@ -21,7 +21,7 @@ export default {
     email: 'E-Mail:',
     password: 'Password:',
     emailPlaceholder: 'Enter email',
-    passwordPlaceholder: 'Enter password',
+    pwdPlaceholder: 'Enter password',
     remember: 'Remember me',
     submit: 'Sign In',
     loading: 'Signing in...',

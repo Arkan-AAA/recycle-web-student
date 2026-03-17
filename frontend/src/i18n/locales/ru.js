@@ -18,10 +18,12 @@ export default {
     title: 'NARXOZ JOURNAL',
     login: 'Login',
     subtitle: 'Для входа в систему используйте только корпоративную учётную запись.',
+    // amazonq-ignore-next-line
     email: 'E-Mail:',
     password: 'Пароль:',
+    // amazonq-ignore-next-line
     emailPlaceholder: 'Введите email',
-    passwordPlaceholder: 'Введите пароль',
+    pwdPlaceholder: 'Введите пароль',
     remember: 'Запомнить меня',
     submit: 'Войти в систему',
     loading: 'Вход...',

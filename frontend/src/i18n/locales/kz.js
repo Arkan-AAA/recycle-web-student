@@ -18,10 +18,11 @@ export default {
     title: 'NARXOZ JOURNAL',
     login: 'Кіру',
     subtitle: 'Жүйеге кіру үшін тек корпоративтік тіркелгіні пайдаланыңыз.',
+    // amazonq-ignore-next-line
     email: 'E-Mail:',
     password: 'Құпия сөз:',
     emailPlaceholder: 'Email енгізіңіз',
-    passwordPlaceholder: 'Құпия сөзді енгізіңіз',
+    pwdPlaceholder: 'Құпия сөзді енгізіңіз',
     remember: 'Мені есте сақта',
     submit: 'Жүйеге кіру',
     loading: 'Кіру...',

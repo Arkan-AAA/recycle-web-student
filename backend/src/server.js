@@ -14,6 +14,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
@@ -64,8 +65,12 @@ app.get("/api/proxy-image", async (req, res) => {
         const response = await fetch(url, {
             headers: { 'User-Agent': 'Mozilla/5.0', 'Referer': 'https://www.instagram.com/' }
         });
+        if (!response.ok) {
+            return res.status(response.status).json({ error: 'Image fetch failed' });
+        }
         res.set('Content-Type', response.headers.get('content-type') || 'image/jpeg');
-        res.set('Cache-Control', 'public, max-age=86400');
+        res.set('Cache-Control', 'public, max-age=3600');
+        res.set('Cross-Origin-Resource-Policy', 'cross-origin');
         response.body.pipe(res);
     } catch {
         res.status(500).json({ error: 'Failed to fetch image' });

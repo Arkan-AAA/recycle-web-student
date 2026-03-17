@@ -29,7 +29,7 @@
             <input 
               v-model="password" 
               type="password" 
-              :placeholder="$t('auth.passwordPlaceholder')"
+              :placeholder="$t('auth.pwdPlaceholder')"
               :class="$style.input"
               @keyup.enter="handleLogin"
             />

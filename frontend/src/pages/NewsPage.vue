@@ -14,11 +14,13 @@
 import { ref, onMounted } from 'vue';
 import postsData from '../newsData/instagram-posts.json';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+
 export default {
   name: 'NewsPage',
   setup() {
     const posts = ref([]);
-    const proxyImage = (url) => `http://localhost:3001/api/proxy-image?url=${encodeURIComponent(url)}`;
+    const proxyImage = (url) => `${API_URL}/proxy-image?url=${encodeURIComponent(url)}`;
 
     onMounted(() => {
       posts.value = postsData;
