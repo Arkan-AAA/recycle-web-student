@@ -18,20 +18,24 @@ class KnowledgeBaseService {
 
     async loadKnowledge() {
         if (this.isLoaded) return;
+
+        const safeFile = (file) => /^[\w-]+\.md$/.test(file) ? file : null;
         
         try {
             const contents = await Promise.all(
-                this.files.map(file => 
-                    fetch(`/knowledge-base/${file}`)
+                this.files.map(file => {
+                    const safe = safeFile(file);
+                    if (!safe) return Promise.resolve('');
+                    return fetch(`/knowledge-base/${safe}`)
                         .then(r => {
                             if (!r.ok) throw new Error(`HTTP ${r.status}`);
                             return r.text();
                         })
                         .catch(e => {
-                            console.error(`❌ Ошибка загрузки ${file}:`, e.message);
+                            console.error(`❌ Ошибка загрузки ${safe}:`, e.message);
                             return '';
-                        })
-                )
+                        });
+                })
             );
             
             this.knowledge = contents.filter(c => c).join('\n\n---\n\n');

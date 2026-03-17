@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import authService from '../services/auth.service'
 
 const routes = [
     {
@@ -92,7 +91,8 @@ const router = createRouter({
     routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+    const { default: authService } = await import('../services/auth.service');
     const isAuthenticated = authService.isAuthenticated();
     const isAdmin = authService.isAdmin();
 

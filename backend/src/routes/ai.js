@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { authenticate } = require('../middleware/auth');
+const { csrfProtection } = require('../middleware/validation');
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-router.post('/chat', authenticate, async (req, res) => {
+router.post('/chat', authenticate, csrfProtection, async (req, res) => {
     const { messages } = req.body;
 
     if (!process.env.GROQ_API_KEY) {

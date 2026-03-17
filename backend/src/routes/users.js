@@ -2,6 +2,7 @@ const express = require('express');
 const { User } = require('../models');
 const { authenticate } = require('../middleware/auth');
 const { body, validationResult } = require('express-validator');
+const { csrfProtection } = require('../middleware/validation');
 
 const router = express.Router();
 
@@ -22,8 +23,7 @@ router.get('/profile', authenticate, async (req, res) => {
     }
 });
 
-router.put('/profile', [
-    authenticate,
+router.put('/profile', authenticate, csrfProtection, [
     body('fullName').optional().trim().isLength({ min: 2, max: 100 }),
     body('phone').optional().trim().matches(/^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/),
     body('address').optional().trim().isLength({ max: 200 }),
@@ -65,7 +65,7 @@ router.put('/profile', [
     }
 });
 
-router.post('/avatar', authenticate, async (req, res) => {
+router.post('/avatar', authenticate, csrfProtection, async (req, res) => {
     try {
         const { avatar } = req.body;
         
