@@ -67,12 +67,25 @@ router.post('/:id/grades', authenticate, csrfProtection, async (req, res) => {
         if (isNaN(journalId)) return res.status(400).json({ success: false, message: 'Некорректный ID журнала' });
 
         const { date, value, semester } = req.body;
+
+        if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+            return res.status(400).json({ success: false, message: 'Некорректная дата' });
+        }
+        const gradeValue = parseInt(value, 10);
+        if (isNaN(gradeValue) || gradeValue < 1 || gradeValue > 5) {
+            return res.status(400).json({ success: false, message: 'Оценка должна быть от 1 до 5' });
+        }
+        const semesterValue = parseInt(semester || 1, 10);
+        if (isNaN(semesterValue) || semesterValue < 1 || semesterValue > 2) {
+            return res.status(400).json({ success: false, message: 'Семестр должен быть 1 или 2' });
+        }
+
         const grade = await Grade.upsert({
             journal_id: journalId,
             user_id: req.userId,
             date,
-            value,
-            semester: semester || 1
+            value: gradeValue,
+            semester: semesterValue
         }, { conflictFields: ['journal_id', 'user_id', 'date'] });
         res.json({ success: true, data: grade });
     } catch (err) {
