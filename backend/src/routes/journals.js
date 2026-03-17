@@ -22,7 +22,7 @@ router.get('/', authenticate, async (req, res) => {
 });
 
 // GET /api/journals/:id
-router.get('/:id', authenticate, async (req, res) => {
+router.get('/:id', authenticate, csrfProtection, async (req, res) => {
     try {
         const journalId = parseInt(req.params.id, 10);
         if (isNaN(journalId)) return res.status(400).json({ success: false, message: 'Некорректный ID журнала' });
@@ -36,7 +36,7 @@ router.get('/:id', authenticate, async (req, res) => {
 });
 
 // GET /api/journals/:id/grades?semester=1
-router.get('/:id/grades', authenticate, async (req, res) => {
+router.get('/:id/grades', authenticate, csrfProtection, async (req, res) => {
     try {
         const journalId = parseInt(req.params.id, 10);
         const semester = req.query.semester ? parseInt(req.query.semester, 10) : null;
