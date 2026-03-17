@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Journal, Grade, User } = require('../models');
 const { authenticate } = require('../middleware/auth');
+const { csrfProtection } = require('../middleware/validation');
 
 // GET /api/journals?isOpen=true
 router.get('/', authenticate, async (req, res) => {
@@ -54,7 +55,7 @@ router.get('/:id/grades', authenticate, async (req, res) => {
 });
 
 // POST /api/journals/:id/grades
-router.post('/:id/grades', authenticate, async (req, res) => {
+router.post('/:id/grades', authenticate, csrfProtection, async (req, res) => {
     try {
         const journalId = parseInt(req.params.id, 10);
         if (isNaN(journalId)) return res.status(400).json({ success: false, message: 'Некорректный ID журнала' });
