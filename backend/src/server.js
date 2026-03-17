@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const path = require("path");
 const { sequelize } = require("./models");
 const { errorHandler, notFound } = require("./middleware/errorHandler");
 require("dotenv").config();
@@ -81,6 +82,17 @@ app.get("/api/proxy-image", async (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/journals", journalRoutes);
 app.use("/api/ai", aiRoutes);
+
+// ========== Раздача фронтенда в production ==========
+if (process.env.NODE_ENV === 'production') {
+    const frontendPath = path.join(__dirname, '../../frontend/dist');
+    app.use(express.static(frontendPath));
+
+    // Все НЕ-api маршруты отдают index.html (для Vue Router)
+    app.get(/^(?!\/api).*/, (req, res) => {
+        res.sendFile(path.join(frontendPath, 'index.html'));
+    });
+}
 
 app.use(notFound);
 app.use(errorHandler);

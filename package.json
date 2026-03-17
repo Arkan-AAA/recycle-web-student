@@ -6,7 +6,9 @@
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && npm run dev",
     "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
-    "build:frontend": "cd frontend && npm run build"
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd backend && npm install && node src/server.js",
+    "postinstall": "cd frontend && npm install && cd ../backend && npm install"
   },
   "repository": {
     "type": "git",
@@ -15,6 +17,9 @@
   "keywords": ["student", "journal", "college", "web-app"],
   "author": "Student Journal Team",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "bugs": {
     "url": "https://github.com/Arkan-AAA/recycle-web-student/issues"
   },

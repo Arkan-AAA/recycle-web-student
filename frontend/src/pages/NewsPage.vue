@@ -14,7 +14,7 @@
 import { ref, onMounted } from 'vue';
 import postsData from '../newsData/instagram-posts.json';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 export default {
   name: 'NewsPage',
