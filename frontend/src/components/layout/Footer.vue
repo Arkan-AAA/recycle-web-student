@@ -39,8 +39,8 @@ const locales = [
         <div class="footer-col">
           <h5 class="footer-col-title">{{ $t('footer.about') }}</h5>
           <ul class="footer-nav">
-            <li><a href="#">{{ $t('footer.contact') }}</a></li>
-            <li><a href="#">{{ $t('footer.about') }}</a></li>
+            <li><router-link to="/contacts">{{ $t('footer.contact') }}</router-link></li>
+            <li><router-link to="/about">{{ $t('footer.about') }}</router-link></li>
             <li><router-link to="/news">{{ $t('nav.news') }}</router-link></li>
           </ul>
         </div>

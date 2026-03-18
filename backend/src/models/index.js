@@ -16,10 +16,11 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 const User = require('./User')(sequelize, DataTypes);
 const Journal = require('./Journal')(sequelize, DataTypes);
 const Grade = require('./Grade')(sequelize, DataTypes);
+const NewsPost = require('./NewsPost')(sequelize, DataTypes);
 
 Journal.hasMany(Grade, { foreignKey: 'journal_id', as: 'grades' });
 Grade.belongsTo(Journal, { foreignKey: 'journal_id', as: 'journal' });
 User.hasMany(Grade, { foreignKey: 'user_id', as: 'grades' });
 Grade.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
-module.exports = { sequelize, User, Journal, Grade };
+module.exports = { sequelize, User, Journal, Grade, NewsPost };

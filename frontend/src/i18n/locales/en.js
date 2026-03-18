@@ -186,6 +186,67 @@ export default {
     themeLight: 'Light',
     themeDark: 'Dark'
   },
+  subject: {
+    hours: 'Hours',
+    gradeType: 'Grade Type',
+    gradeScale: 'Grade (1–5)',
+    sem1: 'Semester 1',
+    sem2: 'Semester 2'
+  },
+  about: {
+    title: 'About Us',
+    profile: 'About College',
+    profileText: 'Narxoz College is a secondary vocational institution training specialists in IT, business and economics. Modern educational environment, experienced faculty and partnerships with leading companies.',
+    director: 'Director',
+    directorTitle: 'Director of Narxoz College',
+    specialties: 'Specialties',
+    base9: 'Based on 9th grade',
+    base11: 'Based on 11th grade',
+    years: 'years',
+    year: 'year',
+    months: 'months',
+    infrastructure: 'Infrastructure',
+    statStudents: 'Active Students',
+    statGrads: 'Graduates',
+    statRooms: 'Classrooms',
+    statSpecs: 'Specialties',
+    statMasters: 'Masters on Staff',
+    infra: {
+      library: 'Library',
+      libraryDesc: 'Over 50,000 books. Mon–Fri 9:00–19:00, Sat 10:00–16:00',
+      dorm: 'Dormitory',
+      dormDesc: '25,000 KZT/month. Modern living conditions',
+      cowork: 'Coworking',
+      coworkDesc: 'Zones for independent work with computers and internet',
+      canteen: 'Canteen',
+      canteenDesc: 'Open during the school day. Affordable prices',
+      clubs: 'Student Clubs',
+      clubsDesc: 'IT, business, creativity. Events and soft skills development',
+      support: 'Tech Support',
+      supportDesc: 'CIT, room 117. support@narxoz.kz'
+    }
+  },
+  contacts: {
+    title: 'Contacts',
+    mainCampus: 'Main Campus',
+    campus1: '10th microdistrict, 7A',
+    campus2: 'Sayna Campus (SSC)',
+    room: 'Room',
+    departments: 'Departments',
+    hours: 'Working Hours',
+    social: 'Social Media',
+    closed: 'Closed',
+    dept: {
+      admission: 'Admissions Office',
+      support: 'Technical Support (CIT)',
+      international: 'International Department'
+    },
+    days: {
+      monFri: 'Monday – Friday',
+      sat: 'Saturday',
+      sun: 'Sunday'
+    }
+  },
   home: {
     heroTitle: 'Student',
     heroTitleSpan: 'web journal',

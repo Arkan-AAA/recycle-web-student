@@ -148,6 +148,20 @@ export default {
       student: 'Студент',
       teacher: 'Преподаватель',
       admin: 'Администратор'
+    },
+    news: {
+      title: 'Новости (Instagram посты)',
+      add: 'Добавить пост',
+      delete: 'Удалить',
+      cover: 'Обложка',
+      link: 'Ссылка',
+      added: 'Добавлен',
+      empty: 'Постов пока нет',
+      urlLabel: 'Ссылка на Instagram пост',
+      urlPlaceholder: 'https://www.instagram.com/p/...',
+      urlHint: 'Вставьте ссылку на пост, рилс или IGTV',
+      deleteConfirmTitle: 'Удалить пост?',
+      deleteConfirm: 'Пост будет скрыт со страницы новостей:'
     }
   },
   common: {
@@ -173,7 +187,9 @@ export default {
     previous: 'Предыдущий',
     selectAll: 'Выбрать все',
     clearAll: 'Очистить все',
-    more: 'Подробнее'
+    more: 'Подробнее',
+    actions: 'Действия',
+    loading: 'Загрузка...'
   },
   footer: {
     rights: '© 2025 Narxoz College. Все права защищены.',
@@ -185,6 +201,67 @@ export default {
     theme: 'Тема:',
     themeLight: 'Светлая',
     themeDark: 'Тёмная'
+  },
+  subject: {
+    hours: 'Часов',
+    gradeType: 'Вид оценки',
+    gradeScale: 'Оценка (1–5)',
+    sem1: 'Семестр 1',
+    sem2: 'Семестр 2'
+  },
+  about: {
+    title: 'О нас',
+    profile: 'О колледже',
+    profileText: 'Колледж Narxoz — учебное заведение среднего звена для подготовки специалистов в области IT, бизнеса и экономики. Современная образовательная среда, опытные преподаватели и партнёрство с ведущими компаниями.',
+    director: 'Директор',
+    directorTitle: 'Директор колледжа Narxoz',
+    specialties: 'Специальности',
+    base9: 'На базе 9 классов',
+    base11: 'На базе 11 классов',
+    years: 'года',
+    year: 'год',
+    months: 'месяцев',
+    infrastructure: 'Инфраструктура',
+    statStudents: 'Активных студентов',
+    statGrads: 'Выпускников',
+    statRooms: 'Аудиторий',
+    statSpecs: 'Специальностей',
+    statMasters: 'Магистров в составе',
+    infra: {
+      library: 'Библиотека',
+      libraryDesc: 'Фонд более 50 000 книг. Пн–Пт 9:00–19:00, Сб 10:00–16:00',
+      dorm: 'Общежитие',
+      dormDesc: '25 000 тг/месяц. Современные условия проживания',
+      cowork: 'Коворкинг',
+      coworkDesc: 'Зоны для самостоятельной работы с компьютерами и интернетом',
+      canteen: 'Столовая',
+      canteenDesc: 'Работает в течение учебного дня. Доступные цены',
+      clubs: 'Студенческие клубы',
+      clubsDesc: 'IT, бизнес, творчество. Мероприятия и развитие soft skills',
+      support: 'Техподдержка',
+      supportDesc: 'ЦИТ, каб. 117. support@narxoz.kz'
+    }
+  },
+  contacts: {
+    title: 'Контакты',
+    mainCampus: 'Главный кампус',
+    campus1: '10-й микрорайон, д. 7А',
+    campus2: 'Кампус Сайна (SSC)',
+    room: 'Каб.',
+    departments: 'Отделы',
+    hours: 'Режим работы',
+    social: 'Мы в соцсетях',
+    closed: 'Выходной',
+    dept: {
+      admission: 'Приёмная комиссия',
+      support: 'Техническая поддержка (ЦИТ)',
+      international: 'Международный отдел'
+    },
+    days: {
+      monFri: 'Понедельник – Пятница',
+      sat: 'Суббота',
+      sun: 'Воскресенье'
+    }
   },
   home: {
     heroTitle: 'Студенческий',

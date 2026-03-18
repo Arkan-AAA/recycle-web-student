@@ -11,6 +11,7 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const journalRoutes = require("./routes/journals");
 const aiRoutes = require("./routes/ai");
+const newsRoutes = require("./routes/news");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -93,6 +94,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/journals", journalRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/news", newsRoutes);
 
 if (process.env.NODE_ENV === 'production') {
     const frontendPath = path.join(__dirname, '../public');

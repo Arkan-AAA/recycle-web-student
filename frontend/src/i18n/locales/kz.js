@@ -186,6 +186,67 @@ export default {
     themeLight: 'Жарық',
     themeDark: 'Қараңғы'
   },
+  subject: {
+    hours: 'Сағат',
+    gradeType: 'Баға түрі',
+    gradeScale: 'Баға (1–5)',
+    sem1: '1-семестр',
+    sem2: '2-семестр'
+  },
+  about: {
+    title: 'Біз туралы',
+    profile: 'Колледж туралы',
+    profileText: 'Narxoz колледжі — IT, бизнес және экономика саласында мамандар даярлайтын орта білім беру орыны.',
+    director: 'Директор',
+    directorTitle: 'Narxoz колледжінің директоры',
+    specialties: 'Мамандандықтар',
+    base9: '9 сынып негізінде',
+    base11: '11 сынып негізінде',
+    years: 'жыл',
+    year: 'жыл',
+    months: 'ай',
+    infrastructure: 'Инфрақұрылым',
+    statStudents: 'Белсенді студенттер',
+    statGrads: 'Түлектер',
+    statRooms: 'Аудиториялар',
+    statSpecs: 'Мамандандықтар',
+    statMasters: 'Магистрлер',
+    infra: {
+      library: 'Кітапхана',
+      libraryDesc: '50 000-нан астам қор. Дүй–Жм 9:00–19:00',
+      dorm: 'Жатақхана',
+      dormDesc: 'Айна 25 000 тг. Заманауи тұрғын жағдай',
+      cowork: 'Коворкинг',
+      coworkDesc: 'Компьютер және интернетпен жабдықталған аймақтар',
+      canteen: 'Асхана',
+      canteenDesc: 'Оқу күні бойы жұмыс істейді',
+      clubs: 'Студенттік үйірмелер',
+      clubsDesc: 'IT, бизнес, шығармашылық. Шаралар мен дамыту',
+      support: 'Техникалық қолдау',
+      supportDesc: 'АҚТ, каб. 117. support@narxoz.kz'
+    }
+  },
+  contacts: {
+    title: 'Байланыс',
+    mainCampus: 'Басты кампус',
+    campus1: '10-шы микрорайон, 7А үй',
+    campus2: 'Сайна кампусы (SSC)',
+    room: 'Каб.',
+    departments: 'Бөлімдер',
+    hours: 'Жұмыс кестесі',
+    social: 'Әлеуметтік желілерде',
+    closed: 'Демалыс',
+    dept: {
+      admission: 'Қабылдау комиссиясы',
+      support: 'Техникалық қолдау (АҚТ)',
+      international: 'Халықаралық бөлім'
+    },
+    days: {
+      monFri: 'Дүйсенбі – Жұма',
+      sat: 'Сенбі',
+      sun: 'Жексенбі'
+    }
+  },
   home: {
     heroTitle: 'Студенттік',
     heroTitleSpan: 'веб-журнал',

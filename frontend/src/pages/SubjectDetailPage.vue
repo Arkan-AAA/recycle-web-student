@@ -54,13 +54,13 @@
       <table class="grades-table">
         <thead>
           <tr>
-            <th class="label-col">Дата</th>
+            <th class="label-col">{{ $t('grades.date') }}</th>
             <th v-for="d in dates" :key="d">{{ formatDate(d) }}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="label-col">Оценка</td>
+            <td class="label-col">{{ $t('grades.grade') }}</td>
             <td v-for="d in dates" :key="d" class="grade-cell">
               <span v-if="!canEdit" :class="gradeClass(gradeMap[d])">
                 {{ gradeMap[d] !== undefined ? gradeMap[d] : '—' }}
@@ -78,13 +78,13 @@
     <!-- Модал добавления оценки -->
     <div v-if="showAddModal" class="modal-overlay" @click.self="showAddModal = false">
       <div class="modal">
-        <h3>Добавить оценку</h3>
+        <h3>{{ $t('grades.addGrade') }}</h3>
         <div class="form-group">
-          <label>Дата</label>
+          <label>{{ $t('grades.date') }}</label>
           <input type="date" v-model="addForm.date" />
         </div>
         <div class="form-group">
-          <label>Оценка (1–5)</label>
+          <label>{{ $t('subject.gradeScale') }}</label>
           <div class="grade-picker">
             <button
               v-for="n in [1,2,3,4,5]" :key="n"
@@ -95,9 +95,9 @@
         </div>
         <div v-if="addError" class="form-error">{{ addError }}</div>
         <div class="modal-actions">
-          <button class="btn-cancel" @click="showAddModal = false">Отмена</button>
+          <button class="btn-cancel" @click="showAddModal = false">{{ $t('common.cancel') }}</button>
           <button class="btn-save" @click="saveGrade" :disabled="saving">
-            {{ saving ? 'Сохранение...' : 'Сохранить' }}
+            {{ saving ? $t('common.loading') : $t('common.save') }}
           </button>
         </div>
       </div>
@@ -106,9 +106,9 @@
     <!-- Модал редактирования оценки -->
     <div v-if="showEditModal" class="modal-overlay" @click.self="showEditModal = false">
       <div class="modal">
-        <h3>Изменить оценку — {{ formatDate(editForm.date) }}</h3>
+        <h3>{{ $t('grades.editGrade') }} — {{ formatDate(editForm.date) }}</h3>
         <div class="form-group">
-          <label>Оценка (1–5)</label>
+          <label>{{ $t('subject.gradeScale') }}</label>
           <div class="grade-picker">
             <button
               v-for="n in [1,2,3,4,5]" :key="n"
@@ -119,9 +119,9 @@
         </div>
         <div v-if="editError" class="form-error">{{ editError }}</div>
         <div class="modal-actions">
-          <button class="btn-cancel" @click="showEditModal = false">Отмена</button>
+          <button class="btn-cancel" @click="showEditModal = false">{{ $t('common.cancel') }}</button>
           <button class="btn-save" @click="updateGrade" :disabled="saving">
-            {{ saving ? 'Сохранение...' : 'Сохранить' }}
+            {{ saving ? $t('common.loading') : $t('common.save') }}
           </button>
         </div>
       </div>
@@ -276,13 +276,14 @@ export default {
 .detail-page {
   padding: 2rem;
   font-family: 'Rubik', sans-serif;
-  background: #f9f9f9;
+  background: var(--bg-page);
   min-height: 100vh;
+  transition: background 0.3s;
 }
 
 .breadcrumb {
   font-size: 13px;
-  color: #999;
+  color: var(--text-hint);
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -295,12 +296,12 @@ export default {
 }
 
 .breadcrumb-link:hover { text-decoration: underline; }
-.sep { color: #ccc; }
+.sep { color: var(--text-hint); }
 .current {
-  background: #f0f0f0;
+  background: var(--bg-input);
   border-radius: 4px;
   padding: 2px 8px;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .page-header {
@@ -328,7 +329,7 @@ export default {
 h1 {
   font-size: 20px;
   font-weight: 700;
-  color: #1e1e1e;
+  color: var(--text-primary);
   border-left: 4px solid #d50032;
   padding-left: 12px;
   margin: 0;
@@ -342,20 +343,20 @@ h1 {
 }
 
 .info-card {
-  background: #fff;
-  border: 1px solid #eee;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 0.75rem 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 4px;
   min-width: 160px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 .info-label {
   font-size: 11px;
-  color: #999;
+  color: var(--text-hint);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -363,7 +364,7 @@ h1 {
 .info-value {
   font-size: 14px;
   font-weight: 500;
-  color: #1e1e1e;
+  color: var(--text-primary);
 }
 
 .info-value.accent { color: #d50032; }
@@ -379,7 +380,7 @@ h1 {
 .section-header h2 {
   font-size: 16px;
   font-weight: 700;
-  color: #1e1e1e;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -390,12 +391,12 @@ h1 {
 
 .sem-tab {
   padding: 0.4rem 1rem;
-  border: 1px solid #ddd;
-  background: #fff;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
   border-radius: 6px;
   cursor: pointer;
   font-size: 13px;
-  color: #555;
+  color: var(--text-secondary);
   font-family: 'Rubik', sans-serif;
   transition: all 0.2s;
 }
@@ -425,7 +426,7 @@ h1 {
 .add-btn:hover { background: #b8002a; }
 
 .state-msg {
-  color: #aaa;
+  color: var(--text-hint);
   font-size: 14px;
   padding: 2rem 0;
   text-align: center;
@@ -436,8 +437,9 @@ h1 {
 .grades-table {
   border-collapse: collapse;
   font-size: 13px;
-  background: #fff;
+  background: var(--bg-card);
   min-width: 100%;
+  transition: background 0.3s;
 }
 
 .grades-table th {
@@ -451,17 +453,18 @@ h1 {
 }
 
 .grades-table td {
-  border: 1px solid #f0f0f0;
+  border: 1px solid var(--border-color);
   padding: 0.65rem 1rem;
   text-align: center;
   min-width: 60px;
+  color: var(--text-primary);
 }
 
 .label-col {
   text-align: left !important;
   font-weight: 600;
-  background: #f9f9f9;
-  color: #555;
+  background: var(--bg-input);
+  color: var(--text-secondary);
   min-width: 90px;
   white-space: nowrap;
 }
@@ -503,18 +506,19 @@ h1 {
 }
 
 .modal {
-  background: #fff;
+  background: var(--bg-card);
   border-radius: 12px;
   padding: 2rem;
   width: 360px;
   max-width: 90vw;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
 }
 
 .modal h3 {
   font-size: 16px;
   font-weight: 700;
-  color: #1e1e1e;
+  color: var(--text-primary);
   margin: 0 0 1.5rem;
   border-left: 3px solid #d50032;
   padding-left: 10px;
@@ -527,7 +531,7 @@ h1 {
 .form-group label {
   display: block;
   font-size: 12px;
-  color: #888;
+  color: var(--text-hint);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 0.5rem;
@@ -536,10 +540,12 @@ h1 {
 .form-group input[type="date"] {
   width: 100%;
   padding: 0.6rem 0.9rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 14px;
   font-family: 'Rubik', sans-serif;
+  background: var(--bg-input);
+  color: var(--text-primary);
   box-sizing: border-box;
 }
 
@@ -556,13 +562,13 @@ h1 {
 .grade-pick-btn {
   flex: 1;
   padding: 0.65rem;
-  border: 2px solid #e0e0e0;
-  background: #fff;
+  border: 2px solid var(--border-color);
+  background: var(--bg-input);
   border-radius: 8px;
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
-  color: #555;
+  color: var(--text-secondary);
   transition: all 0.15s;
   font-family: 'Rubik', sans-serif;
 }
@@ -591,17 +597,17 @@ h1 {
 
 .btn-cancel {
   padding: 0.6rem 1.4rem;
-  border: 1px solid #ddd;
-  background: #fff;
+  border: 1px solid var(--border-color);
+  background: var(--bg-input);
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  color: #555;
+  color: var(--text-secondary);
   font-family: 'Rubik', sans-serif;
   transition: background 0.2s;
 }
 
-.btn-cancel:hover { background: #f5f5f5; }
+.btn-cancel:hover { background: var(--border-color); }
 
 .btn-save {
   padding: 0.6rem 1.4rem;

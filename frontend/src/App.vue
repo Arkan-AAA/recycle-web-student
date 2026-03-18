@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <main :class="{ 'main-content': $route.path !== '/' }" :style="$route.path === '/' ? 'margin-top: 0' : ''">
+    <main :class="{ 'main-content': $route.path !== '/', 'home': $route.path === '/home' }" :style="$route.path === '/' ? 'margin-top: 0' : ''">
       <router-view></router-view>
     </main>
     <Footer />
@@ -38,6 +38,10 @@ export default {
   background: var(--bg-page);
   color: var(--text-primary);
   transition: background 0.3s ease, color 0.3s ease;
+}
+
+.main-content.home {
+  background: transparent;
 }
 
 @media (max-width: 768px) {

@@ -311,11 +311,11 @@ const closeMobileMenu = () => {
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
-  background: white;
+  background: var(--bg-card);
   min-width: 220px;
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
   opacity: 0;
   visibility: hidden;
   transform: translateX(-50%) translateY(-10px);
@@ -333,10 +333,10 @@ const closeMobileMenu = () => {
 .dropdown-item {
   display: block;
   padding: var(--spacing-md) var(--spacing-lg);
-  color: var(--dark-color);
+  color: var(--text-primary);
   text-decoration: none;
   font-weight: 400;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-color);
   transition: all 0.2s ease;
 }
 
@@ -350,7 +350,7 @@ const closeMobileMenu = () => {
 }
 
 .dropdown-item:hover {
-  background: #f8f9fa;
+  background: var(--bg-input);
   color: #d50032;
 }
 
