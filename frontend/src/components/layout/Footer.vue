@@ -15,82 +15,58 @@ const locales = [
 <template>
   <footer v-if="!isAuthPage" class="footer">
     <div class="container">
-      <div class="footer-content">
-        <!-- Основная информация -->
-        <div class="footer-main">
-          <div class="footer-logo">
-            <img src="../../assets/images/logo-footer1.svg" alt="College Narxoz" class="logo" />
-          </div>
-          <p class="footer-description">
-            {{ $t('footer.rights') }}
-          </p>
+      <div class="footer-grid">
+
+        <!-- Лого + описание -->
+        <div class="footer-brand">
+          <img src="../../assets/images/logo-footer1.svg" alt="College Narxoz" class="footer-logo" />
+          <p class="footer-desc">{{ $t('footer.rights') }}</p>
         </div>
-        
-        <!-- Ссылки -->
-        <div class="footer-links d-none d-md-block">
-          <div class="row">
-            <div class="col-md-4">
-              <h5 class="footer-title">{{ $t('nav.education') }}</h5>
-              <ul class="footer-nav">
-                <li><router-link to="/journal">{{ $t('nav.journal') }}</router-link></li>
-                <li><router-link to="/schedule">{{ $t('nav.schedule') }}</router-link></li>
-                <li><router-link to="/grades">{{ $t('nav.grades') }}</router-link></li>
-              </ul>
-            </div>
-            <div class="col-md-4">
-              <h5 class="footer-title">{{ $t('footer.about') }}</h5>
-              <ul class="footer-nav">
-                <li><a href="#">{{ $t('footer.contact') }}</a></li>
-                <li><a href="#">{{ $t('footer.about') }}</a></li>
-                <li><router-link to="/news">{{ $t('nav.news') }}</router-link></li>
-              </ul>
-            </div>
-            <div class="col-md-4">
-              <h5 class="footer-title">{{ $t('footer.language') }}</h5>
-              <div class="language-switcher">
-                <button
-                  v-for="loc in locales"
-                  :key="loc.code"
-                  class="lang-btn"
-                  :class="{ active: $i18n.locale === loc.code }"
-                  @click="$i18n.setLocale(loc.code)"
-                >
-                  {{ loc.label }}
-                </button>
-              </div>
-            </div>
+
+        <!-- Учебный процесс -->
+        <div class="footer-col">
+          <h5 class="footer-col-title">{{ $t('nav.education') }}</h5>
+          <ul class="footer-nav">
+            <li><router-link to="/journal">{{ $t('nav.journal') }}</router-link></li>
+            <li><router-link to="/schedule">{{ $t('nav.schedule') }}</router-link></li>
+            <li><router-link to="/grades">{{ $t('nav.grades') }}</router-link></li>
+            <li><router-link to="/transcript">{{ $t('nav.transcript') }}</router-link></li>
+          </ul>
+        </div>
+
+        <!-- О нас -->
+        <div class="footer-col">
+          <h5 class="footer-col-title">{{ $t('footer.about') }}</h5>
+          <ul class="footer-nav">
+            <li><a href="#">{{ $t('footer.contact') }}</a></li>
+            <li><a href="#">{{ $t('footer.about') }}</a></li>
+            <li><router-link to="/news">{{ $t('nav.news') }}</router-link></li>
+          </ul>
+        </div>
+
+        <!-- Язык -->
+        <div class="footer-col">
+          <h5 class="footer-col-title">{{ $t('footer.language') }}</h5>
+          <div class="lang-switcher">
+            <button
+              v-for="loc in locales"
+              :key="loc.code"
+              class="lang-btn"
+              :class="{ active: $i18n.locale === loc.code }"
+              @click="$i18n.setLocale(loc.code)"
+            >
+              {{ loc.label }}
+            </button>
           </div>
         </div>
-        
-        <!-- Мобильная версия языков -->
-        <div class="footer-mobile d-md-none">
-          <div class="language-switcher-mobile">
-            <span class="lang-label">{{ $t('footer.language') }}</span>
-            <div class="lang-buttons">
-              <button
-                v-for="loc in locales"
-                :key="loc.code"
-                class="lang-btn"
-                :class="{ active: $i18n.locale === loc.code }"
-                @click="$i18n.setLocale(loc.code)"
-              >
-                {{ loc.label }}
-              </button>
-            </div>
-          </div>
-        </div>
+
       </div>
-      
-      <!-- Нижняя часть -->
+
       <div class="footer-bottom">
-        <div class="footer-bottom-content">
-          <p class="copyright">
-            {{ $t('footer.rights') }}
-          </p>
-          <div class="footer-bottom-links d-none d-sm-flex">
-            <a href="#">{{ $t('footer.privacy') }}</a>
-            <a href="#">{{ $t('footer.terms') }}</a>
-          </div>
+        <p class="copyright">{{ $t('footer.rights') }}</p>
+        <div class="footer-bottom-links">
+          <a href="#">{{ $t('footer.privacy') }}</a>
+          <a href="#">{{ $t('footer.terms') }}</a>
         </div>
       </div>
     </div>
@@ -104,241 +80,134 @@ const locales = [
   margin-top: auto;
 }
 
-.footer-content {
-  padding: var(--spacing-xl) 0;
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+  padding: 3rem 0 2rem;
 }
 
-.footer-main {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .footer-logo {
-  margin-bottom: var(--spacing-lg);
-}
-
-.logo {
-  height: 50px;
+  height: 44px;
   width: auto;
 }
 
-.footer-description {
-  color: #aaa;
-  font-size: var(--font-size-sm);
+.footer-desc {
+  color: #888;
+  font-size: 0.8rem;
+  line-height: 1.6;
   margin: 0;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
-.footer-links {
-  margin-bottom: var(--spacing-xl);
-}
-
-.footer-title {
-  color: white;
-  font-size: var(--font-size-lg);
+.footer-col-title {
+  color: #fff;
+  font-size: 0.8rem;
   font-weight: 600;
-  margin-bottom: var(--spacing-lg);
-  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 1rem;
 }
 
 .footer-nav {
   list-style: none;
   padding: 0;
   margin: 0;
-  text-align: center;
-}
-
-.footer-nav li {
-  margin-bottom: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
 .footer-nav a {
-  color: #ccc;
+  color: #888;
   text-decoration: none;
-  font-size: var(--font-size-sm);
-  transition: color 0.2s ease;
+  font-size: 0.875rem;
+  transition: color 0.2s;
 }
 
-.footer-nav a:hover {
-  color: #d50032;
-}
+.footer-nav a:hover { color: var(--primary); }
 
-.language-switcher,
-.language-switcher-mobile {
+.lang-switcher {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--spacing-sm);
+  gap: 0.5rem;
   flex-wrap: wrap;
-}
-
-.language-switcher-mobile {
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.lang-label {
-  color: #aaa;
-  font-size: var(--font-size-sm);
-  margin-bottom: var(--spacing-sm);
-}
-
-.lang-buttons {
-  display: flex;
-  gap: var(--spacing-sm);
 }
 
 .lang-btn {
   background: transparent;
-  border: 1px solid #555;
-  color: #ccc;
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--border-radius);
-  font-size: var(--font-size-xs);
-  font-weight: 500;
+  border: 1px solid #444;
+  color: #888;
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
   letter-spacing: 0.5px;
-  min-width: 50px;
 }
 
 .lang-btn:hover {
-  border-color: white;
-  color: white;
-  transform: translateY(-1px);
+  border-color: #fff;
+  color: #fff;
 }
 
 .lang-btn.active {
-  background: #d50032;
-  border-color: #d50032;
+  background: var(--primary);
+  border-color: var(--primary);
   color: white;
 }
 
-.lang-btn.active:hover {
-  background: #b8002a;
-  border-color: #b8002a;
-}
-
 .footer-bottom {
-  border-top: 1px solid #333;
-  padding: var(--spacing-lg) 0;
-}
-
-.footer-bottom-content {
+  border-top: 1px solid #2e2e2e;
+  padding: 1.25rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   flex-wrap: wrap;
-  gap: var(--spacing-md);
 }
 
 .copyright {
-  color: #aaa;
-  font-size: var(--font-size-xs);
+  color: #555;
+  font-size: 0.75rem;
   margin: 0;
 }
 
 .footer-bottom-links {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: 1.5rem;
 }
 
 .footer-bottom-links a {
-  color: #aaa;
+  color: #555;
   text-decoration: none;
-  font-size: var(--font-size-xs);
-  transition: color 0.2s ease;
+  font-size: 0.75rem;
+  transition: color 0.2s;
 }
 
-.footer-bottom-links a:hover {
-  color: #d50032;
+.footer-bottom-links a:hover { color: var(--primary); }
+
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .footer-brand { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 1.5rem; }
 }
 
-/* Планшеты */
-@media (min-width: 768px) {
-  .footer-main {
-    text-align: left;
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xl);
+@media (max-width: 560px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 2rem 0 1.5rem;
   }
-  
-  .footer-logo {
-    margin-bottom: 0;
-    flex-shrink: 0;
-  }
-  
-  .footer-description {
-    text-align: left;
-    margin: 0;
-  }
-  
-  .footer-title {
-    text-align: left;
-  }
-  
-  .footer-nav {
-    text-align: left;
-  }
-  
-  .language-switcher {
-    justify-content: flex-start;
-  }
-}
-
-/* Десктопы */
-@media (min-width: 992px) {
-  .footer-content {
-    padding: var(--spacing-xxl) 0;
-  }
-  
-  .footer-main {
-    margin-bottom: var(--spacing-xxl);
-  }
-}
-
-/* Мобильные устройства */
-@media (max-width: 575.98px) {
-  .footer-content {
-    padding: var(--spacing-lg) 0;
-  }
-  
-  .footer-main {
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .logo {
-    height: 40px;
-  }
-  
-  .footer-bottom-content {
-    flex-direction: column;
-    text-align: center;
-    gap: var(--spacing-sm);
-  }
-  
-  .lang-btn {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 10px;
-    min-width: 45px;
-  }
-}
-
-/* Очень маленькие экраны */
-@media (max-width: 399.98px) {
-  .logo {
-    height: 35px;
-  }
-  
-  .footer-description {
-    font-size: 12px;
-  }
-  
-  .lang-btn {
-    padding: 4px 8px;
-    font-size: 9px;
-    min-width: 40px;
-  }
+  .footer-brand { flex-direction: column; align-items: flex-start; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .footer-bottom-links { justify-content: center; }
 }
 </style>

@@ -183,8 +183,32 @@ export default {
     privacy: 'Privacy Policy',
     terms: 'Terms of Use'
   },
+  home: {
+    heroTitle: 'Student',
+    heroTitleSpan: 'web journal',
+    heroSub: 'Grades, schedule, news and study materials — all in one place',
+    stat: {
+      avg: 'Average score',
+      attendance: 'Attendance',
+      subjects: 'Subjects'
+    },
+    desc: {
+      journal: 'Electronic attendance journal',
+      schedule: 'Weekly class schedule',
+      grades: '100-point grading system',
+      profile: 'Student personal account',
+      ai: 'Smart AI-powered assistant',
+      news: 'College news and events'
+    }
+  },
+  ai: {
+    greeting: 'Hello, {name}!',
+    title: 'How can I help you?',
+    placeholder: 'Ask a question',
+    error: 'An error occurred while sending the message.',
+    errorApi: 'Error'
+  },
   errors: {
-    404: 'Page not found',
     500: 'Internal server error',
     network: 'Network error',
     unauthorized: 'Unauthorized',

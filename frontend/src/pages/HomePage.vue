@@ -6,8 +6,8 @@
       <div class="container hero-inner">
         <div class="hero-text">
           <p class="hero-eyebrow">Narxoz College</p>
-          <h1 class="hero-title">Студенческий<br><span>веб-журнал</span></h1>
-          <p class="hero-sub">Оценки, расписание, новости и учебные материалы — всё в одном месте</p>
+          <h1 class="hero-title">{{ $t('home.heroTitle') }}<br><span>{{ $t('home.heroTitleSpan') }}</span></h1>
+          <p class="hero-sub">{{ $t('home.heroSub') }}</p>
           <div class="hero-btns">
             <router-link to="/journal" class="btn btn-primary btn-lg">
               <i class="fas fa-book"></i> {{ $t('nav.journal') }}
@@ -22,7 +22,7 @@
             <div class="hc-row">
               <i class="fas fa-graduation-cap"></i>
               <div>
-                <div class="hc-label">Средний балл</div>
+                <div class="hc-label">{{ $t('home.stat.avg') }}</div>
                 <div class="hc-val">87.4</div>
               </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="hc-row">
               <i class="fas fa-calendar-check"></i>
               <div>
-                <div class="hc-label">Посещаемость</div>
+                <div class="hc-label">{{ $t('home.stat.attendance') }}</div>
                 <div class="hc-val">94%</div>
               </div>
             </div>
@@ -38,7 +38,7 @@
             <div class="hc-row">
               <i class="fas fa-book-open"></i>
               <div>
-                <div class="hc-label">Предметов</div>
+                <div class="hc-label">{{ $t('home.stat.subjects') }}</div>
                 <div class="hc-val">8</div>
               </div>
             </div>
@@ -63,7 +63,7 @@
             </div>
             <div class="sc-body">
               <h3>{{ $t(s.title) }}</h3>
-              <p>{{ s.desc }}</p>
+              <p>{{ $t(s.desc) }}</p>
             </div>
             <i class="fas fa-arrow-right sc-arrow"></i>
           </router-link>
@@ -115,12 +115,12 @@ export default {
     ]);
 
     const services = ref([
-      { id: 1, title: 'nav.journal',   desc: 'Электронный журнал посещаемости',  icon: 'fas fa-book',        link: '/journal' },
-      { id: 2, title: 'nav.schedule',  desc: 'Расписание занятий на неделю',      icon: 'fas fa-calendar-alt', link: '/schedule' },
-      { id: 3, title: 'nav.grades',    desc: '100-балльная система оценивания',   icon: 'fas fa-chart-bar',   link: '/grades' },
-      { id: 4, title: 'nav.profile',   desc: 'Личный кабинет студента',           icon: 'fas fa-user-circle', link: '/profile' },
-      { id: 5, title: 'nav.aiChat',    desc: 'Умный помощник на базе ИИ',         icon: 'fas fa-robot',       link: '/aichat' },
-      { id: 6, title: 'nav.news',      desc: 'Новости и события колледжа',        icon: 'fas fa-newspaper',   link: '/news' },
+      { id: 1, title: 'nav.journal',   desc: 'home.desc.journal',  icon: 'fas fa-book',        link: '/journal' },
+      { id: 2, title: 'nav.schedule',  desc: 'home.desc.schedule', icon: 'fas fa-calendar-alt', link: '/schedule' },
+      { id: 3, title: 'nav.grades',    desc: 'home.desc.grades',   icon: 'fas fa-chart-bar',   link: '/grades' },
+      { id: 4, title: 'nav.profile',   desc: 'home.desc.profile',  icon: 'fas fa-user-circle', link: '/profile' },
+      { id: 5, title: 'nav.aiChat',    desc: 'home.desc.ai',       icon: 'fas fa-robot',       link: '/aichat' },
+      { id: 6, title: 'nav.news',      desc: 'home.desc.news',     icon: 'fas fa-newspaper',   link: '/news' },
     ]);
 
     const loadedPosts = ref({});

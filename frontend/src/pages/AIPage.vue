@@ -3,6 +3,7 @@ import { ref, computed, nextTick, onMounted } from 'vue';
 import authService from '../services/auth.service';
 import aiService from '../services/ai.service';
 import knowledgeBase from '../services/knowledge.service';
+import i18n from '../i18n';
 
 const userName = computed(() => {
   const user = authService.getUser();
@@ -10,6 +11,15 @@ const userName = computed(() => {
   const parts = fullName.split(' ');
   return parts[1] || parts[0];
 });
+
+const greeting = computed(() => {
+  void i18n.locale;
+  return i18n.t('ai.greeting').replace('{name}', userName.value);
+});
+const titleText = computed(() => { void i18n.locale; return i18n.t('ai.title'); });
+const placeholderText = computed(() => { void i18n.locale; return i18n.t('ai.placeholder'); });
+const errorText = computed(() => { void i18n.locale; return i18n.t('ai.error'); });
+const errorApiText = computed(() => { void i18n.locale; return i18n.t('ai.errorApi'); });
 
 const messages = ref([]);
 const inputMessage = ref('');
@@ -45,21 +55,19 @@ const sendMessage = async () => {
       contextData.value
     );
     
-    console.log('🤖 AI ответ:', response);
-    
     if (response.success) {
       messages.value.push({ text: response.message, isUser: false });
       conversationHistory.value.push({ role: 'assistant', content: response.message });
     } else {
       messages.value.push({ 
-        text: `Ошибка: ${response.error}. Проверьте настройки API ключа.`, 
+        text: `${errorApiText.value}: ${response.error}`, 
         isUser: false,
         isError: true
       });
     }
   } catch (error) {
     messages.value.push({ 
-      text: 'Произошла ошибка при отправке сообщения.', 
+      text: errorText.value, 
       isUser: false,
       isError: true
     });
@@ -85,15 +93,16 @@ const formatMessage = (text) => {
     .replace(/\d+\. /g, '<br>$&')
     .replace(/^<p>/, '')
     .replace(/<\/p>$/, '');
-};
+  return { messages, inputMessage, loading, chatContainer, sendMessage, formatMessage,
+           greeting, titleText, placeholderText };
 </script>
 
 <template>
   <div :class="$style.aiPage">
     <div :class="$style.content">
       <div :class="$style.header">
-        <h2 :class="$style.greeting">Привет, {{ userName }}!</h2>
-        <h1 :class="$style.title">Чем могу помочь?</h1>
+        <h2 :class="$style.greeting">{{ greeting }}</h2>
+        <h1 :class="$style.title">{{ titleText }}</h1>
       </div>
 
       <div :class="$style.chatContainer" ref="chatContainer">
@@ -114,7 +123,7 @@ const formatMessage = (text) => {
           v-model="inputMessage"
           @keyup.enter="sendMessage"
           :class="$style.input"
-          placeholder="Вопрос"
+          :placeholder="placeholderText"
           :disabled="loading"
         />
         <button @click="sendMessage" :class="$style.sendBtn" :disabled="loading || !inputMessage.trim()">
