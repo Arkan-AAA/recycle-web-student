@@ -3,11 +3,16 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: var(--text);
-  background: var(--gray-100);
+  background: #1e1e1e;
   line-height: 1.6;
 }
 
@@ -20,9 +25,9 @@ body {
 }
 
 /* ── Типографика ── */
-h1 { font-size: var(--font-3xl); font-weight: 700; color: var(--text); }
-h2 { font-size: var(--font-2xl); font-weight: 600; color: var(--text); }
-h3 { font-size: var(--font-xl); font-weight: 600; color: var(--text); }
+h1 { font-size: var(--font-3xl); font-weight: 700; color: var(--text-primary); }
+h2 { font-size: var(--font-2xl); font-weight: 600; color: var(--text-primary); }
+h3 { font-size: var(--font-xl); font-weight: 600; color: var(--text-primary); }
 
 /* ── Кнопки ── */
 .btn {
@@ -53,16 +58,19 @@ h3 { font-size: var(--font-xl); font-weight: 600; color: var(--text); }
 
 /* ── Карточки ── */
 .card {
-  background: var(--white);
+  background: var(--bg-card);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: background 0.3s, border-color 0.3s;
 }
 .card-body { padding: 1.5rem; }
 .card-header {
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--gray-300);
+  border-bottom: 1px solid var(--border-color);
   font-weight: 600;
+  color: var(--text-primary);
 }
 
 /* ── Формы ── */
@@ -73,10 +81,11 @@ h3 { font-size: var(--font-xl); font-weight: 600; color: var(--text); }
   padding: 0.625rem 1rem;
   font-size: var(--font-base);
   font-family: inherit;
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-  background: var(--white);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.3s;
 }
 .form-control:focus {
   outline: none;
@@ -86,9 +95,10 @@ h3 { font-size: var(--font-xl); font-weight: 600; color: var(--text); }
 
 /* ── Таблицы ── */
 .table { width: 100%; border-collapse: collapse; }
-.table th, .table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
-.table th { background: var(--gray-100); font-weight: 600; font-size: var(--font-sm); text-transform: uppercase; letter-spacing: 0.5px; }
-.table tbody tr:hover { background: #fff5f6; }
+.table th, .table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+.table th { background: var(--bg-card); font-weight: 600; font-size: var(--font-sm); text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); }
+.table td { color: var(--text-primary); }
+.table tbody tr:hover { background: var(--bg-input); }
 .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius); }
 
 /* ── Модальное окно ── */

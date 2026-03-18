@@ -181,7 +181,10 @@ export default {
     contact: 'Contact',
     about: 'About Us',
     privacy: 'Privacy Policy',
-    terms: 'Terms of Use'
+    terms: 'Terms of Use',
+    theme: 'Theme:',
+    themeLight: 'Light',
+    themeDark: 'Dark'
   },
   home: {
     heroTitle: 'Student',

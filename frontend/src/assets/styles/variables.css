@@ -15,6 +15,16 @@
   --text: #252525;
   --text-muted: #666;
   --white: #ffffff;
+
+  /* Семантические переменные (светлая тема) */
+  --bg-page: #f9f9f9;
+  --bg-card: #ffffff;
+  --bg-input: #ffffff;
+  --border-color: #e0e0e0;
+  --text-primary: #252525;
+  --text-secondary: #666;
+  --text-hint: #999;
+
   --success: #28a745;
   --warning: #ffc107;
   --danger: #dc3545;
@@ -56,4 +66,27 @@
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
   --spacing-xxl: 3rem;
+}
+
+/* ── Тёмная тема ── */
+[data-theme="dark"] {
+  --bg-page: #141414;
+  --bg-card: #1e1e1e;
+  --bg-input: #2a2a2a;
+  --border-color: #2e2e2e;
+  --text-primary: #f0f0f0;
+  --text-secondary: #aaa;
+  --text-hint: #666;
+  --gray-100: #141414;
+  --gray-200: #1e1e1e;
+  --gray-300: #2e2e2e;
+  --gray-400: #444;
+  --gray-500: #666;
+  --text: #f0f0f0;
+  --text-muted: #aaa;
+  --white: #1e1e1e;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow: 0 2px 12px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
 }

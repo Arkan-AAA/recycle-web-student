@@ -181,7 +181,10 @@ export default {
     contact: 'Контакты',
     about: 'О нас',
     privacy: 'Политика конфиденциальности',
-    terms: 'Условия использования'
+    terms: 'Условия использования',
+    theme: 'Тема:',
+    themeLight: 'Светлая',
+    themeDark: 'Тёмная'
   },
   home: {
     heroTitle: 'Студенческий',

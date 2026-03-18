@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import i18n from '../../i18n'
+import theme from '../../services/theme.service.js'
 
 const route = useRoute()
 const isAuthPage = computed(() => route.path === '/')
@@ -44,7 +45,7 @@ const locales = [
           </ul>
         </div>
 
-        <!-- Язык -->
+        <!-- Язык + Тема -->
         <div class="footer-col">
           <h5 class="footer-col-title">{{ $t('footer.language') }}</h5>
           <div class="lang-switcher">
@@ -58,6 +59,16 @@ const locales = [
               {{ loc.label }}
             </button>
           </div>
+
+          <h5 class="footer-col-title" style="margin-top: 1.5rem">{{ $t('footer.theme') }}</h5>
+          <button class="theme-toggle" @click="theme.toggle()">
+            <span class="theme-toggle-track">
+              <span class="theme-toggle-thumb" :class="{ dark: theme.isDark }"></span>
+            </span>
+            <span class="theme-toggle-label">
+              {{ theme.isDark ? $t('footer.themeDark') : $t('footer.themeLight') }}
+            </span>
+          </button>
         </div>
 
       </div>
@@ -191,6 +202,50 @@ const locales = [
 }
 
 .footer-bottom-links a:hover { color: var(--primary); }
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.theme-toggle-track {
+  width: 44px;
+  height: 24px;
+  background: #333;
+  border-radius: 12px;
+  position: relative;
+  display: block;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #888;
+  border-radius: 50%;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.theme-toggle-thumb.dark {
+  transform: translateX(20px);
+  background: var(--primary);
+}
+
+.theme-toggle-label {
+  color: #888;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
 
 @media (max-width: 900px) {
   .footer-grid {

@@ -181,7 +181,10 @@ export default {
     contact: 'Байланыс',
     about: 'Біз туралы',
     privacy: 'Құпиялылық саясаты',
-    terms: 'Пайдалану шарттары'
+    terms: 'Пайдалану шарттары',
+    theme: 'Тақырып:',
+    themeLight: 'Жарық',
+    themeDark: 'Қараңғы'
   },
   home: {
     heroTitle: 'Студенттік',
