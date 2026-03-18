@@ -71,9 +71,7 @@ export default {
     },
     proxyImage(url) {
       if (!url) return '';
-      if (url.includes('instagram.com/p/') && url.includes('/media/')) {
-        return `${API_URL}/proxy-image?url=${encodeURIComponent(url)}`;
-      }
+      // thumbnail_url от oEmbed — прямая ссылка на CDN, прокси не нужно
       return url;
     },
     onImgError(e, post) {

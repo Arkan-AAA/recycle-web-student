@@ -161,7 +161,8 @@ export default {
       urlPlaceholder: 'https://www.instagram.com/p/...',
       urlHint: 'Вставьте ссылку на пост, рилс или IGTV',
       deleteConfirmTitle: 'Удалить пост?',
-      deleteConfirm: 'Пост будет скрыт со страницы новостей:'
+      deleteConfirm: 'Пост будет скрыт со страницы новостей:',
+      refresh: 'Обновить обложку'
     }
   },
   common: {

@@ -57,9 +57,14 @@
                 </td>
                 <td class="date-cell">{{ formatDate(post.created_at) }}</td>
                 <td>
-                  <button class="btn-delete" @click="confirmDelete(post)">
-                    <i class="fas fa-trash"></i> {{ $t('admin.news.delete') }}
-                  </button>
+                  <div class="action-btns">
+                    <button class="btn-refresh" @click="refreshCover(post)" :disabled="post._refreshing" :title="$t('admin.news.refresh')">
+                      <i :class="post._refreshing ? 'fas fa-spinner fa-spin' : 'fas fa-sync-alt'"></i>
+                    </button>
+                    <button class="btn-delete" @click="confirmDelete(post)">
+                      <i class="fas fa-trash"></i> {{ $t('admin.news.delete') }}
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -200,11 +205,18 @@ export default {
       }
     },
     proxyImage(url) {
-      if (!url) return '';
-      if (url.includes('instagram.com/p/') && url.includes('/media/')) {
-        return `${API_URL}/proxy-image?url=${encodeURIComponent(url)}`;
+      return url || '';
+    },
+    async refreshCover(post) {
+      post._refreshing = true;
+      try {
+        const res = await apiService.patch(`/news/${post.id}/refresh`);
+        if (res.success) {
+          post.cover_url = res.data.cover_url;
+        }
+      } catch { /* ignore */ } finally {
+        post._refreshing = false;
       }
-      return url;
     },
     shortUrl(url) {
       return url.replace('https://www.instagram.com/', 'instagram.com/').replace('https://instagram.com/', 'instagram.com/');
@@ -325,6 +337,22 @@ export default {
 .post-link i { font-size: 0.7rem; }
 
 .date-cell { color: var(--text-secondary); font-size: 0.8rem; white-space: nowrap; }
+
+.action-btns { display: flex; align-items: center; gap: 0.5rem; }
+
+.btn-refresh {
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.btn-refresh:hover { border-color: var(--primary); color: var(--primary); }
+.btn-refresh:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .btn-delete {
   display: flex;
