@@ -93,8 +93,7 @@ const formatMessage = (text) => {
     .replace(/\d+\. /g, '<br>$&')
     .replace(/^<p>/, '')
     .replace(/<\/p>$/, '');
-  return { messages, inputMessage, loading, chatContainer, sendMessage, formatMessage,
-           greeting, titleText, placeholderText };
+};
 </script>
 
 <template>
