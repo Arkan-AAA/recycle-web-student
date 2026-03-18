@@ -1,8 +1,7 @@
 <script setup>
-import { ref, computed, nextTick, onMounted } from 'vue';
+import { ref, computed, nextTick } from 'vue';
 import authService from '../services/auth.service';
 import aiService from '../services/ai.service';
-import knowledgeBase from '../services/knowledge.service';
 import i18n from '../i18n';
 
 const userName = computed(() => {
@@ -26,15 +25,6 @@ const inputMessage = ref('');
 const loading = ref(false);
 const chatContainer = ref(null);
 const conversationHistory = ref([]);
-const contextData = ref('');
-
-onMounted(async () => {
-  console.log('✅ AI готов к работе');
-  await knowledgeBase.loadKnowledge();
-  const kb = await knowledgeBase.getKnowledge();
-  console.log('📚 База знаний загружена:', kb.length, 'символов');
-  contextData.value = '';
-});
 
 const sendMessage = async () => {
   if (!inputMessage.value.trim() || loading.value) return;
@@ -50,9 +40,8 @@ const sendMessage = async () => {
 
   try {
     const response = await aiService.sendMessage(
-      userMsg, 
-      conversationHistory.value.slice(-10),
-      contextData.value
+      userMsg,
+      conversationHistory.value.slice(-10)
     );
     
     if (response.success) {

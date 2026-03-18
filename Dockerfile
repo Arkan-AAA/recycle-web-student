@@ -22,6 +22,9 @@ WORKDIR /app
 COPY frontend/ ./frontend/
 COPY backend/ ./backend/
 
+# Копируем базу знаний в бэкенд (для AI)
+RUN cp -r ./frontend/public/knowledge-base ./backend/knowledge-base || true
+
 # Собираем фронтенд
 WORKDIR /app/frontend
 RUN npm run build

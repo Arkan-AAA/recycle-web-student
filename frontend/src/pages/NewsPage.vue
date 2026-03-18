@@ -1,9 +1,6 @@
 <template>
   <div class="news-page">
     <div class="container">
-      <div class="page-hero">
-        <h1>{{ $t('news.title') }}</h1>
-      </div>
 
       <div v-if="loading" class="state-msg">
         <i class="fas fa-spinner fa-spin"></i> {{ $t('common.loading') }}
