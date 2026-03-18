@@ -324,8 +324,18 @@ const formatMessage = (text) => {
 
 @media (max-width: 768px) {
   .greeting { font-size: 20px; }
-  .title { font-size: 36px; }
-  .messageText { max-width: 85%; }
+  .title { font-size: 32px; }
+  .messageText { max-width: 85%; font-size: 14px; }
   .chatContainer { max-height: 300px; }
+  .content { gap: 24px; }
+  .inputWrapper { max-width: 100%; }
+}
+@media (max-width: 480px) {
+  .aiPage { padding: 12px; }
+  .greeting { font-size: 18px; }
+  .title { font-size: 26px; }
+  .input { padding: 12px 16px; font-size: 14px; }
+  .sendBtn { width: 44px; height: 44px; }
+  .messageText { max-width: 90%; padding: 10px 14px; font-size: 13px; }
 }
 </style>

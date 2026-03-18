@@ -47,13 +47,14 @@
           <span>{{ user.studentGroup || $t('profile.notSetF') }}</span>
         </div>
         
-        <button @click="toggleEdit" class="edit-btn">
-          {{ isEditing ? $t('profile.cancel') : $t('profile.edit') }}
-        </button>
-        
-        <button @click="logout" class="logout-btn">
-          {{ $t('profile.logout') }}
-        </button>
+        <div class="profile-actions">
+          <button @click="toggleEdit" class="edit-btn">
+            {{ isEditing ? $t('profile.cancel') : $t('profile.edit') }}
+          </button>
+          <button @click="logout" class="logout-btn">
+            {{ $t('profile.logout') }}
+          </button>
+        </div>
       </div>
     </div>
 
@@ -217,221 +218,188 @@ export default {
 <style scoped>
 .profile-page {
   min-height: 100vh;
-  background: #fff;
-  padding: 20px;
+  background: var(--gray-100);
+  padding: 1.5rem;
 }
 
-.header {
-  margin-bottom: 40px;
-}
+.header { margin-bottom: 2rem; }
 
-.back-link {
-  color: #cbcbcb;
-  text-decoration: none;
-  font-size: 16px;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.back-link:hover {
-  color: #d3392c;
-}
-
-h1 {
-  color: #d3392c;
-  font-size: 24px;
-  margin: 0;
-}
+h1 { color: var(--primary); font-size: var(--font-2xl); }
 
 .profile-content {
   display: flex;
-  gap: 40px;
-  max-width: 1200px;
+  gap: 2rem;
+  max-width: var(--container-max);
+  align-items: flex-start;
 }
 
-.avatar-section {
-  flex-shrink: 0;
-}
+.avatar-section { flex-shrink: 0; }
 
 .avatar-container {
-  width: 280px;
-  height: 280px;
-  background: #d9d9d9;
-  border-radius: 10px;
+  width: 240px;
+  height: 240px;
+  background: var(--gray-300);
+  border-radius: var(--radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
+  overflow: hidden;
 }
 
-.avatar {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.avatar-placeholder {
-  color: #666;
-  font-size: 18px;
-}
+.avatar { width: 100%; height: 100%; object-fit: cover; }
+.avatar-placeholder { color: var(--gray-600); font-size: var(--font-base); }
 
 .student-card-btn {
   width: 100%;
-  padding: 15px;
-  background: #d3392c;
+  padding: 0.875rem;
+  background: var(--primary);
   color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 20px;
+  border-radius: var(--radius);
+  font-size: var(--font-lg);
+  font-family: inherit;
+  font-weight: 500;
   cursor: pointer;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow);
+  transition: background 0.2s;
 }
+.student-card-btn:hover { background: var(--primary-dark); }
 
 .profile-info {
   flex: 1;
-  background: #d9d9d9;
-  border-radius: 10px;
-  padding: 30px;
-  padding-bottom: 100px;
-  position: relative;
+  background: var(--gray-200);
+  border-radius: var(--radius);
+  padding: 1.5rem;
 }
 
 .info-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 0;
-  border-bottom: 1px solid #cbcbcb;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--gray-400);
+  gap: 1rem;
 }
+.info-row:last-of-type { border-bottom: none; }
+.info-row label { font-weight: 500; color: var(--text); flex-shrink: 0; }
+.info-row span { color: var(--gray-600); text-align: right; word-break: break-word; }
 
-.info-row:last-of-type {
-  border-bottom: none;
-}
-
-.info-row label {
-  font-weight: 500;
-  color: #252525;
-}
-
-.info-row span {
-  color: #666;
+.profile-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .edit-btn {
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
-  padding: 15px 30px;
-  background: #d3392c;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-weight: 500;
   cursor: pointer;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  z-index: 10;
-}
-
-.logout-btn {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  padding: 15px 30px;
-  background: #666;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  z-index: 10;
+  box-shadow: var(--shadow);
   transition: background 0.2s;
 }
+.edit-btn:hover { background: var(--primary-dark); }
 
-.logout-btn:hover {
-  background: #444;
+.logout-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--gray-600);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 0.2s;
 }
+.logout-btn:hover { background: var(--gray-700); }
 
+/* Модальное окно */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
   z-index: 1000;
+  padding: 1rem;
 }
-
 .modal {
   background: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 500px;
-  max-width: 90vw;
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
 }
+.modal h2 { margin-bottom: 1.5rem; color: var(--primary); }
 
-.modal h2 {
-  margin-bottom: 20px;
-  color: #d3392c;
-}
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; margin-bottom: 0.375rem; font-weight: 500; font-size: var(--font-sm); }
+.form-group input[type="file"] { padding: 0.375rem; }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-.form-group input[type="file"] {
-  padding: 5px;
-}
-
-.avatar-preview {
-  margin-top: 10px;
-}
-
+.avatar-preview { margin-top: 0.75rem; }
 .avatar-preview img {
-  width: 100px;
-  height: 100px;
+  width: 90px; height: 90px;
   object-fit: cover;
-  border-radius: 10px;
-  border: 2px solid #ddd;
+  border-radius: var(--radius);
+  border: 2px solid var(--gray-300);
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--font-base);
+  transition: border-color 0.2s;
 }
+.form-group input:focus { outline: none; border-color: var(--primary); }
 
 .form-actions {
   display: flex;
-  gap: 10px;
+  gap: 0.75rem;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
-
 .form-actions button {
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--font-base);
   cursor: pointer;
+  transition: background 0.2s;
+}
+.form-actions button[type="submit"] { background: var(--primary); color: white; }
+.form-actions button[type="submit"]:hover { background: var(--primary-dark); }
+.form-actions button[type="button"] { background: var(--gray-300); color: var(--text); }
+.form-actions button[type="button"]:hover { background: var(--gray-400); }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .profile-content { flex-direction: column; align-items: stretch; }
+  .avatar-section { display: flex; flex-direction: column; align-items: center; }
+  .avatar-container { width: 180px; height: 180px; }
+  .student-card-btn { max-width: 240px; }
+  .info-row { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .info-row span { text-align: left; }
 }
 
-.form-actions button[type="submit"] {
-  background: #d3392c;
-  color: white;
-}
-
-.form-actions button[type="button"] {
-  background: #ccc;
-  color: #333;
+@media (max-width: 480px) {
+  .profile-page { padding: 1rem; }
+  .avatar-container { width: 140px; height: 140px; }
+  .profile-actions { flex-direction: column; }
+  .edit-btn, .logout-btn { width: 100%; text-align: center; }
+  .form-actions { flex-direction: column; }
+  .form-actions button { width: 100%; }
 }
 </style>

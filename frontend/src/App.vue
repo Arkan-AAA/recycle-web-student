@@ -19,30 +19,20 @@ export default {
 </script>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 #app {
   font-family: 'Rubik', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-content {
-  margin-top: 60px;
-  min-height: calc(100vh - 60px);
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+  flex: 1;
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    margin-top: 120px;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-content {
-    margin-top: 100px;
-  }
+  .main-content { margin-top: var(--header-height); }
 }
 </style>

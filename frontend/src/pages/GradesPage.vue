@@ -1,7 +1,9 @@
 <template>
   <div class="grades-page">
     <div class="container">
-      <h1>{{ $t('grades.title') }}</h1>
+      <div class="page-header">
+        <h1>{{ $t('grades.title') }}</h1>
+      </div>
       
       <!-- Шкала оценок -->
       <div class="grade-scale-info">
@@ -253,273 +255,164 @@ export default {
 </script>
 
 <style scoped>
-.grades-page {
-  padding: 1rem;
-}
+.grades-page { padding: 1.5rem 0; }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
+.page-header {
+  border-left: 4px solid var(--primary);
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+}
+.page-header h1 {
+  font-size: var(--font-2xl);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .grade-scale-info {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
+  background: var(--white);
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
 }
+.grade-scale-info h3 { margin-bottom: 0.75rem; font-size: var(--font-lg); }
 
 .scale-items {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
 }
 
 .scale-item {
-  padding: 0.75rem;
-  border-radius: 6px;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-sm);
   text-align: center;
   font-weight: 500;
+  font-size: var(--font-sm);
 }
+.excellent    { background: #d4edda; color: #155724; }
+.good         { background: #cce5ff; color: #004085; }
+.satisfactory { background: #fff3cd; color: #856404; }
+.unsatisfactory { background: #f8d7da; color: #721c24; }
 
-.grade-actions {
-  margin-bottom: 2rem;
-}
+.grade-actions { margin-bottom: 1.5rem; }
 
-.subjects-list {
-  display: grid;
-  gap: 2rem;
-}
+.subjects-list { display: grid; gap: 1.5rem; }
 
 .subject-grades {
-  background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+.subject-grades h3 {
+  font-size: var(--font-lg);
+  margin-bottom: 1rem;
+  color: var(--text);
+  border-left: 3px solid var(--primary);
+  padding-left: 0.75rem;
 }
 
-.grades-table {
-  margin-top: 1rem;
-}
-
-.grades-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.grades-table th,
-.grades-table td {
-  padding: 0.75rem;
+.grades-table { margin-top: 0.75rem; overflow-x: auto; }
+.grades-table table { width: 100%; border-collapse: collapse; min-width: 500px; }
+.grades-table th, .grades-table td {
+  padding: 0.625rem 0.875rem;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--gray-200);
+  font-size: var(--font-sm);
 }
-
-.grades-table th {
-  background: #f8f9fa;
-  font-weight: 600;
-}
+.grades-table th { background: var(--gray-100); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; font-size: var(--font-xs); }
+.grades-table tbody tr:hover { background: #fff5f6; }
 
 .grade-value {
-  font-weight: bold;
-  padding: 0.25rem 0.75rem;
-  border-radius: 4px;
+  font-weight: 600;
+  padding: 0.2rem 0.625rem;
+  border-radius: var(--radius-sm);
   display: inline-block;
-  min-width: 50px;
+  min-width: 44px;
   text-align: center;
-}
-
-.excellent { 
-  background: #d4edda; 
-  color: #155724; 
-}
-
-.good { 
-  background: #cce5ff; 
-  color: #004085; 
-}
-
-.satisfactory { 
-  background: #fff3cd; 
-  color: #856404; 
-}
-
-.unsatisfactory { 
-  background: #f8d7da; 
-  color: #721c24; 
+  font-size: var(--font-sm);
 }
 
 .average {
-  font-weight: bold;
-  color: #2c3e50;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 2px solid #eee;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+  border-top: 2px solid var(--gray-200);
+  font-size: var(--font-sm);
 }
 
-.no-grades,
-.no-subjects {
+.no-grades, .no-subjects {
   text-align: center;
-  color: #6c757d;
+  color: var(--gray-500);
   padding: 2rem;
+  font-size: var(--font-sm);
 }
 
-.actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: all 0.2s;
-}
-
-.btn-primary {
-  background: #007bff;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #0056b3;
-}
-
-.btn-secondary {
-  background: #6c757d;
-  color: white;
-}
-
-.btn-secondary:hover {
-  background: #545b62;
-}
-
-.btn-danger {
-  background: #dc3545;
-  color: white;
-}
-
-.btn-danger:hover {
-  background: #c82333;
-}
-
-.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-}
+.actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
 /* Модальное окно */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
   z-index: 1000;
+  padding: 1rem;
 }
-
 .modal {
-  background: white;
-  border-radius: 8px;
-  width: 90%;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  width: 100%;
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
+  box-shadow: var(--shadow-lg);
 }
-
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem;
-  border-bottom: 1px solid #eee;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
 }
+.modal-header h3 { margin: 0; font-size: var(--font-xl); }
+.close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-500); line-height: 1; }
+.close-btn:hover { color: var(--text); }
+.modal-body { padding: 1.5rem; }
 
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #6c757d;
-}
-
-.modal-body {
-  padding: 1.5rem;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
-.form-group input,
-.form-group select {
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; margin-bottom: 0.375rem; font-weight: 500; font-size: var(--font-sm); }
+.form-group input, .form-group select {
   width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--font-base);
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
 }
 
 .form-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-  margin-top: 2rem;
+  display: flex; gap: 0.75rem; justify-content: flex-end;
+  margin-top: 1.5rem;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
-  .grades-page {
-    padding: 0.5rem;
-  }
-  
-  .scale-items {
-    grid-template-columns: 1fr;
-  }
-  
-  .grades-table {
-    overflow-x: auto;
-  }
-  
-  .grades-table table {
-    min-width: 600px;
-  }
-  
-  .actions {
-    flex-direction: column;
-  }
-  
-  .modal {
-    width: 95%;
-    margin: 1rem;
-  }
-  
-  .form-actions {
-    flex-direction: column;
-  }
+  .scale-items { grid-template-columns: 1fr 1fr; }
+  .actions { flex-direction: column; }
+  .form-actions { flex-direction: column; }
+  .form-actions .btn { width: 100%; }
 }
-
 @media (max-width: 480px) {
-  .grades-table th,
-  .grades-table td {
-    padding: 0.5rem 0.25rem;
-    font-size: 0.875rem;
-  }
-  
-  .subject-grades {
-    padding: 1rem;
-  }
+  .grades-page { padding: 1rem 0; }
+  .scale-items { grid-template-columns: 1fr; }
+  .subject-grades { padding: 1rem; }
+  .modal-overlay { align-items: flex-end; padding: 0; }
+  .modal { border-radius: var(--radius) var(--radius) 0 0; }
 }
 </style>
