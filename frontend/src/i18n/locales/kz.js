@@ -173,6 +173,7 @@ export default {
       coverLabel: 'Мұқаба (сурет URL)',
       coverPlaceholder: 'https://example.com/image.jpg',
       coverHint: 'Мұқаба суретіне тікелей сілтеме қойыңыз',
+      coverFile: 'Файл',
       deleteConfirmTitle: 'Постты жою?',
       deleteConfirm: 'Пост жаңалықтар бетінен жасырылады:',
       refresh: 'Мұқабаны жаңарту'

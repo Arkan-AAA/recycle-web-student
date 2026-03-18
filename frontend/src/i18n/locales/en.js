@@ -173,6 +173,7 @@ export default {
       coverLabel: 'Cover (image URL)',
       coverPlaceholder: 'https://example.com/image.jpg',
       coverHint: 'Paste a direct link to the cover image',
+      coverFile: 'File',
       deleteConfirmTitle: 'Delete post?',
       deleteConfirm: 'The post will be hidden from the news page:',
       refresh: 'Refresh cover'

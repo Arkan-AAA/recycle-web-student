@@ -173,6 +173,7 @@ export default {
       coverLabel: 'Обложка (URL изображения)',
       coverPlaceholder: 'https://example.com/image.jpg',
       coverHint: 'Вставьте прямую ссылку на изображение обложки',
+      coverFile: 'Файл',
       deleteConfirmTitle: 'Удалить пост?',
       deleteConfirm: 'Пост будет скрыт со страницы новостей:',
       refresh: 'Обновить обложку'

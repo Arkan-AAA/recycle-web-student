@@ -93,17 +93,33 @@
           </div>
           <div class="form-group">
             <label>{{ $t('admin.news.coverLabel') }}</label>
+            <div class="cover-tabs">
+              <button type="button" :class="['cover-tab', coverMode === 'url' ? 'active' : '']" @click="coverMode = 'url'; addCoverUrl = ''; addCoverFile = null; addCoverPreview = ''">
+                <i class="fas fa-link"></i> URL
+              </button>
+              <button type="button" :class="['cover-tab', coverMode === 'file' ? 'active' : '']" @click="coverMode = 'file'; addCoverUrl = ''; addCoverFile = null; addCoverPreview = ''">
+                <i class="fas fa-upload"></i> {{ $t('admin.news.coverFile') }}
+              </button>
+            </div>
             <input
+              v-if="coverMode === 'url'"
               v-model="addCoverUrl"
               type="url"
               :placeholder="$t('admin.news.coverPlaceholder')"
               class="form-input"
               @keyup.enter="addPost"
             />
+            <input
+              v-else
+              type="file"
+              accept="image/*"
+              class="form-input file-input"
+              @change="onCoverFileChange"
+            />
             <p class="form-hint">{{ $t('admin.news.coverHint') }}</p>
           </div>
-          <div v-if="addCoverUrl" class="cover-preview">
-            <img :src="addCoverUrl" @error="e => e.target.style.display='none'" />
+          <div v-if="addCoverPreview || addCoverUrl" class="cover-preview">
+            <img :src="addCoverPreview || addCoverUrl" @error="e => e.target.style.display='none'" />
           </div>
           <div v-if="addError" class="form-error">{{ addError }}</div>
           <div class="modal-actions">
@@ -156,6 +172,9 @@ export default {
       showAddModal: false,
       addUrl: '',
       addCoverUrl: '',
+      addCoverFile: null,
+      addCoverPreview: '',
+      coverMode: 'url',
       addError: '',
       adding: false,
       deleteTarget: null,
@@ -177,13 +196,29 @@ export default {
         this.loadingPosts = false;
       }
     },
+    onCoverFileChange(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      this.addCoverFile = file;
+      const reader = new FileReader();
+      reader.onload = (ev) => { this.addCoverPreview = ev.target.result; };
+      reader.readAsDataURL(file);
+    },
     async addPost() {
       this.addError = '';
       if (!this.addUrl.trim()) { this.addError = 'Введите ссылку'; return; }
       if (!this.addUrl.includes('instagram.com')) { this.addError = 'Введите ссылку на Instagram'; return; }
       this.adding = true;
       try {
-        const res = await apiService.post('/news', { instagram_url: this.addUrl.trim(), cover_url: this.addCoverUrl.trim() || undefined });
+        let cover_url = this.addCoverUrl.trim() || undefined;
+        if (this.coverMode === 'file' && this.addCoverFile) {
+          cover_url = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(this.addCoverFile);
+          });
+        }
+        const res = await apiService.post('/news', { instagram_url: this.addUrl.trim(), cover_url });
         if (res.success) {
           this.closeAdd();
           await this.loadPosts();
@@ -200,6 +235,9 @@ export default {
       this.showAddModal = false;
       this.addUrl = '';
       this.addCoverUrl = '';
+      this.addCoverFile = null;
+      this.addCoverPreview = '';
+      this.coverMode = 'url';
       this.addError = '';
     },
     confirmDelete(post) {
@@ -443,6 +481,34 @@ export default {
   background: var(--bg-input);
 }
 .cover-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.cover-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.cover-tab {
+  flex: 1;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.cover-tab.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(213,0,50,0.08);
+}
+.file-input { padding: 0.5rem; cursor: pointer; }
 
 .form-error {
   background: rgba(213,0,50,0.08);
