@@ -19,9 +19,9 @@
             <th>{{ $t('journal.cols.num') }}</th>
             <th>{{ $t('journal.cols.name') }}</th>
             <th>{{ $t('journal.cols.type') }}</th>
-            <th>{{ $t('journal.cols.journalType') }}</th>
-            <th>{{ $t('journal.cols.program') }}</th>
-            <th>{{ $t('journal.cols.modules') }}</th>
+            <th class="hide-mobile">{{ $t('journal.cols.journalType') }}</th>
+            <th class="hide-mobile">{{ $t('journal.cols.program') }}</th>
+            <th class="hide-mobile">{{ $t('journal.cols.modules') }}</th>
             <th>{{ $t('journal.cols.group') }}</th>
             <th>{{ $t('journal.cols.discipline') }}</th>
             <th>{{ $t('journal.cols.teacher') }}</th>
@@ -35,9 +35,9 @@
             <td class="num">{{ i + 1 }}</td>
             <td>{{ j.name }}</td>
             <td><span class="badge">{{ j.type }}</span></td>
-            <td>{{ j.journalType }}</td>
-            <td>{{ j.program }}</td>
-            <td>{{ j.module || '—' }}</td>
+            <td class="hide-mobile">{{ j.journalType }}</td>
+            <td class="hide-mobile">{{ j.program }}</td>
+            <td class="hide-mobile">{{ j.module || '—' }}</td>
             <td><strong>{{ j.group }}</strong></td>
             <td>{{ j.discipline }}</td>
             <td>{{ j.teacher }}</td>
@@ -244,5 +244,25 @@ tbody tr:hover { background: var(--bg-input); }
   padding: 3rem;
   color: var(--text-hint);
   font-size: 14px;
+}
+
+/* Hide "extra" columns on small screens */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 0.65rem 0.6rem;
+  }
+
+  .view-btn {
+    font-size: 11px;
+    padding: 0.35rem 0.75rem;
+  }
 }
 </style>
