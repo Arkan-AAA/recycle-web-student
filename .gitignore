@@ -32,7 +32,8 @@ logs
 *.log
 
 # Obsidian
-knowledge-base/
+# Ignore only repo-root knowledge-base cache (backend knowledge-base files must be tracked for Railway Docker builds).
+/knowledge-base/
 
 # Root-level duplicates
 /vite.config.js
