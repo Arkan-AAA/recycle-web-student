@@ -1,12 +1,12 @@
 const { body } = require('express-validator');
 
-const ALLOWED_ORIGINS = process.env.CORS_ORIGIN
-    ? process.env.CORS_ORIGIN.split(',')
-    : ['http://localhost:5173', 'http://localhost:3000'];
-
 exports.csrfProtection = (req, res, next) => {
+    const allowedOrigins = process.env.CORS_ORIGIN
+        ? process.env.CORS_ORIGIN.split(',')
+        : ['http://localhost:5173', 'http://localhost:3000'];
+
     const origin = req.headers['origin'] || req.headers['referer'];
-    if (!origin || !ALLOWED_ORIGINS.some(o => origin.startsWith(o))) {
+    if (!origin || !allowedOrigins.some(o => origin.startsWith(o.trim().replace(/\/$/, '')))) {
         return res.status(403).json({ success: false, error: 'Недопустимый источник запроса' });
     }
     next();
