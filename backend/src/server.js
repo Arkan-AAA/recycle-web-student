@@ -95,7 +95,7 @@ app.use("/api/journals", journalRoutes);
 app.use("/api/ai", aiRoutes);
 
 if (process.env.NODE_ENV === 'production') {
-    const frontendPath = path.join(__dirname, '../../frontend/dist');
+    const frontendPath = path.join(__dirname, '../public');
     app.use(express.static(frontendPath));
 
     app.get(/^(?!\/api).*/, (req, res) => {

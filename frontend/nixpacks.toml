@@ -1,1 +1,0 @@
-[phases.setup]\ncmds = ['echo \"Installing dependencies...\"']\n\n[phases.install]\ncmds = ['npm ci']\n\n[phases.build]\ncmds = ['npm run build']\n\n[start]\ncmd = 'npm start'\n\n[variables]\nNODE_ENV = 'production'

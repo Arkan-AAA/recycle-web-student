@@ -1,50 +1,9 @@
 [build]
-builder = "nixpacks"
+builder = "dockerfile"
 
 [deploy]
-startCommand = "echo 'Please deploy services individually'"
-restartPolicyType = "never"
-
-# Конфигурация для бэкенда
-[[services]]
-name = "backend"
-source = "backend"
-
-[services.build]
-builder = "nixpacks"
-
-[services.deploy]
 startCommand = "npm start"
 healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "onFailure"
 restartPolicyMaxRetries = 10
-
-[[services.variables]]
-name = "NODE_ENV"
-value = "production"
-
-[[services.variables]]
-name = "PORT"
-value = "3000"
-
-# Конфигурация для фронтенда
-[[services]]
-name = "frontend"
-source = "frontend"
-
-[services.build]
-builder = "nixpacks"
-
-[services.deploy]
-startCommand = "npm run build && npx serve -s dist -l 3000"
-restartPolicyType = "onFailure"
-restartPolicyMaxRetries = 10
-
-# База данных PostgreSQL
-[[services]]
-name = "database"
-source = "postgresql"
-
-[services.deploy]
-template = "postgresql"
