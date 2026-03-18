@@ -79,6 +79,16 @@ const buildSystemPrompt = () => {
     return prompt;
 };
 
+// Вспомогательный эндпоинт для диагностики базы знаний в продакшене
+// Можно вызвать GET /api/ai/debug/knowledge чтобы увидеть длину и часть текста
+router.get('/debug/knowledge', (req, res) => {
+    const knowledge = loadKnowledge();
+    return res.json({
+        length: knowledge.length,
+        preview: knowledge.slice(0, 400)
+    });
+});
+
 router.post('/chat', authenticate, async (req, res) => {
     const { messages } = req.body;
 
