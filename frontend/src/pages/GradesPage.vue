@@ -270,11 +270,12 @@ export default {
 }
 
 .grade-scale-info {
-  background: var(--white);
+  background: var(--bg-card);
   padding: 1.25rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
 }
 .grade-scale-info h3 { margin-bottom: 0.75rem; font-size: var(--font-lg); }
 
@@ -302,10 +303,11 @@ export default {
 .subjects-list { display: grid; gap: 1.5rem; }
 
 .subject-grades {
-  background: var(--white);
+  background: var(--bg-card);
   border-radius: var(--radius);
   padding: 1.25rem;
   box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
 }
 .subject-grades h3 {
   font-size: var(--font-lg);
@@ -320,11 +322,11 @@ export default {
 .grades-table th, .grades-table td {
   padding: 0.625rem 0.875rem;
   text-align: left;
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--border-color);
   font-size: var(--font-sm);
 }
-.grades-table th { background: var(--gray-100); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; font-size: var(--font-xs); }
-.grades-table tbody tr:hover { background: #fff5f6; }
+.grades-table th { background: var(--bg-input); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; font-size: var(--font-xs); color: var(--text-secondary); }
+.grades-table tbody tr:hover { background: var(--bg-input); }
 
 .grade-value {
   font-weight: 600;
@@ -363,18 +365,19 @@ export default {
   padding: 1rem;
 }
 .modal {
-  background: var(--white);
+  background: var(--bg-card);
   border-radius: var(--radius-lg);
   width: 100%;
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
 }
 .modal-header {
   display: flex; justify-content: space-between; align-items: center;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--border-color);
 }
 .modal-header h3 { margin: 0; font-size: var(--font-xl); }
 .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-500); line-height: 1; }
@@ -386,10 +389,12 @@ export default {
 .form-group input, .form-group select {
   width: 100%;
   padding: 0.625rem 0.875rem;
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   font-family: inherit;
   font-size: var(--font-base);
+  background: var(--bg-input);
+  color: var(--text-primary);
   transition: border-color 0.2s;
 }
 .form-group input:focus, .form-group select:focus {

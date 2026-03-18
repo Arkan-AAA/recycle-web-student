@@ -166,7 +166,7 @@ export default {
 .home-page {
   padding-top: var(--header-height);
   min-height: 100vh;
-  background: #1e1e1e;
+  background: var(--bg-page);
 }
 
 /* Hero */

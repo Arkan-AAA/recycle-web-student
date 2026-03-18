@@ -97,35 +97,34 @@ const formatMessage = (text) => {
 </script>
 
 <template>
-  <div :class="$style.aiPage">
-    <div :class="$style.content">
-      <div :class="$style.header">
-        <h2 :class="$style.greeting">{{ greeting }}</h2>
-        <h1 :class="$style.title">{{ titleText }}</h1>
+  <div class="ai-page">
+    <div class="ai-content">
+      <div class="ai-header">
+        <h2 class="ai-greeting">{{ greeting }}</h2>
+        <h1 class="ai-title">{{ titleText }}</h1>
       </div>
 
-      <div :class="$style.chatContainer" ref="chatContainer">
-        <div v-for="(msg, index) in messages" :key="index" 
-             :class="[$style.message, msg.isUser ? $style.userMessage : $style.aiMessage]">
-          <div :class="$style.messageText" v-html="formatMessage(msg.text)"></div>
+      <div class="ai-chat" ref="chatContainer">
+        <div v-for="(msg, index) in messages" :key="index"
+             :class="['ai-message', msg.isUser ? 'user-msg' : 'bot-msg']">
+          <div class="msg-text" v-html="formatMessage(msg.text)"></div>
         </div>
-
-        <div v-if="loading" :class="[$style.message, $style.aiMessage]">
-          <div :class="$style.typingIndicator">
+        <div v-if="loading" class="ai-message bot-msg">
+          <div class="typing">
             <span></span><span></span><span></span>
           </div>
         </div>
       </div>
 
-      <div :class="$style.inputWrapper">
-        <input 
+      <div class="ai-input-wrap">
+        <input
           v-model="inputMessage"
           @keyup.enter="sendMessage"
-          :class="$style.input"
+          class="ai-input"
           :placeholder="placeholderText"
           :disabled="loading"
         />
-        <button @click="sendMessage" :class="$style.sendBtn" :disabled="loading || !inputMessage.trim()">
+        <button @click="sendMessage" class="ai-send" :disabled="loading || !inputMessage.trim()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -135,19 +134,19 @@ const formatMessage = (text) => {
   </div>
 </template>
 
-<style module>
-.aiPage {
+<style scoped>
+.ai-page {
   width: 100%;
   min-height: 91.3vh;
-  background: #e8e8e8;
+  background: var(--bg-page);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', sans-serif;
   padding: 20px;
+  transition: background 0.3s;
 }
 
-.content {
+.ai-content {
   width: 100%;
   max-width: 800px;
   display: flex;
@@ -156,25 +155,23 @@ const formatMessage = (text) => {
   gap: 40px;
 }
 
-.header {
-  text-align: center;
-}
+.ai-header { text-align: center; }
 
-.greeting {
+.ai-greeting {
   font-size: 24px;
   font-weight: 400;
-  margin: 0 0 10px 0;
-  color: #000;
+  margin: 0 0 10px;
+  color: var(--text-secondary);
 }
 
-.title {
+.ai-title {
   font-size: 48px;
   font-weight: 700;
   margin: 0;
-  color: #000;
+  color: var(--text-primary);
 }
 
-.chatContainer {
+.ai-chat {
   width: 100%;
   max-height: 400px;
   overflow-y: auto;
@@ -184,31 +181,20 @@ const formatMessage = (text) => {
   gap: 15px;
 }
 
-.message {
+.ai-message {
   display: flex;
   animation: slideIn 0.3s ease;
 }
 
 @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.userMessage {
-  justify-content: flex-end;
-}
+.user-msg { justify-content: flex-end; }
+.bot-msg  { justify-content: flex-start; }
 
-.aiMessage {
-  justify-content: flex-start;
-}
-
-.messageText {
+.msg-text {
   padding: 12px 20px;
   border-radius: 20px;
   max-width: 70%;
@@ -217,62 +203,47 @@ const formatMessage = (text) => {
   line-height: 1.6;
 }
 
-.messageText p {
-  margin: 0 0 10px 0;
-}
+.msg-text p { margin: 0 0 10px; }
+.msg-text p:last-child { margin-bottom: 0; }
+.msg-text strong { font-weight: 600; }
 
-.messageText p:last-child {
-  margin-bottom: 0;
-}
-
-.messageText strong {
-  font-weight: 600;
-  color: inherit;
-}
-
-.messageText br {
-  display: block;
-  margin: 5px 0;
-  content: "";
-}
-
-.userMessage .messageText {
+.user-msg .msg-text {
   background: #d90135;
   color: white;
 }
 
-.aiMessage .messageText {
-  background: white;
-  color: #000;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.bot-msg .msg-text {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
 }
 
-.typingIndicator {
+.typing {
   display: flex;
   gap: 5px;
   padding: 12px 20px;
-  background: white;
+  background: var(--bg-card);
   border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
 }
 
-.typingIndicator span {
-  width: 8px;
-  height: 8px;
+.typing span {
+  width: 8px; height: 8px;
   border-radius: 50%;
-  background: #999;
+  background: var(--text-hint);
   animation: bounce 1.4s infinite;
 }
-
-.typingIndicator span:nth-child(2) { animation-delay: 0.2s; }
-.typingIndicator span:nth-child(3) { animation-delay: 0.4s; }
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
 
 @keyframes bounce {
   0%, 60%, 100% { transform: translateY(0); }
   30% { transform: translateY(-10px); }
 }
 
-.inputWrapper {
+.ai-input-wrap {
   width: 100%;
   max-width: 700px;
   display: flex;
@@ -280,37 +251,29 @@ const formatMessage = (text) => {
   align-items: center;
 }
 
-.input {
+.ai-input {
   flex: 1;
   padding: 16px 24px;
-  border: none;
+  border: 1px solid var(--border-color);
   border-radius: 50px;
   font-size: 16px;
   outline: none;
-  background: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-family: 'Inter', sans-serif;
-  font-style: italic;
-  color: #999;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  box-shadow: var(--shadow);
+  font-family: inherit;
+  transition: background 0.3s, border-color 0.2s;
 }
 
-.input:focus {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-  color: #000;
-  font-style: normal;
-}
+.ai-input::placeholder { color: var(--text-hint); font-style: italic; }
+.ai-input:focus { border-color: var(--primary); box-shadow: var(--shadow-md); font-style: normal; }
+.ai-input:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.input:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.sendBtn {
-  width: 50px;
-  height: 50px;
+.ai-send {
+  width: 50px; height: 50px;
   border-radius: 50%;
   border: none;
-  background: #888;
+  background: var(--text-hint);
   color: white;
   cursor: pointer;
   transition: all 0.2s;
@@ -319,31 +282,23 @@ const formatMessage = (text) => {
   justify-content: center;
   flex-shrink: 0;
 }
-
-.sendBtn:hover:not(:disabled) {
-  background: #666;
-  transform: scale(1.05);
-}
-
-.sendBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.ai-send:hover:not(:disabled) { background: var(--primary); transform: scale(1.05); }
+.ai-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
 @media (max-width: 768px) {
-  .greeting { font-size: 20px; }
-  .title { font-size: 32px; }
-  .messageText { max-width: 85%; font-size: 14px; }
-  .chatContainer { max-height: 300px; }
-  .content { gap: 24px; }
-  .inputWrapper { max-width: 100%; }
+  .ai-greeting { font-size: 20px; }
+  .ai-title { font-size: 32px; }
+  .msg-text { max-width: 85%; font-size: 14px; }
+  .ai-chat { max-height: 300px; }
+  .ai-content { gap: 24px; }
+  .ai-input-wrap { max-width: 100%; }
 }
 @media (max-width: 480px) {
-  .aiPage { padding: 12px; }
-  .greeting { font-size: 18px; }
-  .title { font-size: 26px; }
-  .input { padding: 12px 16px; font-size: 14px; }
-  .sendBtn { width: 44px; height: 44px; }
-  .messageText { max-width: 90%; padding: 10px 14px; font-size: 13px; }
+  .ai-page { padding: 12px; }
+  .ai-greeting { font-size: 18px; }
+  .ai-title { font-size: 26px; }
+  .ai-input { padding: 12px 16px; font-size: 14px; }
+  .ai-send { width: 44px; height: 44px; }
+  .msg-text { max-width: 90%; padding: 10px 14px; font-size: 13px; }
 }
 </style>

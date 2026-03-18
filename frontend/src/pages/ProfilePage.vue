@@ -218,8 +218,9 @@ export default {
 <style scoped>
 .profile-page {
   min-height: 100vh;
-  background: var(--gray-100);
+  background: var(--bg-page);
   padding: 1.5rem;
+  transition: background 0.3s;
 }
 
 .header { margin-bottom: 2rem; }
@@ -268,9 +269,10 @@ h1 { color: var(--primary); font-size: var(--font-2xl); }
 
 .profile-info {
   flex: 1;
-  background: var(--gray-200);
+  background: var(--bg-card);
   border-radius: var(--radius);
   padding: 1.5rem;
+  border: 1px solid var(--border-color);
 }
 
 .info-row {
@@ -278,12 +280,12 @@ h1 { color: var(--primary); font-size: var(--font-2xl); }
   justify-content: space-between;
   align-items: center;
   padding: 0.875rem 0;
-  border-bottom: 1px solid var(--gray-400);
+  border-bottom: 1px solid var(--border-color);
   gap: 1rem;
 }
 .info-row:last-of-type { border-bottom: none; }
-.info-row label { font-weight: 500; color: var(--text); flex-shrink: 0; }
-.info-row span { color: var(--gray-600); text-align: right; word-break: break-word; }
+.info-row label { font-weight: 500; color: var(--text-primary); flex-shrink: 0; }
+.info-row span { color: var(--text-secondary); text-align: right; word-break: break-word; }
 
 .profile-actions {
   display: flex;
@@ -329,7 +331,7 @@ h1 { color: var(--primary); font-size: var(--font-2xl); }
   padding: 1rem;
 }
 .modal {
-  background: white;
+  background: var(--bg-card);
   padding: 2rem;
   border-radius: var(--radius-lg);
   width: 100%;
@@ -337,6 +339,7 @@ h1 { color: var(--primary); font-size: var(--font-2xl); }
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
 }
 .modal h2 { margin-bottom: 1.5rem; color: var(--primary); }
 
@@ -355,10 +358,12 @@ h1 { color: var(--primary); font-size: var(--font-2xl); }
 .form-group input {
   width: 100%;
   padding: 0.625rem 0.875rem;
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   font-family: inherit;
   font-size: var(--font-base);
+  background: var(--bg-input);
+  color: var(--text-primary);
   transition: border-color 0.2s;
 }
 .form-group input:focus { outline: none; border-color: var(--primary); }
@@ -381,8 +386,8 @@ h1 { color: var(--primary); font-size: var(--font-2xl); }
 }
 .form-actions button[type="submit"] { background: var(--primary); color: white; }
 .form-actions button[type="submit"]:hover { background: var(--primary-dark); }
-.form-actions button[type="button"] { background: var(--gray-300); color: var(--text); }
-.form-actions button[type="button"]:hover { background: var(--gray-400); }
+.form-actions button[type="button"] { background: var(--bg-input); color: var(--text-primary); }
+.form-actions button[type="button"]:hover { background: var(--border-color); }
 
 /* Адаптивность */
 @media (max-width: 768px) {

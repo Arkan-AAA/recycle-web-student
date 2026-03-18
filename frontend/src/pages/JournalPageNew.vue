@@ -105,20 +105,21 @@ export default {
 .journal-page {
   padding: 2rem;
   font-family: 'Rubik', sans-serif;
-  background: #f9f9f9;
+  background: var(--bg-page);
   min-height: 100vh;
+  transition: background 0.3s;
 }
 
 .breadcrumb {
   font-size: 13px;
-  color: #999;
+  color: var(--text-hint);
   margin-bottom: 0.5rem;
 }
 
 h1 {
   font-size: 24px;
   font-weight: 700;
-  color: #1e1e1e;
+  color: var(--text-primary);
   margin-bottom: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -128,7 +129,7 @@ h1 {
 
 .tabs {
   display: flex;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 2px solid var(--border-color);
   margin-bottom: 1.5rem;
 }
 
@@ -139,14 +140,14 @@ h1 {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: #888;
+  color: var(--text-hint);
   border-bottom: 3px solid transparent;
   margin-bottom: -2px;
   transition: all 0.2s;
   font-family: 'Rubik', sans-serif;
 }
 
-.tab:hover { color: #1e1e1e; }
+.tab:hover { color: var(--text-primary); }
 .tab.active {
   color: #d50032;
   border-bottom-color: #d50032;
@@ -161,22 +162,23 @@ h1 {
 
 .count {
   font-size: 14px;
-  color: #555;
-  background: #fff;
-  border: 1px solid #e0e0e0;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 0.4rem 1rem;
 }
 
 .count strong { color: #d50032; }
 
-.table-wrap { overflow-x: auto; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.table-wrap { overflow-x: auto; border-radius: 8px; box-shadow: var(--shadow); }
 
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
-  background: #fff;
+  background: var(--bg-card);
+  transition: background 0.3s;
 }
 
 thead tr {
@@ -196,22 +198,22 @@ th {
 
 td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-color);
   vertical-align: middle;
-  color: #333;
+  color: var(--text-primary);
 }
 
-tbody tr:hover { background: #fff5f6; }
+tbody tr:hover { background: var(--bg-input); }
 
 .num {
-  color: #999;
+  color: var(--text-hint);
   font-size: 12px;
   text-align: center;
 }
 
 .badge {
-  background: #f0f0f0;
-  color: #555;
+  background: var(--bg-input);
+  color: var(--text-secondary);
   padding: 3px 8px;
   border-radius: 4px;
   font-size: 11px;
@@ -240,7 +242,7 @@ tbody tr:hover { background: #fff5f6; }
 .center {
   text-align: center;
   padding: 3rem;
-  color: #aaa;
+  color: var(--text-hint);
   font-size: 14px;
 }
 </style>
