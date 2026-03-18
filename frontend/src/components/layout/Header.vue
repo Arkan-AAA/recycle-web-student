@@ -209,9 +209,9 @@ const closeMobileMenu = () => {
   width: auto;
 }
 
-/* Мобильное меню кнопка */
+/* Мобильное меню кнопка — скрыта на десктопе */
 .mobile-menu-toggle {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-around;
   width: 30px;
@@ -365,6 +365,9 @@ const closeMobileMenu = () => {
 
 /* Планшеты */
 @media (max-width: 991.98px) {
+  .mobile-menu-toggle {
+    display: flex;
+  }
   .nav {
     position: fixed;
     top: 0;
