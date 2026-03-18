@@ -91,14 +91,17 @@
       <div class="social-block">
         <h2 class="block-title"><i class="fas fa-share-alt"></i> {{ $t('contacts.social') }}</h2>
         <div class="social-links">
-          <a href="https://instagram.com/narxoz_college" target="_blank" class="social-btn instagram">
+          <a href="https://www.instagram.com/narxozcollege/" target="_blank" class="social-btn instagram">
             <i class="fab fa-instagram"></i> {{ $t('contacts.socialLinks.instagram') }}
           </a>
-          <a href="https://t.me/narxoz_college" target="_blank" class="social-btn telegram">
+          <a href="https://t.me/dbdldv#" target="_blank" class="social-btn telegram">
             <i class="fab fa-telegram"></i> {{ $t('contacts.socialLinks.telegram') }}
           </a>
-          <a href="https://facebook.com/narxozcollege" target="_blank" class="social-btn facebook">
-            <i class="fab fa-facebook"></i> {{ $t('contacts.socialLinks.facebook') }}
+          <a href="https://wa.me/77068080002" target="_blank" class="social-btn whatsapp">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="https://www.tiktok.com/@narxozcollege" target="_blank" class="social-btn tiktok">
+            <i class="fab fa-tiktok"></i> TikTok
           </a>
         </div>
       </div>
@@ -258,7 +261,8 @@ export default {
 .social-btn:hover { transform: translateY(-2px); opacity: 0.9; }
 .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
 .telegram  { background: #2CA5E0; }
-.facebook  { background: #1877F2; }
+.whatsapp  { background: #25D366; }
+.tiktok    { background: #010101; }
 
 @media (max-width: 768px) {
   .contacts-grid { grid-template-columns: 1fr; }
