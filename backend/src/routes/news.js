@@ -82,7 +82,8 @@ router.delete('/:id', authenticate, isAdmin, async (req, res) => {
         const post = await NewsPost.findByPk(req.params.id);
         if (!post) return res.status(404).json({ success: false, error: 'Not found' });
 
-        await post.update({ is_active: false, deleted_at: new Date() });
+        // Hard delete: удаляем запись из базы, а не soft-delete.
+        await post.destroy();
         res.json({ success: true });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
