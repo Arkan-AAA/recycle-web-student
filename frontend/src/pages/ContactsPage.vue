@@ -3,7 +3,7 @@
     <div class="container">
 
       <div class="page-hero">
-        <p class="eyebrow">Narxoz College</p>
+        <p class="eyebrow">{{ $t('contacts.eyebrow') }}</p>
         <h1>{{ $t('contacts.title') }}</h1>
       </div>
 
@@ -16,43 +16,43 @@
           <div class="contact-list">
             <div class="contact-row">
               <i class="fas fa-map-marker-alt"></i>
-              <span>050035, г. Алматы, 10-й микрорайон, д. 7А</span>
+              <span>{{ $t('contacts.mainAddress') }}</span>
             </div>
             <div class="contact-row">
               <i class="fas fa-phone"></i>
               <div class="phones">
-                <a href="tel:+77273132028">+7 (727) 313-20-28</a>
-                <a href="tel:+77068080002">+7 (706) 808-00-02</a>
-                <a href="tel:+77068080004">+7 (706) 808-00-04</a>
+                <a href="tel:+77273132028">{{ $t('contacts.mainPhone1') }}</a>
+                <a href="tel:+77068080002">{{ $t('contacts.mainPhone2') }}</a>
+                <a href="tel:+77068080004">{{ $t('contacts.mainPhone3') }}</a>
               </div>
             </div>
             <div class="contact-row">
               <i class="fas fa-envelope"></i>
-              <a href="mailto:info@college-narxoz.kz">info@college-narxoz.kz</a>
+              <a href="mailto:info@college-narxoz.kz">{{ $t('contacts.mainEmail') }}</a>
             </div>
             <div class="contact-row">
               <i class="fas fa-globe"></i>
-              <a href="https://college.narxoz.kz" target="_blank">college.narxoz.kz</a>
+              <a href="https://college.narxoz.kz" target="_blank">{{ $t('contacts.mainSite') }}</a>
             </div>
           </div>
         </div>
 
         <!-- Кампус Сайна -->
         <div class="campus-card">
-          <div class="campus-badge secondary">SSC</div>
+          <div class="campus-badge secondary">{{ $t('contacts.campus2Badge') }}</div>
           <h2>{{ $t('contacts.campus2') }}</h2>
           <div class="contact-list">
             <div class="contact-row">
               <i class="fas fa-map-marker-alt"></i>
-              <span>ул. Жандосова, 55, г. Алматы</span>
+              <span>{{ $t('contacts.campus2Address') }}</span>
             </div>
             <div class="contact-row">
               <i class="fas fa-envelope"></i>
-              <a href="mailto:global@narxoz.kz">global@narxoz.kz</a>
+              <a href="mailto:global@narxoz.kz">{{ $t('contacts.campus2Email') }}</a>
             </div>
             <div class="contact-row">
               <i class="fas fa-door-open"></i>
-              <span>{{ $t('contacts.room') }} А238</span>
+              <span>{{ $t('contacts.room') }} {{ $t('contacts.campus2RoomId') }}</span>
             </div>
           </div>
         </div>
@@ -67,8 +67,8 @@
             <div class="dept-icon"><i :class="d.icon"></i></div>
             <div class="dept-info">
               <h3>{{ $t(d.name) }}</h3>
-              <a :href="'mailto:' + d.email">{{ d.email }}</a>
-              <span v-if="d.room" class="dept-room">{{ $t('contacts.room') }} {{ d.room }}</span>
+              <a :href="'mailto:' + d.email">{{ $t(d.emailKey) }}</a>
+              <span v-if="d.roomKey" class="dept-room">{{ $t('contacts.room') }} {{ $t(d.roomKey) }}</span>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@
           <div class="hours-card" v-for="h in workHours" :key="h.day">
             <span class="hours-day">{{ $t(h.day) }}</span>
             <span class="hours-time" :class="{ closed: h.closed }">
-              {{ h.closed ? $t('contacts.closed') : h.time }}
+              {{ h.closed ? $t('contacts.closed') : $t(h.timeKey) }}
             </span>
           </div>
         </div>
@@ -92,13 +92,13 @@
         <h2 class="block-title"><i class="fas fa-share-alt"></i> {{ $t('contacts.social') }}</h2>
         <div class="social-links">
           <a href="https://instagram.com/narxoz_college" target="_blank" class="social-btn instagram">
-            <i class="fab fa-instagram"></i> Instagram
+            <i class="fab fa-instagram"></i> {{ $t('contacts.socialLinks.instagram') }}
           </a>
           <a href="https://t.me/narxoz_college" target="_blank" class="social-btn telegram">
-            <i class="fab fa-telegram"></i> Telegram
+            <i class="fab fa-telegram"></i> {{ $t('contacts.socialLinks.telegram') }}
           </a>
           <a href="https://facebook.com/narxozcollege" target="_blank" class="social-btn facebook">
-            <i class="fab fa-facebook"></i> Facebook
+            <i class="fab fa-facebook"></i> {{ $t('contacts.socialLinks.facebook') }}
           </a>
         </div>
       </div>
@@ -113,14 +113,14 @@ export default {
   data() {
     return {
       departments: [
-        { icon: 'fas fa-user-graduate', name: 'contacts.dept.admission', email: 'admission@narxoz.kz', room: null },
-        { icon: 'fas fa-headset', name: 'contacts.dept.support', email: 'support@narxoz.kz', room: '117' },
-        { icon: 'fas fa-globe', name: 'contacts.dept.international', email: 'global@narxoz.kz', room: 'А238' },
+        { icon: 'fas fa-user-graduate', name: 'contacts.dept.admission', email: 'admission@narxoz.kz', emailKey: 'contacts.dept.admissionEmail', roomKey: null },
+        { icon: 'fas fa-headset', name: 'contacts.dept.support', email: 'support@narxoz.kz', emailKey: 'contacts.dept.supportEmail', roomKey: 'contacts.dept.supportRoom' },
+        { icon: 'fas fa-globe', name: 'contacts.dept.international', email: 'global@narxoz.kz', emailKey: 'contacts.dept.internationalEmail', roomKey: 'contacts.dept.internationalRoom' },
       ],
       workHours: [
-        { day: 'contacts.days.monFri', time: '9:00 – 18:00', closed: false },
-        { day: 'contacts.days.sat', time: '10:00 – 16:00', closed: false },
-        { day: 'contacts.days.sun', time: '', closed: true },
+        { day: 'contacts.days.monFri', timeKey: 'contacts.workHours.monFriTime', closed: false },
+        { day: 'contacts.days.sat', timeKey: 'contacts.workHours.satTime', closed: false },
+        { day: 'contacts.days.sun', timeKey: 'contacts.workHours.sunTime', closed: true },
       ]
     }
   }

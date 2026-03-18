@@ -121,7 +121,14 @@ export default {
       excellent: 'Отлично (90-100)',
       good: 'Хорошо (70-89)',
       satisfactory: 'Удовлетворительно (50-69)',
-      unsatisfactory: 'Неудовлетворительно (0-49)'
+      unsatisfactory: 'Неудовлетворительно (0-49)',
+      title: 'Шкала оценок'
+    },
+    subjects: {
+      math: 'Математика',
+      physics: 'Физика',
+      programming: 'Программирование',
+      english: 'Английский язык'
     }
   },
   news: {
@@ -132,7 +139,8 @@ export default {
     category: 'Категория',
     tags: 'Теги',
     noNews: 'Новостей пока нет',
-    loadMore: 'Загрузить еще'
+    loadMore: 'Загрузить еще',
+    instagramPostAlt: 'Пост Instagram'
   },
   admin: {
     title: 'Панель администратора',
@@ -188,12 +196,13 @@ export default {
     previous: 'Предыдущий',
     selectAll: 'Выбрать все',
     clearAll: 'Очистить все',
+    select: 'Выбрать',
     more: 'Подробнее',
     actions: 'Действия',
     loading: 'Загрузка...'
   },
   footer: {
-    rights: '© 2025 Narxoz College. Все права защищены.',
+    rights: '© 2026 Narxoz College. Все права защищены.',
     language: 'Язык:',
     contact: 'Контакты',
     about: 'О нас',
@@ -216,6 +225,9 @@ export default {
     profileText: 'Колледж Narxoz — учебное заведение среднего звена для подготовки специалистов в области IT, бизнеса и экономики. Современная образовательная среда, опытные преподаватели и партнёрство с ведущими компаниями.',
     director: 'Директор',
     directorTitle: 'Директор колледжа Narxoz',
+    eyebrow: 'Narxoz College',
+    missionQuote: 'Learning today – leading tomorrow!',
+    directorName: 'Абайдуллаев Мақсат Серікболұлы',
     specialties: 'Специальности',
     base9: 'На базе 9 классов',
     base11: 'На базе 11 классов',
@@ -228,6 +240,15 @@ export default {
     statRooms: 'Аудиторий',
     statSpecs: 'Специальностей',
     statMasters: 'Магистров в составе',
+    specialtiesList: {
+      '0': 'Банковское и страховое дело',
+      '1': 'Учет и аудит',
+      '2': 'Менеджмент',
+      '3': 'Маркетинг',
+      '4': 'Правоведение',
+      '5': 'Программное обеспечение',
+      '6': 'Вычислительная техника и ИС'
+    },
     infra: {
       library: 'Библиотека',
       libraryDesc: 'Фонд более 50 000 книг. Пн–Пт 9:00–19:00, Сб 10:00–16:00',
@@ -245,9 +266,20 @@ export default {
   },
   contacts: {
     title: 'Контакты',
+    eyebrow: 'Narxoz College',
     mainCampus: 'Главный кампус',
     campus1: '10-й микрорайон, д. 7А',
     campus2: 'Кампус Сайна (SSC)',
+    campus2Badge: 'SSC',
+    mainAddress: '050035, г. Алматы, 10-й микрорайон, д. 7А',
+    mainPhone1: '+7 (727) 313-20-28',
+    mainPhone2: '+7 (706) 808-00-02',
+    mainPhone3: '+7 (706) 808-00-04',
+    mainEmail: 'info@college-narxoz.kz',
+    mainSite: 'college.narxoz.kz',
+    campus2Address: 'ул. Жандосова, 55, г. Алматы',
+    campus2Email: 'global@narxoz.kz',
+    campus2RoomId: 'А238',
     room: 'Каб.',
     departments: 'Отделы',
     hours: 'Режим работы',
@@ -255,8 +287,23 @@ export default {
     closed: 'Выходной',
     dept: {
       admission: 'Приёмная комиссия',
+      admissionEmail: 'admission@narxoz.kz',
       support: 'Техническая поддержка (ЦИТ)',
-      international: 'Международный отдел'
+      supportEmail: 'support@narxoz.kz',
+      supportRoom: '117',
+      international: 'Международный отдел',
+      internationalEmail: 'global@narxoz.kz',
+      internationalRoom: 'А238'
+    },
+    workHours: {
+      monFriTime: '9:00 – 18:00',
+      satTime: '10:00 – 16:00',
+      sunTime: ''
+    },
+    socialLinks: {
+      instagram: 'Instagram',
+      telegram: 'Telegram',
+      facebook: 'Facebook'
     },
     days: {
       monFri: 'Понедельник – Пятница',
@@ -265,6 +312,7 @@ export default {
     }
   },
   home: {
+    brand: 'Narxoz College',
     heroTitle: 'Студенческий',
     heroTitleSpan: 'веб-журнал',
     heroSub: 'Оценки, расписание, новости и учебные материалы — всё в одном месте',

@@ -45,6 +45,8 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .main-content { margin-top: var(--header-height); }
+  .main-content { margin-top: calc(var(--header-height) + 0.25rem); }
+  /* На главной дополнительно отступ добавляет сам HomePage, поэтому не усиливаем */
+  .main-content.home { margin-top: var(--header-height); }
 }
 </style>

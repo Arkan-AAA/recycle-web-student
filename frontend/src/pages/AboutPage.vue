@@ -4,9 +4,9 @@
 
       <!-- Hero -->
       <div class="about-hero">
-        <p class="eyebrow">Narxoz College</p>
+        <p class="eyebrow">{{ $t('about.eyebrow') }}</p>
         <h1>{{ $t('about.title') }}</h1>
-        <p class="about-mission">"Learning today – leading tomorrow!"</p>
+        <p class="about-mission">{{ $t('about.missionQuote') }}</p>
       </div>
 
       <!-- Статистика -->
@@ -27,7 +27,7 @@
         <div class="info-card">
           <div class="card-icon"><i class="fas fa-user-tie"></i></div>
           <h2>{{ $t('about.director') }}</h2>
-          <p class="director-name">Абайдуллаев Мақсат Серікболұлы</p>
+          <p class="director-name">{{ $t('about.directorName') }}</p>
           <p class="director-sub">{{ $t('about.directorTitle') }}</p>
         </div>
       </div>
@@ -36,9 +36,9 @@
       <div class="block">
         <h2 class="block-title"><i class="fas fa-graduation-cap"></i> {{ $t('about.specialties') }}</h2>
         <div class="spec-grid">
-          <div class="spec-card" v-for="s in specialties" :key="s.code">
+          <div class="spec-card" v-for="s in specialties" :key="s.id">
             <span class="spec-code">{{ s.code }}</span>
-            <span class="spec-name">{{ s.name }}</span>
+            <span class="spec-name">{{ $t(s.nameKey) }}</span>
           </div>
         </div>
         <div class="duration-row">
@@ -88,13 +88,13 @@ export default {
         { num: '32', label: 'about.statMasters' },
       ],
       specialties: [
-        { code: '04120100', name: 'Банковское и страховое дело' },
-        { code: '04140100', name: 'Учет и аудит' },
-        { code: '04130100', name: 'Менеджмент' },
-        { code: '04140100', name: 'Маркетинг' },
-        { code: '04210100', name: 'Правоведение' },
-        { code: '06130100', name: 'Программное обеспечение' },
-        { code: '06120100', name: 'Вычислительная техника и ИС' },
+        { id: 1, code: '04120100', nameKey: 'about.specialtiesList.0' },
+        { id: 2, code: '04140100', nameKey: 'about.specialtiesList.1' },
+        { id: 3, code: '04130100', nameKey: 'about.specialtiesList.2' },
+        { id: 4, code: '04140100', nameKey: 'about.specialtiesList.3' },
+        { id: 5, code: '04210100', nameKey: 'about.specialtiesList.4' },
+        { id: 6, code: '06130100', nameKey: 'about.specialtiesList.5' },
+        { id: 7, code: '06120100', nameKey: 'about.specialtiesList.6' },
       ],
       infrastructure: [
         { icon: 'fas fa-book', title: 'about.infra.library', desc: 'about.infra.libraryDesc' },

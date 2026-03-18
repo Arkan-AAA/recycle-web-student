@@ -121,7 +121,14 @@ export default {
       excellent: 'Excellent (90-100)',
       good: 'Good (70-89)',
       satisfactory: 'Satisfactory (50-69)',
-      unsatisfactory: 'Unsatisfactory (0-49)'
+      unsatisfactory: 'Unsatisfactory (0-49)',
+      title: 'Grade scale'
+    },
+    subjects: {
+      math: 'Mathematics',
+      physics: 'Physics',
+      programming: 'Programming',
+      english: 'English'
     }
   },
   news: {
@@ -132,7 +139,8 @@ export default {
     category: 'Category',
     tags: 'Tags',
     noNews: 'No news yet',
-    loadMore: 'Load more'
+    loadMore: 'Load more',
+    instagramPostAlt: 'Instagram post'
   },
   admin: {
     title: 'Administrator Panel',
@@ -173,10 +181,11 @@ export default {
     previous: 'Previous',
     selectAll: 'Select All',
     clearAll: 'Clear All',
+    select: 'Select',
     more: 'Learn More'
   },
   footer: {
-    rights: '© 2025 Narxoz College. All rights reserved.',
+    rights: '© 2026 Narxoz College. All rights reserved.',
     language: 'Language:',
     contact: 'Contact',
     about: 'About Us',
@@ -199,6 +208,9 @@ export default {
     profileText: 'Narxoz College is a secondary vocational institution training specialists in IT, business and economics. Modern educational environment, experienced faculty and partnerships with leading companies.',
     director: 'Director',
     directorTitle: 'Director of Narxoz College',
+    eyebrow: 'Narxoz College',
+    missionQuote: 'Learning today – leading tomorrow!',
+    directorName: 'Абайдуллаев Мақсат Серікболұлы',
     specialties: 'Specialties',
     base9: 'Based on 9th grade',
     base11: 'Based on 11th grade',
@@ -211,6 +223,15 @@ export default {
     statRooms: 'Classrooms',
     statSpecs: 'Specialties',
     statMasters: 'Masters on Staff',
+    specialtiesList: {
+      '0': 'Banking and Insurance',
+      '1': 'Accounting and Audit',
+      '2': 'Management',
+      '3': 'Marketing',
+      '4': 'Law',
+      '5': 'Software Engineering',
+      '6': 'Computer Engineering and Information Systems'
+    },
     infra: {
       library: 'Library',
       libraryDesc: 'Over 50,000 books. Mon–Fri 9:00–19:00, Sat 10:00–16:00',
@@ -228,9 +249,20 @@ export default {
   },
   contacts: {
     title: 'Contacts',
+    eyebrow: 'Narxoz College',
     mainCampus: 'Main Campus',
     campus1: '10th microdistrict, 7A',
     campus2: 'Sayna Campus (SSC)',
+    campus2Badge: 'SSC',
+    mainAddress: '050035, Almaty, 10th microdistrict, building 7A',
+    mainPhone1: '+7 (727) 313-20-28',
+    mainPhone2: '+7 (706) 808-00-02',
+    mainPhone3: '+7 (706) 808-00-04',
+    mainEmail: 'info@college-narxoz.kz',
+    mainSite: 'college.narxoz.kz',
+    campus2Address: 'Jandosov str., 55, Almaty',
+    campus2Email: 'global@narxoz.kz',
+    campus2RoomId: 'А238',
     room: 'Room',
     departments: 'Departments',
     hours: 'Working Hours',
@@ -238,8 +270,23 @@ export default {
     closed: 'Closed',
     dept: {
       admission: 'Admissions Office',
+      admissionEmail: 'admission@narxoz.kz',
       support: 'Technical Support (CIT)',
-      international: 'International Department'
+      supportEmail: 'support@narxoz.kz',
+      supportRoom: '117',
+      international: 'International Department',
+      internationalEmail: 'global@narxoz.kz',
+      internationalRoom: 'А238'
+    },
+    workHours: {
+      monFriTime: '9:00 – 18:00',
+      satTime: '10:00 – 16:00',
+      sunTime: ''
+    },
+    socialLinks: {
+      instagram: 'Instagram',
+      telegram: 'Telegram',
+      facebook: 'Facebook'
     },
     days: {
       monFri: 'Monday – Friday',
@@ -248,6 +295,7 @@ export default {
     }
   },
   home: {
+    brand: 'Narxoz College',
     heroTitle: 'Student',
     heroTitleSpan: 'web journal',
     heroSub: 'Grades, schedule, news and study materials — all in one place',

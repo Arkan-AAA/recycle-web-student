@@ -41,7 +41,7 @@ const closeMobileMenu = () => {
       </div>
       
       <!-- Мобильное меню кнопка -->
-      <button class="mobile-menu-toggle d-lg-none" @click="toggleMobileMenu" :class="{ active: mobileMenuOpen }">
+      <button class="mobile-menu-toggle" @click="toggleMobileMenu" :class="{ active: mobileMenuOpen }">
         <span></span>
         <span></span>
         <span></span>
@@ -49,7 +49,7 @@ const closeMobileMenu = () => {
       
       <!-- Навигация -->
       <nav class="nav" :class="{ 'nav-open': mobileMenuOpen }">
-        <div class="nav-overlay d-lg-none" @click="closeMobileMenu"></div>
+        <div class="nav-overlay" @click="closeMobileMenu"></div>
         <div class="nav-content">
           <router-link 
             to="/home" 
@@ -370,7 +370,8 @@ const closeMobileMenu = () => {
   }
   .nav {
     position: fixed;
-    top: 0;
+    /* Панель меню не должна перекрывать хедер: оставляем место под фиксированную шапку */
+    top: var(--header-height);
     left: 0;
     right: 0;
     bottom: 0;

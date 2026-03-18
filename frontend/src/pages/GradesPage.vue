@@ -27,7 +27,7 @@
         <!-- Список предметов с оценками -->
         <div v-if="subjects.length > 0" class="subjects-list">
           <div class="subject-grades" v-for="subject in subjects" :key="subject.id">
-            <h3>{{ subject.name }}</h3>
+            <h3>{{ $t(subject.nameKey) }}</h3>
             <div v-if="subject.grades.length > 0" class="grades-table">
               <table>
                 <thead>
@@ -87,7 +87,7 @@
               <select v-model="gradeForm.subjectId" required>
                 <option value="">{{ $t('common.select') }}</option>
                 <option v-for="subject in subjects" :key="subject.id" :value="subject.id">
-                  {{ subject.name }}
+                  {{ $t(subject.nameKey) }}
                 </option>
               </select>
             </div>
@@ -168,25 +168,25 @@ export default {
       this.subjects = [
         {
           id: 1,
-          name: 'Математика',
+          nameKey: 'grades.subjects.math',
           grades: [],
           average: 0
         },
         {
           id: 2,
-          name: 'Физика',
+          nameKey: 'grades.subjects.physics',
           grades: [],
           average: 0
         },
         {
           id: 3,
-          name: 'Программирование',
+          nameKey: 'grades.subjects.programming',
           grades: [],
           average: 0
         },
         {
           id: 4,
-          name: 'Английский язык',
+          nameKey: 'grades.subjects.english',
           grades: [],
           average: 0
         }
