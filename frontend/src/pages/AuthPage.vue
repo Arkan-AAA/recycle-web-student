@@ -303,8 +303,9 @@ const handleLogin = async () => {
   }
   
   .leftPanel {
-    min-height: 200px;
-    padding: 30px 20px;
+    min-height: 140px;
+    flex: none;
+    padding: 20px 20px;
   }
   
   .title {
@@ -320,7 +321,7 @@ const handleLogin = async () => {
   }
   
   .rightPanel {
-    padding: 30px 20px;
+    padding: 30px 20px 48px;
   }
   
   .loginTitle {
@@ -340,8 +341,9 @@ const handleLogin = async () => {
 /* Адаптация для маленьких мобильных */
 @media (max-width: 480px) {
   .leftPanel {
-    min-height: 150px;
-    padding: 20px 15px;
+    min-height: 110px;
+    flex: none;
+    padding: 16px 15px;
   }
   
   .title {
@@ -349,7 +351,8 @@ const handleLogin = async () => {
   }
   
   .subtitle {
-    font-size: 18px;
+    font-size: 16px;
+    margin-bottom: 4px;
   }
   
   .description {
@@ -357,7 +360,7 @@ const handleLogin = async () => {
   }
   
   .rightPanel {
-    padding: 20px 15px;
+    padding: 20px 15px 56px;
   }
   
   .loginTitle {

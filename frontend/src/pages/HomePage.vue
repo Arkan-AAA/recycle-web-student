@@ -170,7 +170,6 @@ export default {
 
 <style scoped>
 .home-page {
-  padding-top: var(--header-height);
   min-height: 100vh;
   background: var(--bg-page);
 }

@@ -145,25 +145,34 @@ const locales = [
 
 .lang-switcher {
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  gap: 0;
+  flex-wrap: nowrap;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
 }
 
 .lang-btn {
   background: transparent;
-  border: 1px solid #444;
+  border: none;
+  border-right: 1px solid #444;
   color: #888;
-  padding: 0.3rem 0.75rem;
-  border-radius: 6px;
+  padding: 0.4rem 0.875rem;
+  border-radius: 0;
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
+.lang-btn:last-child { border-right: none; }
+
 .lang-btn:hover {
-  border-color: #fff;
+  background: #333;
   color: #fff;
 }
 
