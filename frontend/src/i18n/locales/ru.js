@@ -172,7 +172,8 @@ export default {
     next: 'Далее',
     previous: 'Предыдущий',
     selectAll: 'Выбрать все',
-    clearAll: 'Очистить все'
+    clearAll: 'Очистить все',
+    more: 'Подробнее'
   },
   footer: {
     rights: '© 2025 Narxoz College. Все права защищены.',

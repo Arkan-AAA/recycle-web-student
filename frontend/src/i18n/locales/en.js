@@ -172,7 +172,8 @@ export default {
     next: 'Next',
     previous: 'Previous',
     selectAll: 'Select All',
-    clearAll: 'Clear All'
+    clearAll: 'Clear All',
+    more: 'Learn More'
   },
   footer: {
     rights: '© 2025 Narxoz College. All rights reserved.',

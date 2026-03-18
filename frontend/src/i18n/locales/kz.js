@@ -172,7 +172,8 @@ export default {
     next: 'Келесі',
     previous: 'Алдыңғы',
     selectAll: 'Барлығын таңдау',
-    clearAll: 'Барлығын тазалау'
+    clearAll: 'Барлығын тазалау',
+    more: 'Толығырақ'
   },
   footer: {
     rights: '© 2025 Narxoz College. Барлық құқықтар қорғалған.',

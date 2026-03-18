@@ -398,7 +398,7 @@ const closeMobileMenu = () => {
     bottom: 0;
     width: 320px;
     max-width: 80vw;
-    background: white;
+    background: #1e1e1e;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -413,15 +413,15 @@ const closeMobileMenu = () => {
   }
   
   .nav-link {
-    color: var(--dark-color);
+    color: #fff;
     padding: var(--spacing-lg) var(--spacing-xl);
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #333;
     border-radius: 0;
     font-size: var(--font-size-lg);
   }
   
   .nav-link:hover {
-    background: #f8f9fa;
+    background: rgba(213,0,50,0.1);
     color: #d50032;
   }
   
@@ -438,7 +438,7 @@ const closeMobileMenu = () => {
     position: static;
     transform: none;
     box-shadow: none;
-    background: #f8f9fa;
+    background: #2a2a2a;
     margin: 0;
     border-radius: 0;
     max-height: 0;
@@ -451,9 +451,10 @@ const closeMobileMenu = () => {
   }
   
   .dropdown-item {
+    color: #ccc;
     padding: var(--spacing-md) var(--spacing-xxl);
     font-size: var(--font-size-base);
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid #333;
   }
   
   .dropdown-arrow {
