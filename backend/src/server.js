@@ -13,7 +13,7 @@ const journalRoutes = require("./routes/journals");
 const aiRoutes = require("./routes/ai");
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 app.use(helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" },

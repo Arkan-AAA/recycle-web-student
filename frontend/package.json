@@ -18,6 +18,5 @@
     "vite": "^4.4.0",
     "@vitejs/plugin-vue": "^4.4.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {}
 }
