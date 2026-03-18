@@ -10,7 +10,7 @@
           <img v-if="user.avatarUrl" :src="user.avatarUrl" alt="Аватар" class="avatar" />
           <div v-else class="avatar-placeholder">{{ $t('profile.photo') }}</div>
         </div>
-        <button class="student-card-btn">{{ $t('profile.studentCard') }}</button>
+        <button class="student-card-btn" @click="showStudentCard = true">{{ $t('profile.studentCard') }}</button>
       </div>
 
       <div class="profile-info">
@@ -70,6 +70,13 @@
             </div>
           </div>
           <div class="form-group">
+            <label>{{ $t('profile.studentCardLabel') }}</label>
+            <input type="file" @change="handleStudentCardChange" accept="image/*" />
+            <div v-if="studentCardPreview" class="avatar-preview">
+              <img :src="studentCardPreview" alt="Студбилет" />
+            </div>
+          </div>
+          <div class="form-group">
             <label>{{ $t('profile.fullName') }}</label>
             <input v-model="editForm.fullName" type="text" />
           </div>
@@ -92,6 +99,19 @@
         </form>
       </div>
     </div>
+    <!-- Модал студбилета -->
+    <div v-if="showStudentCard" class="modal-overlay" @click="showStudentCard = false">
+      <div class="modal modal-card" @click.stop>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+          <h2 style="margin:0;color:var(--primary)">{{ $t('profile.studentCard') }}</h2>
+          <button class="close-btn" @click="showStudentCard = false">&times;</button>
+        </div>
+        <img v-if="user.studentCardUrl" :src="user.studentCardUrl" class="student-card-img" alt="Студбилет" />
+        <div v-else class="no-card">
+          <p>{{ $t('profile.noStudentCard') }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -106,8 +126,11 @@ export default {
       user: {},
       isEditing: false,
       loading: false,
+      showStudentCard: false,
       avatarFile: null,
       avatarPreview: null,
+      studentCardFile: null,
+      studentCardPreview: null,
       editForm: {
         fullName: '',
         phone: '',
@@ -165,7 +188,15 @@ export default {
         reader.readAsDataURL(file);
       }
     },
-    toggleEdit() {
+    handleStudentCardChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.studentCardFile = file;
+        const reader = new FileReader();
+        reader.onload = (e) => { this.studentCardPreview = e.target.result; };
+        reader.readAsDataURL(file);
+      }
+    },
       this.isEditing = !this.isEditing;
       if (this.isEditing) {
         this.initEditForm();
@@ -175,6 +206,8 @@ export default {
       this.isEditing = false;
       this.avatarFile = null;
       this.avatarPreview = null;
+      this.studentCardFile = null;
+      this.studentCardPreview = null;
     },
     async saveProfile() {
       this.loading = true;
@@ -190,6 +223,16 @@ export default {
           if (avatarResponse.success) {
             this.user.avatarUrl = avatarResponse.data.avatarUrl;
           }
+        }
+        
+        if (this.studentCardFile) {
+          const reader = new FileReader();
+          const cardData = await new Promise((resolve) => {
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(this.studentCardFile);
+          });
+          const cardResponse = await profileService.uploadStudentCard({ studentCard: cardData });
+          if (cardResponse.success) this.user.studentCardUrl = cardResponse.data.studentCardUrl;
         }
         
         const response = await profileService.updateProfile(this.editForm);
@@ -389,7 +432,12 @@ h1 { color: var(--primary); font-size: var(--font-2xl); }
 .form-actions button[type="button"] { background: var(--bg-input); color: var(--text-primary); }
 .form-actions button[type="button"]:hover { background: var(--border-color); }
 
-/* Адаптивность */
+.close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-hint); line-height: 1; }
+.close-btn:hover { color: var(--text-primary); }
+
+.modal-card { max-width: 420px; }
+.student-card-img { width: 100%; border-radius: var(--radius); display: block; }
+.no-card { text-align: center; padding: 2rem; color: var(--text-hint); }
 @media (max-width: 768px) {
   .profile-content { flex-direction: column; align-items: stretch; }
   .avatar-section { display: flex; flex-direction: column; align-items: center; }

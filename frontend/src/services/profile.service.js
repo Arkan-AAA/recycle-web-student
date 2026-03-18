@@ -12,6 +12,10 @@ class ProfileService {
     async uploadAvatar(data) {
         return await apiService.post('/users/avatar', data);
     }
+
+    async uploadStudentCard(data) {
+        return await apiService.post('/users/student-card', data);
+    }
 }
 
 export default new ProfileService();

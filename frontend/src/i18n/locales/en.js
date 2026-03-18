@@ -54,7 +54,9 @@ export default {
     addressLabel: 'Address:',
     birthDateLabel: 'Date of birth:',
     save: 'Save',
-    saveError: 'Error saving profile'
+    saveError: 'Error saving profile',
+    studentCardLabel: 'Student card photo:',
+    noStudentCard: 'No student card photo uploaded. Edit your profile to add one.'
   },
   journal: {
     title: 'JOURNAL',
@@ -156,6 +158,24 @@ export default {
       student: 'Student',
       teacher: 'Teacher',
       admin: 'Administrator'
+    },
+    news: {
+      title: 'News (Instagram posts)',
+      add: 'Add post',
+      delete: 'Delete',
+      cover: 'Cover',
+      link: 'Link',
+      added: 'Added',
+      empty: 'No posts yet',
+      urlLabel: 'Instagram post link',
+      urlPlaceholder: 'https://www.instagram.com/p/...',
+      urlHint: 'Paste a link to a post, reel or IGTV',
+      coverLabel: 'Cover (image URL)',
+      coverPlaceholder: 'https://example.com/image.jpg',
+      coverHint: 'Paste a direct link to the cover image',
+      deleteConfirmTitle: 'Delete post?',
+      deleteConfirm: 'The post will be hidden from the news page:',
+      refresh: 'Refresh cover'
     }
   },
   common: {

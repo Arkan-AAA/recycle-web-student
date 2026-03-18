@@ -54,7 +54,9 @@ export default {
     addressLabel: 'Мекенжай:',
     birthDateLabel: 'Туған күні:',
     save: 'Сақтау',
-    saveError: 'Профильді сақтау қатесі'
+    saveError: 'Профильді сақтау қатесі',
+    studentCardLabel: 'Студент куәлігінің фотосы:',
+    noStudentCard: 'Студент куәлігінің фотосы жүктелмеген. Қосу үшін профильді өңдеңіз.'
   },
   journal: {
     title: 'ЖУРНАЛ',
@@ -156,6 +158,24 @@ export default {
       student: 'Студент',
       teacher: 'Оқытушы',
       admin: 'Әкімші'
+    },
+    news: {
+      title: 'Жаңалықтар (Instagram посттары)',
+      add: 'Пост қосу',
+      delete: 'Жою',
+      cover: 'Мұқаба',
+      link: 'Сілтеме',
+      added: 'Қосылған',
+      empty: 'Посттар әлі жоқ',
+      urlLabel: 'Instagram постына сілтеме',
+      urlPlaceholder: 'https://www.instagram.com/p/...',
+      urlHint: 'Пост, рилс немесе IGTV сілтемесін қойыңыз',
+      coverLabel: 'Мұқаба (сурет URL)',
+      coverPlaceholder: 'https://example.com/image.jpg',
+      coverHint: 'Мұқаба суретіне тікелей сілтеме қойыңыз',
+      deleteConfirmTitle: 'Постты жою?',
+      deleteConfirm: 'Пост жаңалықтар бетінен жасырылады:',
+      refresh: 'Мұқабаны жаңарту'
     }
   },
   common: {

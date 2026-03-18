@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
 // POST /api/news — добавить пост (только админ)
 router.post('/', authenticate, isAdmin, async (req, res) => {
     try {
-        const { instagram_url } = req.body;
+        const { instagram_url, cover_url: manualCover } = req.body;
         if (!instagram_url) return res.status(400).json({ success: false, error: 'instagram_url required' });
 
         const shortcode = extractShortcode(instagram_url);
@@ -52,7 +52,7 @@ router.post('/', authenticate, isAdmin, async (req, res) => {
         const existing = await NewsPost.findOne({ where: { shortcode, is_active: true } });
         if (existing) return res.status(409).json({ success: false, error: 'Post already exists' });
 
-        const cover_url = await fetchCover(instagram_url);
+        const cover_url = manualCover || await fetchCover(instagram_url);
         console.log(`🖼️ Обложка для ${shortcode}:`, cover_url);
 
         const post = await NewsPost.create({ instagram_url, shortcode, cover_url, is_active: true });

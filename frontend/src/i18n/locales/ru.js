@@ -54,7 +54,9 @@ export default {
     addressLabel: 'Адрес:',
     birthDateLabel: 'Дата рождения:',
     save: 'Сохранить',
-    saveError: 'Ошибка сохранения профиля'
+    saveError: 'Ошибка сохранения профиля',
+    studentCardLabel: 'Фото студенческого билета:',
+    noStudentCard: 'Фото студенческого билета не загружено. Отредактируйте профиль чтобы добавить.'
   },
   journal: {
     title: 'ЖУРНАЛ',
@@ -168,6 +170,9 @@ export default {
       urlLabel: 'Ссылка на Instagram пост',
       urlPlaceholder: 'https://www.instagram.com/p/...',
       urlHint: 'Вставьте ссылку на пост, рилс или IGTV',
+      coverLabel: 'Обложка (URL изображения)',
+      coverPlaceholder: 'https://example.com/image.jpg',
+      coverHint: 'Вставьте прямую ссылку на изображение обложки',
       deleteConfirmTitle: 'Удалить пост?',
       deleteConfirm: 'Пост будет скрыт со страницы новостей:',
       refresh: 'Обновить обложку'

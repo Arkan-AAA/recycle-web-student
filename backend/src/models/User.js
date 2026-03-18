@@ -50,6 +50,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             field: 'avatar_url'
         },
+        studentCardUrl: {
+            type: DataTypes.TEXT,
+            field: 'student_card_url'
+        },
         role: {
             type: DataTypes.STRING(20),
             defaultValue: 'student'

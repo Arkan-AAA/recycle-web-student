@@ -88,9 +88,22 @@
               type="url"
               :placeholder="$t('admin.news.urlPlaceholder')"
               class="form-input"
-              @keyup.enter="addPost"
             />
             <p class="form-hint">{{ $t('admin.news.urlHint') }}</p>
+          </div>
+          <div class="form-group">
+            <label>{{ $t('admin.news.coverLabel') }}</label>
+            <input
+              v-model="addCoverUrl"
+              type="url"
+              :placeholder="$t('admin.news.coverPlaceholder')"
+              class="form-input"
+              @keyup.enter="addPost"
+            />
+            <p class="form-hint">{{ $t('admin.news.coverHint') }}</p>
+          </div>
+          <div v-if="addCoverUrl" class="cover-preview">
+            <img :src="addCoverUrl" @error="e => e.target.style.display='none'" />
           </div>
           <div v-if="addError" class="form-error">{{ addError }}</div>
           <div class="modal-actions">
@@ -142,6 +155,7 @@ export default {
       loadingPosts: true,
       showAddModal: false,
       addUrl: '',
+      addCoverUrl: '',
       addError: '',
       adding: false,
       deleteTarget: null,
@@ -169,7 +183,7 @@ export default {
       if (!this.addUrl.includes('instagram.com')) { this.addError = 'Введите ссылку на Instagram'; return; }
       this.adding = true;
       try {
-        const res = await apiService.post('/news', { instagram_url: this.addUrl.trim() });
+        const res = await apiService.post('/news', { instagram_url: this.addUrl.trim(), cover_url: this.addCoverUrl.trim() || undefined });
         if (res.success) {
           this.closeAdd();
           await this.loadPosts();
@@ -185,6 +199,7 @@ export default {
     closeAdd() {
       this.showAddModal = false;
       this.addUrl = '';
+      this.addCoverUrl = '';
       this.addError = '';
     },
     confirmDelete(post) {
@@ -418,6 +433,16 @@ export default {
 }
 .form-input:focus { outline: none; border-color: var(--primary); }
 .form-hint { font-size: 0.75rem; color: var(--text-hint); margin-top: 0.4rem; }
+
+.cover-preview {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  max-width: 120px;
+  background: var(--bg-input);
+}
+.cover-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .form-error {
   background: rgba(213,0,50,0.08);

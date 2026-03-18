@@ -202,6 +202,7 @@ const closeMobileMenu = () => {
 
 .logo-container {
   flex-shrink: 0;
+  margin-left: 1rem;
 }
 
 .logo {
@@ -367,10 +368,10 @@ const closeMobileMenu = () => {
 @media (max-width: 991.98px) {
   .mobile-menu-toggle {
     display: flex;
+    margin-right: 1rem;
   }
   .nav {
     position: fixed;
-    /* Панель меню не должна перекрывать хедер: оставляем место под фиксированную шапку */
     top: var(--header-height);
     left: 0;
     right: 0;
@@ -410,6 +411,7 @@ const closeMobileMenu = () => {
     box-shadow: var(--shadow-lg);
     transform: translateX(100%);
     transition: transform 0.3s ease;
+    overflow-y: auto;
   }
   
   .nav.nav-open .nav-content {
@@ -436,22 +438,31 @@ const closeMobileMenu = () => {
     border-radius: var(--border-radius);
     text-align: center;
   }
-  
-  /* Выпадающее меню в мобильной версии */
+
+  /* Выпадающее меню — аккордеон внутри панели */
+  .education-dropdown {
+    display: flex;
+    flex-direction: column;
+  }
+
   .dropdown-menu {
     position: static;
-    transform: none;
+    transform: none !important;
     box-shadow: none;
+    border: none;
     background: #2a2a2a;
     margin: 0;
     border-radius: 0;
+    opacity: 1;
+    visibility: visible;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
+    min-width: unset;
   }
   
   .dropdown-menu.show {
-    max-height: 400px;
+    max-height: 500px;
   }
   
   .dropdown-item {

@@ -68,28 +68,29 @@ router.put('/profile', authenticate, csrfProtection, [
 router.post('/avatar', authenticate, csrfProtection, async (req, res) => {
     try {
         const { avatar } = req.body;
-        
-        if (!avatar) {
-            return res.status(400).json({ success: false, error: 'Данные аватара отсутствуют' });
-        }
-        
+        if (!avatar) return res.status(400).json({ success: false, error: 'Данные аватара отсутствуют' });
         const user = await User.findByPk(req.userId);
-        if (!user) {
-            return res.status(404).json({ success: false, error: 'Пользователь не найден' });
-        }
-        
+        if (!user) return res.status(404).json({ success: false, error: 'Пользователь не найден' });
         await user.update({ avatarUrl: avatar });
-        
         const updatedUser = user.toJSON();
         delete updatedUser.passwordHash;
-        
-        res.json({ 
-            success: true, 
-            data: { avatarUrl: avatar },
-            user: updatedUser
-        });
+        res.json({ success: true, data: { avatarUrl: avatar }, user: updatedUser });
     } catch (error) {
         console.error('Avatar upload error:', error);
+        res.status(500).json({ success: false, error: 'Ошибка сервера: ' + error.message });
+    }
+});
+
+router.post('/student-card', authenticate, csrfProtection, async (req, res) => {
+    try {
+        const { studentCard } = req.body;
+        if (!studentCard) return res.status(400).json({ success: false, error: 'Данные студбилета отсутствуют' });
+        const user = await User.findByPk(req.userId);
+        if (!user) return res.status(404).json({ success: false, error: 'Пользователь не найден' });
+        await user.update({ studentCardUrl: studentCard });
+        res.json({ success: true, data: { studentCardUrl: studentCard } });
+    } catch (error) {
+        console.error('Student card upload error:', error);
         res.status(500).json({ success: false, error: 'Ошибка сервера: ' + error.message });
     }
 });
