@@ -19,286 +19,486 @@ const isEducationActive = computed(() => {
 const toggleEducationMenu = () => {
   educationMenuOpen.value = !educationMenuOpen.value;
 };
+
+const toggleMobileMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value;
+};
+
+const closeMobileMenu = () => {
+  mobileMenuOpen.value = false;
+  educationMenuOpen.value = false;
+};
 </script>
+
 <template>
-  <header v-if="!isAuthPage" :class="$style.header">
-    <div :class="$style.rectangleParent">
-      <div :class="$style.groupChild" />
-      <img :class="$style.logo11Icon" src="../../assets/images/logo-footer1.svg" alt="College Narxoz" />
-      <nav :class="[$style.nav, { [$style.navOpen]: mobileMenuOpen }]">
-        <router-link to="/home" :class="[$style.div, { [$style.active]: isActive('/home') }]" @click="mobileMenuOpen = false">{{ $t('nav.home') }}</router-link>
-        <router-link to="/news" :class="[$style.div2, { [$style.active]: isActive('/news') }]" @click="mobileMenuOpen = false">{{ $t('nav.news') }}</router-link>
-        <div :class="$style.educationWrapper">
-          <a :class="[$style.div3, { [$style.active]: isEducationActive || educationMenuOpen }]" @click="toggleEducationMenu">{{ $t('nav.education') }}</a>
-          <div v-if="educationMenuOpen" :class="$style.dropdown">
-            <router-link to="/journal" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/journal') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.journal') }}</router-link>
-            <router-link to="/schedule" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/schedule') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.schedule') }}</router-link>
-            <router-link to="/transcript" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/transcript') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.transcript') }}</router-link>
-            <router-link to="/grades" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/grades') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.grades') }}</router-link>
-            <router-link to="/diploma" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/diploma') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.diploma') }}</router-link>
-            <router-link to="/notifications" :class="[$style.dropdownItem, { [$style.dropdownActive]: isActive('/notifications') }]" @click="educationMenuOpen = false; mobileMenuOpen = false">{{ $t('nav.notifications') }}</router-link>
+  <header v-if="!isAuthPage" class="header">
+    <div class="header-container">
+      <div class="header-background"></div>
+      
+      <!-- Логотип -->
+      <div class="logo-container">
+        <img class="logo" src="../../assets/images/logo-footer1.svg" alt="College Narxoz" />
+      </div>
+      
+      <!-- Мобильное меню кнопка -->
+      <button class="mobile-menu-toggle d-lg-none" @click="toggleMobileMenu" :class="{ active: mobileMenuOpen }">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <!-- Навигация -->
+      <nav class="nav" :class="{ 'nav-open': mobileMenuOpen }">
+        <div class="nav-overlay d-lg-none" @click="closeMobileMenu"></div>
+        <div class="nav-content">
+          <router-link 
+            to="/home" 
+            class="nav-link" 
+            :class="{ active: isActive('/home') }" 
+            @click="closeMobileMenu"
+          >
+            {{ $t('nav.home') }}
+          </router-link>
+          
+          <router-link 
+            to="/news" 
+            class="nav-link" 
+            :class="{ active: isActive('/news') }" 
+            @click="closeMobileMenu"
+          >
+            {{ $t('nav.news') }}
+          </router-link>
+          
+          <!-- Выпадающее меню образования -->
+          <div class="education-dropdown">
+            <a 
+              class="nav-link dropdown-toggle" 
+              :class="{ active: isEducationActive || educationMenuOpen }" 
+              @click="toggleEducationMenu"
+            >
+              {{ $t('nav.education') }}
+              <svg class="dropdown-arrow" :class="{ rotated: educationMenuOpen }" width="12" height="8" viewBox="0 0 12 8">
+                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            </a>
+            
+            <div class="dropdown-menu" :class="{ show: educationMenuOpen }">
+              <router-link 
+                to="/journal" 
+                class="dropdown-item" 
+                :class="{ active: isActive('/journal') }" 
+                @click="closeMobileMenu"
+              >
+                {{ $t('nav.journal') }}
+              </router-link>
+              <router-link 
+                to="/schedule" 
+                class="dropdown-item" 
+                :class="{ active: isActive('/schedule') }" 
+                @click="closeMobileMenu"
+              >
+                {{ $t('nav.schedule') }}
+              </router-link>
+              <router-link 
+                to="/transcript" 
+                class="dropdown-item" 
+                :class="{ active: isActive('/transcript') }" 
+                @click="closeMobileMenu"
+              >
+                {{ $t('nav.transcript') }}
+              </router-link>
+              <router-link 
+                to="/grades" 
+                class="dropdown-item" 
+                :class="{ active: isActive('/grades') }" 
+                @click="closeMobileMenu"
+              >
+                {{ $t('nav.grades') }}
+              </router-link>
+              <router-link 
+                to="/diploma" 
+                class="dropdown-item" 
+                :class="{ active: isActive('/diploma') }" 
+                @click="closeMobileMenu"
+              >
+                {{ $t('nav.diploma') }}
+              </router-link>
+              <router-link 
+                to="/notifications" 
+                class="dropdown-item" 
+                :class="{ active: isActive('/notifications') }" 
+                @click="closeMobileMenu"
+              >
+                {{ $t('nav.notifications') }}
+              </router-link>
+            </div>
           </div>
+          
+          <router-link 
+            to="/profile" 
+            class="nav-link" 
+            :class="{ active: isActive('/profile') }" 
+            @click="closeMobileMenu"
+          >
+            {{ $t('nav.profile') }}
+          </router-link>
+          
+          <router-link 
+            to="/aichat" 
+            class="nav-link" 
+            :class="{ active: isActive('/aichat') }" 
+            @click="closeMobileMenu"
+          >
+            {{ $t('nav.aiChat') }}
+          </router-link>
+          
+          <router-link 
+            v-if="isAdmin" 
+            to="/admin" 
+            class="nav-link admin-btn" 
+            :class="{ active: isActive('/admin') }" 
+            @click="closeMobileMenu"
+          >
+            {{ $t('nav.admin') }}
+          </router-link>
         </div>
-        <router-link to="/profile" :class="[$style.div4, { [$style.active]: isActive('/profile') }]" @click="mobileMenuOpen = false">{{ $t('nav.profile') }}</router-link>
-        <router-link to="/aichat" :class="[$style.div5, { [$style.active]: isActive('/aichat') }]" @click="mobileMenuOpen = false">{{ $t('nav.aiChat') }}</router-link>
-        <router-link v-if="isAdmin" to="/admin" :class="[$style.adminBtn, { [$style.active]: isActive('/admin') }]" @click="mobileMenuOpen = false">{{ $t('nav.admin') }}</router-link>
       </nav>
     </div>
   </header>
 </template>
-<style module>
+
+<style scoped>
 .header {
-  width: 100%;
-  height: 60px;
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 1000;
-  text-align: center;
-  font-size: 16px;
-  color: #1e1e1e;
+  background: #1e1e1e;
+  height: var(--header-height);
+  box-shadow: var(--shadow-md);
 }
 
-.rectangleParent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-}
-
-.groupChild {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #1e1e1e;
-  width: 100%;
-  height: 60px;
-}
-
-.logo11Icon {
-  position: absolute;
-  top: 10px;
-  left: 32px;
-  width: 180px;
-  height: 40px;
-}
-
-.nav {
-  display: contents;
-}
-
-.div {
-  position: absolute;
-  top: 18px;
-  left: 578px;
-  font-weight: 500;
-  color: #fff;
-  text-decoration: none;
-}
-
-.div:hover {
-  color: #d50032;
-}
-
-.active {
-  color: #d50032 !important;
-}
-
-.div2 {
-  position: absolute;
-  top: 18px;
-  left: 788px;
-  font-weight: 500;
-  color: #fff;
-  text-decoration: none;
-}
-
-.div2:hover {
-  color: #d50032;
-}
-
-.educationWrapper {
+.header-container {
   position: relative;
+  height: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.div3 {
+.header-background {
   position: absolute;
-  top: 18px;
-  left: 1001px;
-  font-weight: 500;
-  color: #fff;
-  text-decoration: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #1e1e1e;
+  z-index: -1;
+}
+
+.logo-container {
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+/* Мобильное меню кнопка */
+.mobile-menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
   cursor: pointer;
-}
-
-.div3:hover {
-  color: #d50032;
-}
-
-.dropdown {
-  position: absolute;
-  top: 45px;
-  left: 1001px;
-  transform: translateX(-50%);
-  margin-left: 85px;
-  background: #fff;
-  min-width: 220px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 0;
   z-index: 1001;
 }
 
-.dropdownItem {
+.mobile-menu-toggle span {
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Навигация */
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: var(--font-size-base);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: #d50032;
+  background: rgba(213, 0, 50, 0.1);
+}
+
+.nav-link.active {
+  color: #d50032;
+  background: rgba(213, 0, 50, 0.1);
+}
+
+.admin-btn {
+  background: #d50032;
+  color: white !important;
+}
+
+.admin-btn:hover {
+  background: #b8002a;
+  color: white !important;
+}
+
+/* Выпадающее меню */
+.education-dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+}
+
+.dropdown-arrow {
+  transition: transform 0.2s ease;
+}
+
+.dropdown-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  min-width: 220px;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 1001;
+  margin-top: var(--spacing-sm);
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-item {
   display: block;
-  padding: 15px 20px;
-  color: #1e1e1e;
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--dark-color);
   text-decoration: none;
   font-weight: 400;
   border-bottom: 1px solid #f0f0f0;
-  transition: background 0.2s;
-  background: #fff;
-  text-align: center;
+  transition: all 0.2s ease;
 }
 
-.dropdownItem:hover {
-  background: #f5f5f5;
+.dropdown-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
 }
 
-.dropdownActive {
-  background: #d50032 !important;
-  color: #fff !important;
-  font-weight: 500;
+.dropdown-item:first-child {
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
 }
 
-.dropdownActive:hover {
-  background: #b8002a !important;
-}
-
-.div4 {
-  position: absolute;
-  top: 18px;
-  left: 1337px;
-  font-weight: 500;
-  color: #fff;
-  text-decoration: none;
-}
-
-.div4:hover {
+.dropdown-item:hover {
+  background: #f8f9fa;
   color: #d50032;
 }
 
-.div5 {
-  position: absolute;
-  top: 18px;
-  left: 1556px;
-  font-weight: 500;
-  color: #fff;
-  text-decoration: none;
-}
-
-.div5:hover {
-  color: #d50032;
-}
-
-.adminBtn {
-  position: absolute;
-  top: 18px;
-  left: 1700px;
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
+.dropdown-item.active {
   background: #d50032;
-  padding: 8px 16px;
-  border-radius: 4px;
+  color: white;
 }
 
-.adminBtn:hover {
+.dropdown-item.active:hover {
   background: #b8002a;
-  color: #fff;
 }
 
-@media (max-width: 1600px) {
-  .div { left: 450px; }
-  .div2 { left: 620px; }
-  .div3 { left: 800px; }
-  .dropdown { left: 800px; margin-left: 85px; }
-  .div4 { left: 1080px; }
-  .div5 { left: 1250px; }
-  .adminBtn { left: 1400px; }
-}
-
-@media (max-width: 1200px) {
-  .logo11Icon {
-    width: 180px;
-    height: 48px;
-    top: 26px;
-  }
-  
-  .div { left: 300px; font-size: 20px; }
-  .div2 { left: 450px; font-size: 20px; }
-  .div3 { left: 600px; font-size: 20px; }
-  .dropdown { left: 600px; margin-left: 85px; }
-  .div4 { left: 850px; font-size: 20px; }
-  .div5 { left: 980px; font-size: 20px; }
-  .adminBtn { left: 1120px; font-size: 16px; }
-}
-
-@media (max-width: 768px) {
-  .header {
-    height: 70px;
-  }
-  
-  .rectangleParent {
-    height: 70px;
-  }
-  
-  .groupChild {
-    height: 70px;
-  }
-  
-  .logo11Icon {
-    width: 150px;
-    height: 40px;
-    top: 15px;
-    left: 15px;
-  }
-  
+/* Планшеты */
+@media (max-width: 991.98px) {
   .nav {
     position: fixed;
-    top: 70px;
+    top: 0;
     left: 0;
     right: 0;
-    background: #fff;
-    flex-direction: column;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transform: translateX(-100%);
-    transition: transform 0.3s;
-    display: flex;
-    gap: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
   }
   
-  .navOpen {
+  .nav.nav-open {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .nav-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .nav-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 80vw;
+    background: white;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--spacing-xl) 0;
+    box-shadow: var(--shadow-lg);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .nav.nav-open .nav-content {
     transform: translateX(0);
   }
   
-  .div, .div2, .div3, .div4, .div5 {
-    position: static;
-    padding: 15px;
+  .nav-link {
+    color: var(--dark-color);
+    padding: var(--spacing-lg) var(--spacing-xl);
     border-bottom: 1px solid #eee;
-    width: 100%;
-    text-align: left;
-    font-size: 18px;
+    border-radius: 0;
+    font-size: var(--font-size-lg);
   }
   
-  .adminBtn {
+  .nav-link:hover {
+    background: #f8f9fa;
+    color: #d50032;
+  }
+  
+  .admin-btn {
+    background: #d50032;
+    color: white !important;
+    margin: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--border-radius);
+    text-align: center;
+  }
+  
+  /* Выпадающее меню в мобильной версии */
+  .dropdown-menu {
     position: static;
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    width: 100%;
-    text-align: left;
-    font-size: 18px;
+    transform: none;
+    box-shadow: none;
+    background: #f8f9fa;
+    margin: 0;
     border-radius: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .dropdown-menu.show {
+    max-height: 400px;
+  }
+  
+  .dropdown-item {
+    padding: var(--spacing-md) var(--spacing-xxl);
+    font-size: var(--font-size-base);
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .dropdown-arrow {
+    margin-left: auto;
+  }
+}
+
+/* Мобильные устройства */
+@media (max-width: 575.98px) {
+  .header-container {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .logo {
+    height: 35px;
+  }
+  
+  .nav-content {
+    width: 280px;
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .nav-link {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-base);
+  }
+  
+  .dropdown-item {
+    padding: var(--spacing-sm) var(--spacing-xl);
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 399.98px) {
+  .header-container {
+    padding: 0 var(--spacing-xs);
+  }
+  
+  .logo {
+    height: 30px;
+  }
+  
+  .nav-content {
+    width: 100vw;
   }
 }
 </style>

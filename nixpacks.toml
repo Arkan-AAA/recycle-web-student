@@ -1,0 +1,1 @@
+[phases.setup]\ncmds = [\n  'echo \"Setting up monorepo...\"',\n  'cd backend && npm ci',\n  'cd ../frontend && npm ci && npm run build'\n]\n\n[phases.build]\ncmds = [\n  'echo \"Build completed\"'\n]\n\n[start]\ncmd = 'cd backend && npm start'\n\n[variables]\nNODE_ENV = 'production'\nPORT = '3000'

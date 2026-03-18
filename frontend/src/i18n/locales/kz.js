@@ -18,7 +18,6 @@ export default {
     title: 'NARXOZ JOURNAL',
     login: 'Кіру',
     subtitle: 'Жүйеге кіру үшін тек корпоративтік тіркелгіні пайдаланыңыз.',
-    // amazonq-ignore-next-line
     email: 'E-Mail:',
     password: 'Құпия сөз:',
     emailPlaceholder: 'Email енгізіңіз',
@@ -86,15 +85,109 @@ export default {
       tuesday: 'Сейсенбі',
       wednesday: 'Сәрсенбі',
       thursday: 'Бейсенбі',
-      friday: 'Жұма'
-    }
+      friday: 'Жұма',
+      saturday: 'Сенбі',
+      sunday: 'Жексенбі'
+    },
+    time: 'Уақыт',
+    subject: 'Пән',
+    teacher: 'Оқытушы',
+    room: 'Аудитория',
+    noClasses: 'Сабақтар жоқ'
   },
   grades: {
-    title: 'Ағымдағы бағалар',
-    average: 'Орташа балл:'
+    title: 'Бағалар',
+    currentGrades: 'Ағымдағы бағалар',
+    average: 'Орташа балл:',
+    subject: 'Пән',
+    grade: 'Баға',
+    date: 'Күні',
+    type: 'Жұмыс түрі',
+    teacher: 'Оқытушы',
+    noGrades: 'Бағалар әлі жоқ',
+    addGrade: 'Баға қосу',
+    editGrade: 'Бағаны өңдеу',
+    deleteGrade: 'Бағаны жою',
+    gradeValue: 'Балл (0-100)',
+    gradeTypes: {
+      homework: 'Үй тапсырмасы',
+      test: 'Тест',
+      exam: 'Емтихан',
+      project: 'Жоба',
+      lab: 'Зертханалық жұмыс',
+      control: 'Бақылау жұмысы'
+    },
+    gradeScale: {
+      excellent: 'Өте жақсы (90-100)',
+      good: 'Жақсы (70-89)',
+      satisfactory: 'Қанағаттанарлық (50-69)',
+      unsatisfactory: 'Қанағаттанарлықсыз (0-49)'
+    }
+  },
+  news: {
+    title: 'Жаңалықтар',
+    readMore: 'Толығырақ оқу',
+    publishedOn: 'Жарияланған күні',
+    author: 'Автор',
+    category: 'Санат',
+    tags: 'Тегтер',
+    noNews: 'Жаңалықтар әлі жоқ',
+    loadMore: 'Тағы жүктеу'
+  },
+  admin: {
+    title: 'Әкімші панелі',
+    users: 'Пайдаланушылар',
+    subjects: 'Пәндер',
+    groups: 'Топтар',
+    settings: 'Баптаулар',
+    statistics: 'Статистика',
+    addUser: 'Пайдаланушы қосу',
+    editUser: 'Пайдаланушыны өңдеу',
+    deleteUser: 'Пайдаланушыны жою',
+    userRoles: {
+      student: 'Студент',
+      teacher: 'Оқытушы',
+      admin: 'Әкімші'
+    }
+  },
+  common: {
+    save: 'Сақтау',
+    cancel: 'Болдырмау',
+    delete: 'Жою',
+    edit: 'Өңдеу',
+    add: 'Қосу',
+    search: 'Іздеу',
+    filter: 'Сүзгі',
+    sort: 'Сұрыптау',
+    loading: 'Жүктелуде...',
+    error: 'Қате',
+    success: 'Сәтті',
+    warning: 'Ескерту',
+    info: 'Ақпарат',
+    confirm: 'Растау',
+    yes: 'Иә',
+    no: 'Жоқ',
+    close: 'Жабу',
+    back: 'Артқа',
+    next: 'Келесі',
+    previous: 'Алдыңғы',
+    selectAll: 'Барлығын таңдау',
+    clearAll: 'Барлығын тазалау'
   },
   footer: {
     rights: '© 2025 Narxoz College. Барлық құқықтар қорғалған.',
-    language: 'Тіл:'
+    language: 'Тіл:',
+    contact: 'Байланыс',
+    about: 'Біз туралы',
+    privacy: 'Құпиялылық саясаты',
+    terms: 'Пайдалану шарттары'
+  },
+  errors: {
+    404: 'Бет табылмады',
+    500: 'Сервердің ішкі қатесі',
+    network: 'Желі қатесі',
+    unauthorized: 'Авторизация жоқ',
+    forbidden: 'Қол жеткізу тыйым салынған',
+    validation: 'Тексеру қатесі'
   }
 }

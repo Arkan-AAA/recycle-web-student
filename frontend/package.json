@@ -6,11 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "npx serve -s dist -l $PORT"
   },
   "dependencies": {
     "vue": "^3.3.0",
-    "vue-router": "^4.6.4"
+    "vue-router": "^4.6.4",
+    "vue-i18n": "^9.8.0",
+    "axios": "^1.6.0",
+    "serve": "^14.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",

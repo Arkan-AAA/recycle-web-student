@@ -58,6 +58,16 @@ app.get("/api/health", async (req, res) => {
     }
 });
 
+// Health check для Railway
+app.get("/health", async (req, res) => {
+    try {
+        await sequelize.authenticate();
+        res.status(200).send("OK");
+    } catch (error) {
+        res.status(500).send("ERROR");
+    }
+});
+
 app.get("/api/proxy-image", async (req, res) => {
     const { url } = req.query;
     if (!url || !url.startsWith('https://instagram.') && !url.includes('fbcdn.net')) {
@@ -84,12 +94,10 @@ app.use("/api/users", userRoutes);
 app.use("/api/journals", journalRoutes);
 app.use("/api/ai", aiRoutes);
 
-// ========== Раздача фронтенда в production ==========
 if (process.env.NODE_ENV === 'production') {
     const frontendPath = path.join(__dirname, '../../frontend/dist');
     app.use(express.static(frontendPath));
 
-    // Все НЕ-api маршруты отдают index.html (для Vue Router)
     app.get(/^(?!\/api).*/, (req, res) => {
         res.sendFile(path.join(frontendPath, 'index.html'));
     });

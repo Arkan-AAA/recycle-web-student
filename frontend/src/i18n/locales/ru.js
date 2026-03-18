@@ -14,14 +14,12 @@ export default {
     notifications: 'Уведомление'
   },
   auth: {
-    welcome: 'Welcome to',
+    welcome: 'Добро пожаловать в',
     title: 'NARXOZ JOURNAL',
-    login: 'Login',
+    login: 'Вход',
     subtitle: 'Для входа в систему используйте только корпоративную учётную запись.',
-    // amazonq-ignore-next-line
     email: 'E-Mail:',
     password: 'Пароль:',
-    // amazonq-ignore-next-line
     emailPlaceholder: 'Введите email',
     pwdPlaceholder: 'Введите пароль',
     remember: 'Запомнить меня',
@@ -87,15 +85,109 @@ export default {
       tuesday: 'Вторник',
       wednesday: 'Среда',
       thursday: 'Четверг',
-      friday: 'Пятница'
-    }
+      friday: 'Пятница',
+      saturday: 'Суббота',
+      sunday: 'Воскресенье'
+    },
+    time: 'Время',
+    subject: 'Предмет',
+    teacher: 'Преподаватель',
+    room: 'Аудитория',
+    noClasses: 'Занятий нет'
   },
   grades: {
-    title: 'Текущие оценки',
-    average: 'Средний балл:'
+    title: 'Оценки',
+    currentGrades: 'Текущие оценки',
+    average: 'Средний балл:',
+    subject: 'Предмет',
+    grade: 'Оценка',
+    date: 'Дата',
+    type: 'Тип работы',
+    teacher: 'Преподаватель',
+    noGrades: 'Оценок пока нет',
+    addGrade: 'Добавить оценку',
+    editGrade: 'Редактировать оценку',
+    deleteGrade: 'Удалить оценку',
+    gradeValue: 'Балл (0-100)',
+    gradeTypes: {
+      homework: 'Домашнее задание',
+      test: 'Тест',
+      exam: 'Экзамен',
+      project: 'Проект',
+      lab: 'Лабораторная работа',
+      control: 'Контрольная работа'
+    },
+    gradeScale: {
+      excellent: 'Отлично (90-100)',
+      good: 'Хорошо (70-89)',
+      satisfactory: 'Удовлетворительно (50-69)',
+      unsatisfactory: 'Неудовлетворительно (0-49)'
+    }
+  },
+  news: {
+    title: 'Новости',
+    readMore: 'Читать далее',
+    publishedOn: 'Опубликовано',
+    author: 'Автор',
+    category: 'Категория',
+    tags: 'Теги',
+    noNews: 'Новостей пока нет',
+    loadMore: 'Загрузить еще'
+  },
+  admin: {
+    title: 'Панель администратора',
+    users: 'Пользователи',
+    subjects: 'Предметы',
+    groups: 'Группы',
+    settings: 'Настройки',
+    statistics: 'Статистика',
+    addUser: 'Добавить пользователя',
+    editUser: 'Редактировать пользователя',
+    deleteUser: 'Удалить пользователя',
+    userRoles: {
+      student: 'Студент',
+      teacher: 'Преподаватель',
+      admin: 'Администратор'
+    }
+  },
+  common: {
+    save: 'Сохранить',
+    cancel: 'Отменить',
+    delete: 'Удалить',
+    edit: 'Редактировать',
+    add: 'Добавить',
+    search: 'Поиск',
+    filter: 'Фильтр',
+    sort: 'Сортировка',
+    loading: 'Загрузка...',
+    error: 'Ошибка',
+    success: 'Успешно',
+    warning: 'Предупреждение',
+    info: 'Информация',
+    confirm: 'Подтвердить',
+    yes: 'Да',
+    no: 'Нет',
+    close: 'Закрыть',
+    back: 'Назад',
+    next: 'Далее',
+    previous: 'Предыдущий',
+    selectAll: 'Выбрать все',
+    clearAll: 'Очистить все'
   },
   footer: {
     rights: '© 2025 Narxoz College. Все права защищены.',
-    language: 'Язык:'
+    language: 'Язык:',
+    contact: 'Контакты',
+    about: 'О нас',
+    privacy: 'Политика конфиденциальности',
+    terms: 'Условия использования'
+  },
+  errors: {
+    404: 'Страница не найдена',
+    500: 'Внутренняя ошибка сервера',
+    network: 'Ошибка сети',
+    unauthorized: 'Не авторизован',
+    forbidden: 'Доступ запрещен',
+    validation: 'Ошибка валидации'
   }
 }

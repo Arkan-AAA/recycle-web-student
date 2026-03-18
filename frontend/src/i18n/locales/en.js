@@ -85,15 +85,109 @@ export default {
       tuesday: 'Tuesday',
       wednesday: 'Wednesday',
       thursday: 'Thursday',
-      friday: 'Friday'
-    }
+      friday: 'Friday',
+      saturday: 'Saturday',
+      sunday: 'Sunday'
+    },
+    time: 'Time',
+    subject: 'Subject',
+    teacher: 'Teacher',
+    room: 'Room',
+    noClasses: 'No classes'
   },
   grades: {
-    title: 'Current Grades',
-    average: 'Average score:'
+    title: 'Grades',
+    currentGrades: 'Current Grades',
+    average: 'Average score:',
+    subject: 'Subject',
+    grade: 'Grade',
+    date: 'Date',
+    type: 'Assignment Type',
+    teacher: 'Teacher',
+    noGrades: 'No grades yet',
+    addGrade: 'Add Grade',
+    editGrade: 'Edit Grade',
+    deleteGrade: 'Delete Grade',
+    gradeValue: 'Score (0-100)',
+    gradeTypes: {
+      homework: 'Homework',
+      test: 'Test',
+      exam: 'Exam',
+      project: 'Project',
+      lab: 'Lab Work',
+      control: 'Control Work'
+    },
+    gradeScale: {
+      excellent: 'Excellent (90-100)',
+      good: 'Good (70-89)',
+      satisfactory: 'Satisfactory (50-69)',
+      unsatisfactory: 'Unsatisfactory (0-49)'
+    }
+  },
+  news: {
+    title: 'News',
+    readMore: 'Read more',
+    publishedOn: 'Published on',
+    author: 'Author',
+    category: 'Category',
+    tags: 'Tags',
+    noNews: 'No news yet',
+    loadMore: 'Load more'
+  },
+  admin: {
+    title: 'Administrator Panel',
+    users: 'Users',
+    subjects: 'Subjects',
+    groups: 'Groups',
+    settings: 'Settings',
+    statistics: 'Statistics',
+    addUser: 'Add User',
+    editUser: 'Edit User',
+    deleteUser: 'Delete User',
+    userRoles: {
+      student: 'Student',
+      teacher: 'Teacher',
+      admin: 'Administrator'
+    }
+  },
+  common: {
+    save: 'Save',
+    cancel: 'Cancel',
+    delete: 'Delete',
+    edit: 'Edit',
+    add: 'Add',
+    search: 'Search',
+    filter: 'Filter',
+    sort: 'Sort',
+    loading: 'Loading...',
+    error: 'Error',
+    success: 'Success',
+    warning: 'Warning',
+    info: 'Information',
+    confirm: 'Confirm',
+    yes: 'Yes',
+    no: 'No',
+    close: 'Close',
+    back: 'Back',
+    next: 'Next',
+    previous: 'Previous',
+    selectAll: 'Select All',
+    clearAll: 'Clear All'
   },
   footer: {
     rights: '© 2025 Narxoz College. All rights reserved.',
-    language: 'Language:'
+    language: 'Language:',
+    contact: 'Contact',
+    about: 'About Us',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Use'
+  },
+  errors: {
+    404: 'Page not found',
+    500: 'Internal server error',
+    network: 'Network error',
+    unauthorized: 'Unauthorized',
+    forbidden: 'Access denied',
+    validation: 'Validation error'
   }
 }
