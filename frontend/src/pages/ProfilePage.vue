@@ -197,6 +197,7 @@ export default {
         reader.readAsDataURL(file);
       }
     },
+    toggleEdit() {
       this.isEditing = !this.isEditing;
       if (this.isEditing) {
         this.initEditForm();
